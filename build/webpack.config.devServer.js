@@ -21,14 +21,7 @@ var config = merge(dev, {
         clientLogLevel: "info",
         /* 代理 https://github.com/chimurai/http-proxy-middleware#options */
         proxy: {
-            "/gc-shop-api": {
-                /* 注意需要和devServer一致 */
-                "target": "http://gc-dev.light0x00.com:8082/gc-shop-api",
-                "changeOrigin": true,
-                "pathRewrite": {
-                    "^/gc-shop-api": ""
-                }
-            }
+      
         },
         /* 构建异常时 异常信息覆盖浏览器整个屏幕 */
         overlay: {
@@ -43,7 +36,7 @@ var config = merge(dev, {
         }
     },
     plugins:[
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
     ]
 })
 

@@ -5,14 +5,21 @@ Vue.use(VueRouter);
 
 const routes = [
     {
-        path:"/",
+        path: "/",
         component: require("@/views/home").default
     },
+    // {
+    //     path:"/post",
+
+    // },
     {
-        path: "/posts",
-        component: ()=>import('@/views/list'),
-        children : [
-            POST_ROUTES_CODE
+        path: "/post",
+        component: () => import('@/views/list'),
+        children: [
+            {
+                path: "*",
+                component: () => import('@/views/post'),
+            }
         ]
     }
 ]

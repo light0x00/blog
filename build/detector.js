@@ -1,4 +1,9 @@
+// const descFileName = "desc.json"
+// const publicPath = "https://blog.light0x00.com/"
+// const contextPath = "posts"
+// const postRootPath = "/Users/light/Desktop/my-workbench/blog/public/posts"
 
+/* 工具 */
 const fs = require('fs'),
     { resolve, join } = require('path')
 
@@ -10,107 +15,74 @@ function getJson(path) {
     let file = fs.readFileSync(path, 'utf-8')
     return JSON.parse(file)
 }
-
 const isDir = (path) => path && fs.statSync(path).isDirectory()
 
+const exists = (path) => fs.existsSync(path)
 
-function getPostTrees(postRootPath) {
 
-    function recursivePost(treeNode) {
+module.exports = function ({  publicPath, contextPath, postRootPath }) {
+    publicPath=publicPath||"/"
+    const descFileName="desc.json"
+    const postFileName="index.md"
+    /* 得到文章的结构和描述 */
+    function getPostTrees(postRootPath) {
 
-        let nodePath = treeNode.path;
+        function recursivePost(treeNode, nodePath) {
 
-        if (!isDir(nodePath)) {
-            return;
-        }
-
-        //获得描述文件
-        let desc = null;
-        try {
-            desc = getJson(resolve(nodePath, "desc.json"))
-            Object.assign(treeNode, desc);
-        } catch (e) {
-            throw new Error(`${nodePath}下没有找到desc.json`)
-        }
-
-        //if post
-        if (!desc.isGroup) {
-            //获得组件
-            let postCompFullPath = resolve(nodePath, 'index.vue')
-            if (!fs.existsSync(postCompFullPath)) {
-                throw new Error(`${nodePath}被声明为Post组件,但没有找到index.vue`)
+            if (!isDir(nodePath)) {
+                return;
             }
 
-            let routePath = join("/posts", nodePath.replace(postRootPath, "")); //组件路由
-            let compPath = join("@/posts/", postCompFullPath.replace(postRootPath, ""))   //组件导入路径
+            //获得描述文件
+            let desc = null;
+            try {
+                desc = getJson(resolve(nodePath, descFileName))
+                Object.assign(treeNode, desc);
+            } catch (e) {
+                throw new Error(`can't find ${descFileName} in ${nodePath}`)
+            }
 
-            Object.assign(treeNode, {
-                compPath: compPath,
-                routePath: desc.routePath || routePath, //路由路径如未指定则以路径为准
-            })
-        }
-        //postGroup
-        else {
+            //if post
+            if (!desc.isGroup) {
 
-            let subPaths = fs.readdirSync(nodePath).map(p => resolve(nodePath, p))
-            for (let path of subPaths) {
-                let isDir = fs.statSync(path).isDirectory()
-                if (isDir) {
-                    treeNode.childs = treeNode.childs || []
-                    treeNode.childs.push(recursivePost({ path, level: treeNode.level + 1 }))
+                if(!exists(join(nodePath,postFileName))){
+                    throw new Error(`can't find ${postFileName} in ${nodePath}`)
+                }
+                
+                let postPath = nodePath.replace(postRootPath, "");
+                let postKey = desc.key || postPath.replace(/^\//,"")
+                let url = join(publicPath, contextPath, postPath,postFileName)
+                Object.assign(treeNode, {
+                    url: url,
+                    key:postKey,
+                    ...desc
+                })
+            }
+            //postGroup
+            else {
+                let subPaths = fs.readdirSync(nodePath).map(p => resolve(nodePath, p))
+                treeNode.url = join(publicPath, contextPath, nodePath.replace(postRootPath, ""))
+
+                for (let path of subPaths) {
+                    let isDir = fs.statSync(path).isDirectory()
+                    if (isDir) {
+                        treeNode.childs = treeNode.childs || []
+
+                        treeNode.childs.push(recursivePost({ level: treeNode.level + 1 }, path))
+                    }
                 }
             }
+            return treeNode;
         }
-        return treeNode;
-    }
 
-    let postTrees = []
-    let treePaths = fs.readdirSync(postRootPath).map(p => resolve(postRootPath, p))
-    for (let path of treePaths) {
-        postTrees.push(recursivePost({ path, level: 1 }))
-    }
-    return postTrees;
-}
-
-
-
-/**
-* 根据PostTreeList 返回所有Post的路由的字符串
-* @param {} posts 
-*/
-function getPostRoutesCode(postTrees) {
-
-    let postRoutes = ""
-
-    function transformTreeToRoutes(treeNode) {
-        if (treeNode.isGroup) {
-            for (let childNode of treeNode.childs) {
-                transformTreeToRoutes(childNode)
-            }
-        } else {
-            postRoutes += `{
-                path : "${treeNode.routePath}",
-                component: ()=>import("${treeNode.compPath}"),
-                meta: {
-                    title: "${treeNode.title}"
-                }
-            },`
+        let postTrees = []
+        let treePaths = fs.readdirSync(postRootPath).map(p => resolve(postRootPath, p))
+        for (let path of treePaths) {
+            postTrees.push(recursivePost({ level: 1 }, path))
         }
+        return postTrees;
     }
-    for (let tree of postTrees) {
-        transformTreeToRoutes(tree, true)
-    }
-    return postRoutes;
+    let postTrees = getPostTrees(postRootPath)
+    return JSON.stringify(postTrees);
 }
 
-
-let postTrees = getPostTrees("/Users/light/Desktop/my-workbench/blog/src/posts")
-let postRoutesCode = getPostRoutesCode(postTrees)
-
-console.log(JSON.stringify(postTrees))
-console.log(postRoutesCode)
-
-module.exports = {
-    PostRoutesCode: postRoutesCode,
-    PostTrees: postTrees
-}

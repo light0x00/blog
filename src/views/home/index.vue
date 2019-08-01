@@ -1,8 +1,8 @@
 <template>
-  <div class="wrapper full-screen">
+  <div class="wrapper full-box">
     <h1>Long long the stream that runs to the sea.</h1>
     <p>
-      <router-link to="/posts">文章列表</router-link>
+      <router-link to="/post">文章列表</router-link>
     </p>
   </div>
 </template>

@@ -7,8 +7,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ManifestPlugin = require('webpack-manifest-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
-let { PostTrees, PostRoutesCode } = require("./detector")
+let detector = require("./detector")
 /* 工具 */
 const { _resolve, rootPath } = require('./helpers')
 
@@ -140,7 +141,7 @@ const config = {
             },
             /* assets */
             {
-                test: /\.(png|jpg|gif|jpeg)$/,
+                test: /\.(png|jpg|gif|jpeg|md)$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -164,17 +165,6 @@ const config = {
                     options: { name: assetsPath.font }
                 }]
             },
-            //用于插入博客文章的路由代码
-            {
-                test: /src\/router\/index.js$/,
-                use: {
-                    loader: _resolve('build/replace-loader.js'),
-                    options: {
-                        POST_ROUTES_CODE:PostRoutesCode,
-                        
-                    }
-                }
-            }
         ]
     },
     plugins: [
@@ -195,8 +185,15 @@ const config = {
             reportFilename: "analyzer-report.html",
             openAnalyzer: false,
         }),
+        new CopyPlugin([
+            { from: 'public/posts/', to: 'posts/' },
+        ]),
         new webpack.DefinePlugin({
-            POST_TREES:JSON.stringify(PostTrees)
+            POST_TREES: detector({ 
+                // publicPath: "http://blog-dev.light0x00.com:4092/", 
+                contextPath: "posts" ,
+                postRootPath :_resolve("public/posts"),
+            })
         }),
         pages.admin
     ]

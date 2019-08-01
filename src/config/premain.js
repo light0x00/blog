@@ -10,3 +10,5 @@ const conf2 = require(`@/config/application-${PROFILE}.js`).default  /* 这里�
 window.APP_CONFIG = {
     ...conf1, ...conf2
 }
+
+

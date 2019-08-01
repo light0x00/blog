@@ -1,5 +1,5 @@
 <template>
-  <div class="full-screen">
+  <div class="full-box">
     <router-view />
   </div>
   

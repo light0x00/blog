@@ -42,7 +42,7 @@ var config = merge(baseConfig, {
         ),
         new CopyPlugin([
             { from: 'public/sitemap.xml', to: 'sitemap.xml' },
-            { from: 'public/CNAME', to: 'CNAME' },
+            { from: 'public/CNAME', to: '' },
         ])
     ]
 })

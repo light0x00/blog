@@ -1,4 +1,13 @@
-.full-screen{
+.full-box{
     height:100%;
-    color:blue
+}
+
+a{
+    text-decoration: none;
+    color:black;;
+
+}
+
+a:hover{
+    text-decoration: underline;
 }

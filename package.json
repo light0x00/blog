@@ -7,7 +7,7 @@
     "devServer": "npx cross-env NODE_ENV=development webpack-dev-server --profile --config build/webpack.config.devServer.js",
     "dev": "npx cross-env NODE_ENV=development webpack --config build/webpack.config.dev.js",
     "prod": "npx cross-env NODE_ENV=production webpack --profile --config build/webpack.config.prod.js",
-    "deploy": "rm -r docs/** && cp -R dist/** docs"
+    "deploy": "rm -r docs/ && cp -r dist/ docs/"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "file-loader": "^4.1.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
+    "raw-loader": "^3.1.0",
     "string-replace-webpack-plugin": "^0.1.3",
     "style-loader": "^0.23.1",
     "ts-loader": "^6.0.4",
@@ -35,6 +36,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "lodash-es": "^4.17.15",
+    "showdown": "^1.9.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.7",
     "vuex": "^3.1.1"
