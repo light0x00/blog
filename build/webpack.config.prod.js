@@ -4,14 +4,14 @@ const merge = require('webpack-merge');
 const baseConfig = require('./webpack.config.js');
 
 const TerserPlugin = require('terser-webpack-plugin');
-const { _resolve ,setPages} = require('./helpers')
+const CopyPlugin = require('copy-webpack-plugin');
 
 var config = merge(baseConfig, {
     mode: 'production',
     output: {
         // publicPath: _resolve("dist/"),
         /* 一定要以/结尾!!! */
-        publicPath:"https://blog.light0x00.com/",
+        publicPath: "https://blog.light0x00.com/",
     },
     // devtool: 'hidden-source-map',
     devtool: false,
@@ -33,19 +33,18 @@ var config = merge(baseConfig, {
             }),
         ],
     },
-    // devtool: 'eval-source-map',
     plugins: [
         new webpack.DefinePlugin(
             {
                 'process.env.NODE_ENV': JSON.stringify('production'),
                 PROFILE: JSON.stringify("prod")
             }
-        )
+        ),
+        new CopyPlugin([
+            { from: 'public/sitemap.xml', to: 'sitemap.xml' },
+        ])
     ]
 })
 
-// setPages(config, {
-//     // templateParameters: { "vendors_dll_path": "vendors_dll.js" }
-// })
 
 module.exports = config
