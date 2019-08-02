@@ -23,13 +23,16 @@ const assetsPath = {
 }
 
 let pages = {
-    admin: new HtmlWebpackPlugin({
+    index: new HtmlWebpackPlugin({
         template: _resolve("src/index.html"),
         filename: `index.html`,
         chunks: ['main', 'vendors', 'default', 'async_common', 'initial_common', 'runtime', 'element_ui'],
         favicon: _resolve("public/favicon.ico")
     })
 }
+
+
+console.log(_resolve("src/main.js"))
 
 const config = {
     context: rootPath,
@@ -196,17 +199,29 @@ const config = {
         }),
         new CopyPlugin([
             { from: 'public/posts/', to: 'posts/' },
-        ]),
-        new webpack.DefinePlugin({
-            POST_TREES: detector({
-                // publicPath: "http://blog-dev.light0x00.com:4092/", 
-                contextPath: "posts",
-                postRootPath: _resolve("public/posts"),
-            })
-        }),
-        pages.admin
+        ])
+        ,
+        pages.index
     ]
 };
 
-module.exports = config;
+
+let music = require(_resolve("build/music.js"))
+
+module.exports = async function(){
+
+    let playList = await music
+
+    config.plugins.push(
+        new webpack.DefinePlugin({
+            POST_TREES: detector({
+                contextPath: "posts",
+                postRootPath: _resolve("public/posts"),
+            }),
+            PLAY_LIST: JSON.stringify(playList)
+        })
+    )
+    return config;
+}()
+
 

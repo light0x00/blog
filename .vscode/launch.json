@@ -24,7 +24,8 @@
             "args": [
                 "--project",
                 "--config", 
-                "build/webpack.config.dev.js"
+                // "build/webpack.config.dev.js"
+                "${file}"
             ],
             "env": {
                 "NODE_ENV":"development"
@@ -32,6 +33,12 @@
         },
         {
             "name": "Debug File",
+            "type": "node",
+            "request": "launch",
+            "program": "${file}",
+        },
+        {
+            "name": "Debug File2",
             "type": "node",
             "request": "launch",
             "program": "${file}",

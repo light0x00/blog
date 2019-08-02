@@ -12,7 +12,7 @@ import highlight from 'highlightjs'
 import highlightCss from 'highlightjs/styles/github.css'
 
 marked.setOptions({
-  highlight: function(code) {
+  highlight: function (code) {
     return highlight.highlightAuto(code).value;
   },
   pedantic: false,
@@ -34,4 +34,16 @@ let vm = new Vue(
   }
 )
 
-  
+
+import "APlayer/dist/APlayer.min.css";
+import APlayer from "APlayer";
+
+let list = PLAY_LIST
+
+console.log(list)
+
+const ap = new APlayer({
+  container: document.getElementById("music-box"),
+  audio: PLAY_LIST
+});
+ap.play()

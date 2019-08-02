@@ -42,14 +42,14 @@ export default {
   },
   methods: {
     async openSlideshow() {
-      var slideshow = remark.create({
-        source: this.post,
-        container: document.getElementById("slide-show-container")
-      });
-      this.slideshowVisible = true;
+      // var slideshow = remark.create({
+      //   source: this.post,
+      //   container: document.getElementById("slide-show-container")
+      // });
+      // this.slideshowVisible = true;
     },
     closeSlideshow() {
-      this.slideshowVisible = false;
+      // this.slideshowVisible = false;
     },
     renderMarkdown() {
       // var converter = new showdown.Converter();
