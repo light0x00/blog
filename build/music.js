@@ -1,3 +1,4 @@
+/* TODO: 做成一个借接口,这样每次加载页面都是最新的歌曲信息 */
 let Axios = require('axios')
 
 let config = {
@@ -14,11 +15,14 @@ async function fetchMusic () {
     var playList = []
     for (let songInfo of res.data.allData) {
         let { id, name, ar: [{ name: artist }],al:{picUrl:cover} } = songInfo.song;
+        console.log(cover)
+        if(cover)
+            cover=cover.replace(/^http(?!s)/,"https")
         playList.push({
             id,
             name,
             artist,
-            url: `http://music.163.com/song/media/outer/url?id=${id}.mp3`,
+            url: `https://music.163.com/song/media/outer/url?id=${id}.mp3`,
             cover
         })
     }
