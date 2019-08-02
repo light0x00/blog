@@ -6,7 +6,7 @@ const baseConfig = require('./webpack.config.js');
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
-var config = merge(baseConfig, {
+var config = {
     mode: 'production',
     output: {
         // publicPath: _resolve("dist/"),
@@ -45,7 +45,9 @@ var config = merge(baseConfig, {
             { from: 'public/CNAME', to: '' },
         ])
     ]
-})
+}
 
 
-module.exports = config
+module.exports = async function () {
+    return merge(await baseConfig, config)
+}
