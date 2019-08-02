@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Marked in the browser</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        function highlightCode() {
+            var pres = document.querySelectorAll("pre>code");
+            for (var i = 0; i < pres.length; i++) {
+                hljs.highlightBlock(pres[i]);
+            }
+        }
+        document.getElementById('content').innerHTML =
+        marked("```js\n let a = '123' \n```");
+        highlightCode();
+    </script>
+</body>
+
+</html>

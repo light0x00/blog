@@ -34,8 +34,12 @@
     "webpack-plugin-replace": "^1.2.0"
   },
   "dependencies": {
+    "@primer/css": "^12.5.0",
     "axios": "^0.19.0",
+    "highlightjs": "^9.12.0",
     "lodash-es": "^4.17.15",
+    "marked": "^0.7.0",
+    "nprogress": "^0.2.0",
     "showdown": "^1.9.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.7",

@@ -118,6 +118,15 @@ const config = {
                     { loader: 'css-loader' },
                 ]
             },
+            {
+                test: /\.scss$/,
+                use: [
+                    { loader: "style-loader" },
+                    { loader: MiniCssExtractPlugin.loader },
+                    { loader: 'css-loader' },
+                    { loader: "sass-loader" }
+                ]
+            },
             /* script */
             {
                 test: /\.vue$/,
@@ -189,10 +198,10 @@ const config = {
             { from: 'public/posts/', to: 'posts/' },
         ]),
         new webpack.DefinePlugin({
-            POST_TREES: detector({ 
+            POST_TREES: detector({
                 // publicPath: "http://blog-dev.light0x00.com:4092/", 
-                contextPath: "posts" ,
-                postRootPath :_resolve("public/posts"),
+                contextPath: "posts",
+                postRootPath: _resolve("public/posts"),
             })
         }),
         pages.admin

@@ -26,14 +26,12 @@ const actions = {
         if(postInfo==null){
             throw new Error(`can't find post that key is ${key}`)
         }
-        console.log("===",postInfo)
         let {data} = await Axios.get(postInfo.url)
         return data;
     }
 }
 
 function searchPost(state,key){
-    console.log(key)
     function searchTree(treeNode){
         if(treeNode.key==key){
             return treeNode;

@@ -1,13 +1,8 @@
 <template>
   <div class="full-box">
+    <div id="post-container" class="markdown-body" v-html="postHtml"></div>
 
-    <div
-      id="post-container"
-      style="height: calc(100% - 20px) ;width:100%;"
-      v-html="postHtml"
-    ></div>
-
-     <div style="height:20px">
+    <div style="height:20px">
       <a href="javascript:void(0)" v-on:click="openSlideshow">幻灯片</a>
     </div>
 
@@ -18,7 +13,6 @@
       <a href="javascript:void(0)" v-on:click="closeSlideshow">退出</a>
       <div id="slide-show-container" style="height:100%;width:100%;"></div>
     </div>
-   
   </div>
 </template>
 
@@ -26,6 +20,8 @@
 import axios from "axios";
 import { mapState } from "vuex";
 import showdown from "showdown";
+import hljs from "highlightjs";
+import marked from "marked";
 
 export default {
   data: function() {
@@ -37,11 +33,15 @@ export default {
   },
   computed: {},
   async created() {
-    this.renderMarkdown();
+    this.loadPost(this.$route);
+  },
+  watch: {
+    post: function(newPost, oldPost) {
+      this.renderMarkdown();
+    }
   },
   methods: {
     async openSlideshow() {
-      console.log(document.getElementById("slide-show-container"));
       var slideshow = remark.create({
         source: this.post,
         container: document.getElementById("slide-show-container")
@@ -49,25 +49,33 @@ export default {
       this.slideshowVisible = true;
     },
     closeSlideshow() {
-      console.log("!!!");
       this.slideshowVisible = false;
     },
     renderMarkdown() {
-      var converter = new showdown.Converter(),
-        text = this.post,
-        html = converter.makeHtml(text);
-      this.postHtml = html;
+      // var converter = new showdown.Converter();
+      // let html = converter.makeHtml(this.post);
+      let html2 = marked(this.post);
+      this.postHtml = html2;
+
+    },
+    async loadPost(route) {
+      let postKey = route.path.replace(/^\/post\//, "");
+      let post = await this.$store.dispatch("posts/getPost", postKey);
+      this.post = post;
+      this.renderMarkdown();
     }
   },
   async beforeRouteUpdate(to, from, next) {
-    let postKey = to.path.replace(/^\/post/, "");
-    let post = await this.$store.dispatch("posts/getPost", postKey);
-    this.post = post;
     next();
-    this.renderMarkdown();
+    this.loadPost(to);
   }
 };
 </script>
 
 <style>
+
+#post-container{
+  min-height: calc(100% - 20px) ;width:100%;padding: 32px!important;
+  border: 1px solid #d1d5da;
+}
 </style>
