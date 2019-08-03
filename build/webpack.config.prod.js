@@ -27,7 +27,7 @@ var config = {
                     },
                     output: {
                         /* (default false) true or "all" to preserve all comments,"some" to preserve some comments, a regular expression string (e.g. /^!/) or a function.  */
-                        comments: false,
+                        comments: true,
                     },
                 },
             }),

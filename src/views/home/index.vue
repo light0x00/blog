@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper full-box">
-    <h1>Long long the stream that runs to the sea.</h1>
-    <p>
+    <h3 style="padding:10px">Long long the stream that runs to the sea.</h3>
+    <div>
       <router-link to="/post">文章列表</router-link>
-    </p>
+    </div>
   </div>
 </template>
 
@@ -14,7 +14,12 @@ export default {};
 <style scoped>
 .wrapper {
   display: flex;
+  flex-direction:column;
   justify-content: center;
   align-items: center;
+}
+a {
+  font-size:14px;
+  font-weight: bold
 }
 </style>

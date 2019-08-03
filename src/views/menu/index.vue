@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <template v-for="node in postTrees">
-      <recursive :treeNode="node" :key="node.compPath"></recursive>
-    </template>
-  </div>
+    <el-menu style="width:100%;border-right:none" v-show="visible" @select="onSelect" background-color="#24292e" text-color="#fff">
+      <template v-for="(node,index) in postTrees">
+        <recursive :treeNode="node" :nodeIndex="''+index" :key="node.compPath"></recursive>
+      </template>
+    </el-menu>
 </template>
 
 <script>
@@ -15,8 +15,20 @@ import Vue from "vue";
 Vue.component("recursive", recursive);
 
 export default {
+  props:{
+    visible:{type:Boolean,default:true}
+  },
   computed: {
     ...mapState("posts", ["postTrees"])
+  },
+  data:function(){
+    return {
+    }
+  },
+  methods:{
+    onSelect(e){
+      this.$emit("update:visible",false)
+    }
   }
 };
 </script>

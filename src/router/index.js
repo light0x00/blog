@@ -1,6 +1,8 @@
 import VueRouter from 'vue-router'
 import Vue from 'vue'
 
+import {isMobile} from '@/common/utils'
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -10,11 +12,26 @@ const routes = [
     },
     {
         path: "/post",
+        // component: () => isMobile()?import('@/views/layout-mobile'):import('@/views/layout'),
         component: () => import('@/views/layout-mobile'),
         children: [
             {
+                path: "",
+                component: () => import('@/views/post'),
+            },
+            {
                 path: "*",
                 component: () => import('@/views/post'),
+            }
+        ]
+    },
+    {
+        path: "/about",
+        component: () => import('@/views/layout-mobile'),
+        children: [
+            {
+                path: '',
+                component: ()=>import('@/views/about')
             }
         ]
     }

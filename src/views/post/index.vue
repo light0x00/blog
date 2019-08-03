@@ -33,11 +33,11 @@ export default {
       slideshowVisible: false
     };
   },
-  created() {
-  },
   computed: {},
   async created() {
-    this.loadPost(this.$route);
+    console.log("cre!!!")
+
+    await this.loadPost(this.$route);
   },
   watch: {
     post: function(newPost, oldPost) {
@@ -45,23 +45,16 @@ export default {
     }
   },
   methods: {
-    async openSlideshow() {
-      // var slideshow = remark.create({
-      //   source: this.post,
-      //   container: document.getElementById("slide-show-container")
-      // });
-      // this.slideshowVisible = true;
-    },
-    closeSlideshow() {
-      // this.slideshowVisible = false;
-    },
     renderMarkdown() {
-      // var converter = new showdown.Converter();
-      // let html = converter.makeHtml(this.post);
       let html2 = marked(this.post);
       this.postHtml = html2;
     },
     async loadPost(route) {
+      const loading =this.$loading({
+        // lock: true,
+        text: "Loading",
+      });
+
       let postKey = route.path.replace(/^\/post\//, "");
       let post;
       try {
@@ -71,10 +64,13 @@ export default {
         console.log(`文章没有找到: ${postKey}`);
       }
       this.renderMarkdown();
+
+      loading.close();
     }
   },
   async beforeRouteUpdate(to, from, next) {
     next();
+    // console.log("route update!!")
     this.loadPost(to);
   }
 };
@@ -82,9 +78,8 @@ export default {
 
 <style>
 #post-container {
-  min-height: calc(100% - 20px);
-  width: calc(100% - 30px);
-  border: 1px solid #d1d5da;
+  width: calc(100% - 42px);
   padding: 20px;
+  overflow-x: hidden;
 }
 </style>

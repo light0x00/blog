@@ -1,64 +1,54 @@
 <template>
   <div class="full-box">
     <!-- 导航栏 -->
-    <div class="nav-bar" style="">
-      <router-link to="/">返回首页</router-link>
-      <a href="javascript:void(0)"  @click="toggleMenuVisible">菜单</a>
-    </div>
-    <!-- 博客菜单 -->
-    <div style="width:100%;position:fixed;bottom:0;background-color:gray" v-show="menuVisible">
-      <Blog-Menu></Blog-Menu>
-    </div>
+    <navbar id="navbar" style="position:fixed;width:100%;height:60px;z-index:1;transition: top 0.3s;" v-bind:sidebarVisible.sync="sidebarVisible"></navbar>
+    <!-- 侧边栏 -->
+    <!-- <div style="position:fixed;height:100%;left:0;width:70%;"> -->
+    <sidebar :visible.sync="sidebarVisible"></sidebar>
     <!-- 博客 -->
-    <div style="display:flex;justify-content:center;height: calc(100% - 20px);width:100%">
-        <router-view></router-view>
+    <div style="display:flex;justify-content:center;height: calc(100% - 20px);width:100%;position:relative;top:60px">
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-import menu from "@/views/menu";
+import navbar from "@/views/navbar";
+import sidebar from "@/views/sidebar";
+import {isMobile} from "@/common/utils";
+
+
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("navbar").style.top = "0";
+  } else {
+    document.getElementById("navbar").style.top = "-60px";
+  }
+  prevScrollpos = currentScrollPos;
+}
 
 export default {
+  name: "layout",
   components: {
-    "Blog-Menu": menu
+    navbar: navbar,
+    sidebar: sidebar
   },
-  data:function(){
+  data: function() {
     return {
-      menuVisible:true
-    }
-  },
-  methods:{
-    toggleMenuVisible(){
-      this.menuVisible=!this.menuVisible
-    }
+      sidebarVisible: false
+    };
   }
 };
 </script>
 
-<style scope>
-dl {
-  margin: 20px;
+<style>
+
+.narrow-box{
+  width:70%;
+  color:red;
 }
 
-dt {
-  font-size: 16px;
-}
 
-dd {
-  font-size: 14px;
-}
-
-.nav-bar{
-  width:100%;
-  height:20px;
-  position:fixed;
-  top:0;
-  background-color: gray;
-}
-
-.nav-bar a{
-
-  font-size:14px
-}
 </style>
