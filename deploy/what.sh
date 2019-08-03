@@ -74,7 +74,7 @@ if  ! $yes ; then
     fi
 fi
 
-rm -r "$del_dir" && cp -r dist/ docs/ && git add $add_pattern && git commit -m '$commit_msg' && git push
+rm -r "$del_dir" && cp -r dist/ docs/ && git add $add_pattern && git commit -m "$commit_msg" && git push
 
 
 
