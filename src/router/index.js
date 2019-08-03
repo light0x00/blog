@@ -10,7 +10,7 @@ const routes = [
     },
     {
         path: "/post",
-        component: () => import('@/views/layout'),
+        component: () => import('@/views/layout-mobile'),
         children: [
             {
                 path: "*",

@@ -20,11 +20,12 @@ let vm = new Vue(
 )
 
 
-import "APlayer/dist/APlayer.min.css";
-import APlayer from "APlayer";
+// import "APlayer/dist/APlayer.min.css";
+// import APlayer from "APlayer";
 
-const ap = new APlayer({
-  container: document.getElementById("music-box"),
-  audio: PLAY_LIST
-});
-ap.play()
+// const ap = new APlayer({
+//   container: document.getElementById("music-box"),
+//   audio: PLAY_LIST,
+//   mini:true
+// });
+// ap.play()
