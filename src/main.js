@@ -23,10 +23,6 @@ let vm = new Vue(
 import "APlayer/dist/APlayer.min.css";
 import APlayer from "APlayer";
 
-let list = PLAY_LIST
-
-console.log(list)
-
 const ap = new APlayer({
   container: document.getElementById("music-box"),
   audio: PLAY_LIST
