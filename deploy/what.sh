@@ -62,8 +62,6 @@ if [ "$?" -ne 0 ] ;then
     exit 1;
 fi
 
-echo $yes
-
 # 拷贝&部署
 del_dir=`pwd`"/docs/"
 if  ! $yes ; then

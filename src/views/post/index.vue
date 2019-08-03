@@ -20,13 +20,13 @@
 import axios from "axios";
 import { mapState } from "vuex";
 
-import highlightCss from 'highlightjs/styles/github.css'
 import marked from "marked";
+import highlightCss from 'highlightjs/styles/github.css'
 import hljs from "highlightjs";
 
 marked.setOptions({
   highlight: function (code) {
-    return highlight.highlightAuto(code).value;
+    return hljs.highlightAuto(code).value;
   },
   pedantic: false,
   gfm: true,
