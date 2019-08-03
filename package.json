@@ -7,7 +7,7 @@
     "devServer": "npx cross-env NODE_ENV=development webpack-dev-server --profile --config build/webpack.config.devServer.js",
     "dev": "npx cross-env NODE_ENV=development webpack --config build/webpack.config.dev.js",
     "prod": "npx cross-env NODE_ENV=production webpack --profile --config build/webpack.config.prod.js",
-    "deploy": "./deploy/what.sh -add . -m 'auto deploy' -y --skip-compile",
+    "deploy": "./deploy/what.sh -add . -m 'auto deploy' -y",
     "fuck":"bash deploy/what.sh"
   },
   "keywords": [],
