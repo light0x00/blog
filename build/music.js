@@ -15,7 +15,6 @@ async function fetchMusic () {
     var playList = []
     for (let songInfo of res.data.allData) {
         let { id, name, ar: [{ name: artist }],al:{picUrl:cover} } = songInfo.song;
-        console.log(cover)
         if(cover)
             cover=cover.replace(/^http(?!s)/,"https")
         playList.push({

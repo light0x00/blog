@@ -7,7 +7,8 @@
     "devServer": "npx cross-env NODE_ENV=development webpack-dev-server --profile --config build/webpack.config.devServer.js",
     "dev": "npx cross-env NODE_ENV=development webpack --config build/webpack.config.dev.js",
     "prod": "npx cross-env NODE_ENV=production webpack --profile --config build/webpack.config.prod.js",
-    "deploy": "npm run prod && rm -r docs/ && cp -r dist/ docs/ && git add . && git commit -m 'autodeploy' && git push"
+    "deploy": "npm run prod && rm -r docs/ && cp -r dist/ docs/ && git add . && git commit -m 'autodeploy' && git push",
+    "fuck":"bash deploy/what.sh"
   },
   "keywords": [],
   "author": "",

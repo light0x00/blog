@@ -19,9 +19,23 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-import showdown from "showdown";
-import hljs from "highlightjs";
+
+import highlightCss from 'highlightjs/styles/github.css'
 import marked from "marked";
+import hljs from "highlightjs";
+
+marked.setOptions({
+  highlight: function (code) {
+    return highlight.highlightAuto(code).value;
+  },
+  pedantic: false,
+  gfm: true,
+  breaks: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  xhtml: false
+})
 
 export default {
   data: function() {
