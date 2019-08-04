@@ -16,7 +16,7 @@ const getters = {
         let postList = []
         recursivePostTree(state.postTrees, (node) => {
             if (!node.isGroup){
-                node.createDate=format(node.createTime,"yyyy-MM-DD hh:mm")
+                node.createDate=format(node.createTime,"yyyy-MM-dd hh:mm")
                 postList.push(node)
             }
         })
@@ -29,7 +29,7 @@ const getters = {
 
         for (let post of postList) {
             post.year = format(post.createTime, "yyyy")
-            post.month = format(post.createTime, "MM/DD")
+            post.month = format(post.createTime, "MM/dd")
         }
         let groupByYear = _.groupBy(postList, 'year')
         return groupByYear;
