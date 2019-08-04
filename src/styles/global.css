@@ -16,6 +16,9 @@ body {
 a:hover{
     text-decoration: underline;
 }
+
+/* ---------------------------- markdown ----------------------------*/
+
 .markdown-body{
     color: #24292e
 }
@@ -88,9 +91,10 @@ a:hover{
 }
 .markdown-body table{
     border-collapse: collapse;
-    
+    display: block;
+    overflow-x:auto
 }
-.markdown-body table,th, td{
+.markdown-body th, td{
     border:1px solid #dfe2e5
 }
 
@@ -103,4 +107,26 @@ a:hover{
 
 .markdown-body tr{
     background-color: #fff;
+}
+
+/* ---------------------------- 动画 ----------------------------*/
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
 }

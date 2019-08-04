@@ -1,0 +1,50 @@
+/* https://babeljs.io/docs/en/next/configuration */
+{
+  "presets": [
+    [
+      /* https://babeljs.io/docs/en/next/babel-preset-env.html
+           By default @babel/preset-env will use browserslist config sources unless either the targets or ignoreBrowserslistConfig options are set.
+           if no targets are specified, @babel/preset-env will transform all ECMAScript 2015+ code by default.*/
+      "@babel/env",
+      {
+        "targets": {
+          /*  */
+          // "browsers": [
+          //   "since 2015",
+          // ],
+          /* 直接输出es module(配置后browsers会失效,不需要考虑兼容旧浏览器时建议设置为true,有助于缩小打包体积), 
+          When specifying this option, the browsers field will be ignored. You can use this approach in combination with <script type="module"></script> to conditionally serve smaller scripts to users  */
+          "esmodules": true,
+        },
+        "spec": false, // 启用更多的规范兼容，但可能更慢，转换任何在这个预设中支持他们的插件。 (boolean, defaults to false)
+        "loose": false, //松散模式  编译将不完全按照es标准 (比如es6的class转为function时 会直接把类成员写到function的原型上)
+        /* Enable transformation of ES6 module syntax to another module type.
+          Setting this to false will not transform modules. 
+          可选值: "amd" | "umd" | "systemjs" | "commonjs" | "cjs" | "auto" | false, defaults to "auto".
+          */
+        "modules": false,
+        /* 
+          This option configures how @babel/preset-env handles polyfills.
+          ⚠️该选项只在使用了@babel/polyfill时有效
+          "usage" | "entry" | false, defaults to false  
+            entry 一次引入所有填充,即「require("@babel/polyfill")」
+            usage 在每一个文件按需导入所需要的填充, 比如: require("@babel/polyfill/corejs/array")
+            false 不做处理,(适用于手动在入口文件全局引入填充的情况)
+        */
+        "useBuiltIns": false,
+        "debug": false, //是否输出编译日志
+        "include": [], // 总是启用哪些 plugins
+        "exclude": [] // 排除预设中的 plugins
+      }
+    ],
+  ],
+  "plugins": [
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-chalk"
+      }
+    ]
+  ]
+}

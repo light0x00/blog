@@ -1,6 +1,7 @@
 <template>
-  <div style="width:100%;">
+  <div style="width:100%;" v-loading="pageState.loading">
     <div id="post-container" class="markdown-body" v-html="postHtml"></div>
+    <post-tags :tags="post.tags"></post-tags>
   </div>
 </template>
 
@@ -10,7 +11,8 @@ import { mapState } from "vuex";
 
 import marked from "marked";
 import highlightCss from "highlightjs/styles/github.css";
-import hljs from "highlightjs";
+import hljs from "highlightjs/highlight.pack.min.js";
+import { setTimeout } from 'timers';
 
 marked.setOptions({
   highlight: function(code) {
@@ -28,50 +30,51 @@ marked.setOptions({
 export default {
   data: function() {
     return {
-      post: "空空如也~",
+      post: {tags:[]},
+      postContent: "空空如也~",
       postHtml: "",
-      slideshowVisible: false
+      slideshowVisible: false,
+      pageState:{loading:false}
     };
   },
   computed: {},
   async created() {
-    console.log("cre!!!")
-
     await this.loadPost(this.$route);
   },
   watch: {
-    post: function(newPost, oldPost) {
-      this.renderMarkdown();
+    $route(n, o) {
+      this.loadPost(n);
     }
   },
   methods: {
     renderMarkdown() {
-      let html2 = marked(this.post);
+      let html2 = marked(this.postContent);
       this.postHtml = html2;
     },
     async loadPost(route) {
-      const loading =this.$loading({
-        // lock: true,
-        text: "Loading",
-      });
-
+      
+      this.pageState.loading=true
+      
+      //得到post、postContent
       let postKey = route.path.replace(/^\/post\//, "");
-      let post;
       try {
-        post = await this.$store.dispatch("posts/getPost", postKey);
-        this.post = post;
+        this.post = await this.$store.dispatch("posts/getPost", postKey);
+        this.postContent = await this.$store.dispatch(
+          "posts/getPostContent",
+          postKey
+        );
       } catch (e) {
         console.log(`文章没有找到: ${postKey}`);
       }
+      //render
       this.renderMarkdown();
-
-      loading.close();
+      
+      this.pageState.loading=false
+      
     }
   },
   async beforeRouteUpdate(to, from, next) {
     next();
-    // console.log("route update!!")
-    this.loadPost(to);
   }
 };
 </script>

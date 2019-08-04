@@ -4,21 +4,24 @@
   "description": "",
   "main": "index.js",
   "sideEffects": [
-    "*.css",
+    "src/**/*.css",
     "src/main.js",
-    "*.vue"
+    "src/**/*.vue"
   ],
   "scripts": {
     "devServer": "npx cross-env NODE_ENV=development webpack-dev-server --profile --config build/webpack.config.devServer.js",
     "dev": "npx cross-env NODE_ENV=development webpack --config build/webpack.config.dev.js",
     "prod": "npx cross-env NODE_ENV=production webpack --profile --config build/webpack.config.prod.js",
-    "deploy": "./deploy/what.sh -add . -m 'auto deploy' -y",
-    "fuck": "bash deploy/what.sh"
+    "deploy": "bash deploy/what.sh -add . -m 'auto deploy' -y"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-component": "^1.1.1",
     "clean-webpack-plugin": "^1.0.1",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.1.0",
@@ -44,10 +47,12 @@
     "@primer/css": "^12.5.0",
     "aplayer": "^1.10.1",
     "axios": "^0.19.0",
+    "lodash-es": "^4.17.11",
+    "date-fns": "^2.0.0-alpha.31",
     "draggable": "^4.2.0",
     "element-ui": "^2.11.1",
+    "headroom.js": "^0.9.4",
     "highlightjs": "^9.12.0",
-    "lodash-es": "^4.17.15",
     "marked": "^0.7.0",
     "mint-ui": "^2.2.13",
     "nprogress": "^0.2.0",

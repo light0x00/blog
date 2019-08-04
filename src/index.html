@@ -7,7 +7,7 @@
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Blog</title>
+    <title>Light0x00的博客</title>
     <style>
         html,
         body {
@@ -17,6 +17,22 @@
             height: 100%;
         }
 
+        .music-box-hide {
+            /* background-color:antiquewhite; */
+
+            animation: fade-out .5s forwards;
+            /* -moz-animation: music-box-hide 1s forwards; */
+            /* Firefox */
+            /* -webkit-animation: music-box-hide 1s forwards; */
+            /* Safari and Chrome */
+            /* -o-animation: music-box-hide 1s forwards; */
+            /* Opera */
+        }
+
+        .music-box-show  {
+            animation: fade-in .5s forwards;
+        }
+
 
     </style>
 </head>
@@ -24,7 +40,7 @@
 <body>
 
     <div id="app" class="full-box" style="background-color: antiquewhite;"></div>
-    <div id="music-box" style="position:fixed;left:0;bottom:0"></div>
+    <div id="music-box" style="position:fixed;"></div>
 </body>
 
 </html>

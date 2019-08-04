@@ -2,7 +2,7 @@
   <div class="wrapper full-box">
     <h3 style="padding:10px">Long long the stream that runs to the sea.</h3>
     <div>
-      <router-link to="/post">文章列表</router-link>
+      <router-link to="/archive">文章列表</router-link>
     </div>
   </div>
 </template>

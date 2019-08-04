@@ -20,10 +20,10 @@ const isDir = (path) => path && fs.statSync(path).isDirectory()
 const exists = (path) => fs.existsSync(path)
 
 
-module.exports = function ({  publicPath, contextPath, postRootPath }) {
-    publicPath=publicPath||"/"
-    const descFileName="desc.json"
-    const postFileName="index.md"
+module.exports = function ({ publicPath, contextPath, postRootPath }) {
+    publicPath = publicPath || "/"
+    const descFileName = "desc.json"
+    const postFileName = "index.md"
     /* 得到文章的结构和描述 */
     function getPostTrees(postRootPath) {
 
@@ -45,17 +45,25 @@ module.exports = function ({  publicPath, contextPath, postRootPath }) {
             //if post
             if (!desc.isGroup) {
 
-                if(!exists(join(nodePath,postFileName))){
+                let postFilePath = join(nodePath, postFileName);
+                if (!exists(postFilePath)) {
                     throw new Error(`can't find ${postFileName} in ${nodePath}`)
                 }
-                
+                let {title="undefined",tags=[]} = desc;
                 let postPath = nodePath.replace(postRootPath, "");
-                let postKey = desc.key || postPath.replace(/^\//,"")
-                let url = join(publicPath, contextPath, postPath,postFileName)
+                let postKey = desc.key || postPath.replace(/^\//, "")
+                let url = join(publicPath, contextPath, postPath, postFileName)
+                let { mtimeMS: modifyTime, ctimeMs: createTime } = fs.statSync(postFilePath)
+                if(desc.date)
+                    createTime = new Date(desc.date).getTime()
+
                 Object.assign(treeNode, {
                     url: url,
-                    key:postKey,
-                    ...desc
+                    key: postKey,
+                    title,
+                    tags,
+                    createTime,
+                    modifyTime
                 })
             }
             //postGroup

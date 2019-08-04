@@ -45,6 +45,5 @@ const devServerConf = {
 module.exports = async function() {
     let devConf = await dev
     let config = merge(devConf,devServerConf)
-    console.log(config)
     return config
 }()

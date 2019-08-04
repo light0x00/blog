@@ -1,15 +1,14 @@
 <template>
-  <el-submenu v-if="treeNode.isGroup" :index="nodeIndex">
+  <el-submenu v-if="treeNode.isGroup" :index="nodeIndex" >
     <template slot="title">
-      <!-- <i class="el-icon-location"></i> -->
       <span>{{treeNode.title}}</span>
     </template>
     <template v-for="(childNode,childIndex) in treeNode.childs">
-      <recursive :key="childIndex" :nodeIndex="nodeIndex+'-'+childIndex" :treeNode="childNode"></recursive>
+      <recursive-ptree :key="childIndex" :nodeIndex="nodeIndex+'-'+childIndex" :treeNode="childNode"></recursive-ptree>
     </template>
   </el-submenu>
-  <el-menu-item v-else>
-    <a href="javascript:void(0)" @click="openPost(treeNode)">{{treeNode.title}}</a>
+  <el-menu-item v-else @click="openPost(treeNode)" >
+    {{treeNode.title}}
   </el-menu-item>
 </template>
 
@@ -19,7 +18,7 @@ import { mapMutations } from "vuex";
 import { join } from "path";
 
 export default {
-  name: "recursive",
+  name: "recursive-ptree",
   props: { treeNode: Object, 
   nodeIndex: {
         default: null,
@@ -27,7 +26,6 @@ export default {
       },
   },
   created() {
-    console.log("!",this.nodeIndex)
   },
   methods: {
     openPost(postNode) {
@@ -38,7 +36,5 @@ export default {
 </script>
 
 <style scoped>
-a {
-  color: #fff;
-}
+
 </style>

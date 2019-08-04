@@ -2,53 +2,124 @@ import Axios from "axios";
 
 const state = {
     postTrees: POST_TREES,
-    curPost:{}
+    curPost: {}
 }
+
+import {format} from 'date-fns'
+import * as _ from 'lodash-es'
 
 const getters = {
     getPostTrees(state, getters, rootState) {
         return state.postTrees
     },
+    getList(state) {
+        let postList = []
+        recursivePostTree(state.postTrees, (node) => {
+            if (!node.isGroup){
+                node.createDate=format(node.createTime,"YYYY-MM-DD hh:mm")
+                postList.push(node)
+            }
+        })
+        postList = _.sortBy(postList, (a) => a.createTime).reverse()
+        return postList;
+    }
+    ,
+    getArchives(state,getters) {
+        let postList = getters["getList"]
 
-}
-
-
-const mutations = {
-    setCurPost(state,postNode){
-        state.curPost=postNode;
-    },
-    
-}
-
-const actions = {   
-    async getPost({state},key){
-        let postInfo = searchPost(state,key)
-        if(postInfo==null){
-            throw new Error(`can't find post that key is ${key}`)
+        for (let post of postList) {
+            post.year = format(post.createTime, "YYYY")
+            post.month = format(post.createTime, "MM/DD")
         }
-        let {data} = await Axios.get(postInfo.url)
-        return data;
+        let groupByYear = _.groupBy(postList, 'year')
+        return groupByYear;
+    },
+    getTags(state) {
+        let groupByTag = {}
+        recursivePostTree(state.postTrees, (node) => {
+            if (node.isGroup || !node.tags)
+                return
+
+            for (let tag of node.tags) {
+                let matched = groupByTag[tag] || [];
+                matched.push(node)
+                groupByTag[tag] = matched
+            }
+            // postList.push(node)
+        })
+        return groupByTag;
     }
 }
 
-function searchPost(state,key){
-    function searchTree(treeNode){
-        if(treeNode.key==key){
+const mutations = {
+
+}
+
+const actions = {
+    async getPostContent({ state }, key) {
+        let postInfo = searchPost(state, key)
+        if (postInfo == null) {
+            throw new Error(`can't find post that key is ${key}`)
+        }
+        let { data } = await Axios.get(postInfo.url)
+        return data;
+    },
+    getPost({ state }, key) {
+        let postInfo = searchPost(state, key)
+        if (postInfo == null) {
+            throw new Error(`can't find post that key is ${key}`)
+        }
+        return postInfo;
+    }
+}
+
+function searchPost(state, key) {
+    function searchTree(treeNode) {
+        if (treeNode.key == key) {
             return treeNode;
         }
-        if(treeNode.isGroup){
-            for(let child of treeNode.childs){
-                let r =searchTree(child)
-                if(r!=null)
+        if (treeNode.isGroup) {
+            for (let child of treeNode.childs) {
+                let r = searchTree(child)
+                if (r != null)
                     return r
             }
         }
         return null;
     }
 
-    for(let rootNode of state.postTrees){
+    for (let rootNode of state.postTrees) {
         let r = searchTree(rootNode)
-        if(r)
+        if (r)
+            return r;
+    }
+}
+
+function recursivePostTree(postTrees, callback) {
+    function recursiveTree(treeNode) {
+        let canStop;
+        if (treeNode.isGroup) {
+            canStop = callback(treeNode)
+            if (canStop) {
+                return true;
+            }
+
+            for (let child of treeNode.childs) {
+                canStop = recursiveTree(child)
+                if (canStop)
+                    return true;
+            }
+        } else {
+            canStop = callback(treeNode)
+            if (canStop)
+                return true;
+        }
+        return false;
+    }
+
+    for (let rootNode of postTrees) {
+        let r = recursiveTree(rootNode)
+        if (r)
             return r;
     }
 }

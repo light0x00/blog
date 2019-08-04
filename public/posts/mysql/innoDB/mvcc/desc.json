@@ -1,4 +1,5 @@
 {
     "title":"MVCC从入门到懵逼",
-    "isGroup":false
+    "isGroup":false,
+    "tags":["mysql","数据库","innoDB","MVCC"]
 }

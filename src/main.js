@@ -6,16 +6,8 @@ import router from '@/router'
 import store from '@/store'
 import App from './app.vue'
 
-/* element */
-import 'element-ui/lib/theme-chalk/index.css'
-import {Loading,Menu,MenuItem,MenuItemGroup,Submenu,Drawer,Avatar} from 'element-ui';
-Vue.component(Menu.name, Menu)
-Vue.component(MenuItem.name, MenuItem)
-Vue.component(MenuItemGroup.name, MenuItemGroup)
-Vue.component(Submenu.name, Submenu)
-Vue.component(Drawer.name, Drawer)
-Vue.component(Avatar.name, Avatar)
-Vue.use(Loading)
+import ElementInstaller from "@/config/ElementInstaller";
+import AppInstaller from "@/config/AppInstaller";
 
 /* vue */
 let vm = new Vue(
@@ -27,22 +19,10 @@ let vm = new Vue(
   }
 )
 
-import {isMobile} from '@/common/utils'
-const MyPlugin = {
-  install(Vue, options) {
-      Vue.prototype.isMobile = isMobile
-  }
-}
-Vue.use(MyPlugin)
+Vue.use(ElementInstaller)
+Vue.use(AppInstaller)
 
 
 
-/* player */
-import "APlayer/dist/APlayer.min.css";
-import APlayer from "APlayer";
-const ap = new APlayer({
-  container: document.getElementById("music-box"),
-  audio: PLAY_LIST,
-  mini:true,
-  // fixed:true
-});
+
+

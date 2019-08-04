@@ -136,16 +136,16 @@ const config = {
                 loader: 'vue-loader'
             },
             //暂时用webpack自带的js loader
-            // {
-            //     test: /(\.jsx?)$/,
-            //     /* 原本打算用babel-loader来处理ts文件,但是其不能识别vue文件中的ts块,故弃用.官方不打算支持「appendTsSuffixTo」 👉 https://github.com/babel/babel-loader/pull/738  */
-            //     // test: /(\.jsx?)|(\.ts)$/,
-            //     loader: 'babel-loader',
-            //     exclude: /node_modules/,
-            //     options: {
-            //         cacheDirectory: true,
-            //     },
-            // },
+            {
+                test: /(\.jsx?)$/,
+                /* 原本打算用babel-loader来处理ts文件,但是其不能识别vue文件中的ts块,故弃用.官方不打算支持「appendTsSuffixTo」 👉 https://github.com/babel/babel-loader/pull/738  */
+                // test: /(\.jsx?)|(\.ts)$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: {
+                    cacheDirectory: true,
+                },
+            },
             {
                 test: /\.tsx?$/, exclude: /node_modules/, use: [
                     { loader: "ts-loader", options: { appendTsSuffixTo: [/\.vue$/], transpileOnly: true } }

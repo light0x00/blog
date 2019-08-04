@@ -34,7 +34,6 @@ class ReplacePlugin {
                 //替换
                 for(let k in replaceRules){
                     mod._source._value = mod._source._value.replace(k, replaceRules[k]);
-                    console.log(mod.resource,`${k}=>${replaceRules[k]}`)
                 }
 			});
 		}
