@@ -1,8 +1,16 @@
 <template>
-  <div style="width:100%">
+  <div class="post-list-wrapper" style="width:100%">
     <el-card v-for="post in postList" :key="post.key" @click="openPost(post)">
-      <router-link :to="'/post/'+post.key"><h3>{{post.title}}</h3></router-link>
-      <p style="text-align:right">{{post.createDate}}</p>
+
+      <div class="post-list-row">
+        <router-link :to="'/post/'+post.key">
+          <h3>{{post.title}}</h3>
+        </router-link>
+        <post-tags v-if="!isMobile()" :tags="post.tags"></post-tags>
+      </div>
+      
+      <p style="text-align:right;width:">{{post.createDate}}</p>
+
     </el-card>
   </div>
 </template>
@@ -21,8 +29,7 @@ export default {
         list = list.filter(post => {
           if (query.tag) {
             let tagMatched = post.tags.indexOf(query.tag) >= 0;
-            if (!tagMatched)
-              return false;
+            if (!tagMatched) return false;
           }
           return true;
         });
@@ -35,9 +42,18 @@ export default {
 };
 </script>
 
-<style scoped>
-.el-card {
+<style>
+.post-list-wrapper {
+  padding:15px;
+}
+.post-list-wrapper .el-card{
+  margin-bottom: 15px
+}
+
+.post-list-row {
   width: 100%;
   margin-top: 20px;
+  /* display: flex;
+  justify-content: space-around; */
 }
 </style>

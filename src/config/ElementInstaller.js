@@ -1,6 +1,7 @@
 /* element */
-import 'element-ui/lib/theme-chalk/index.css'
-import { Button, Link, Loading, Menu, MenuItem, MenuItemGroup, Submenu, Drawer, Avatar, Timeline, TimelineItem, Card, Tag } from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css'
+import '@/styles/element-theme.scss'
+import { Button, Link,Icon, Backtop, Loading, Menu, MenuItem, MenuItemGroup, Submenu, Drawer, Avatar, Timeline, TimelineItem, Card, Tag } from 'element-ui';
 
 
 export default {
@@ -17,6 +18,8 @@ export default {
         Vue.component(Tag.name, Tag)
         Vue.component(Button.name, Button)
         Vue.component(Link.name, Link)
+        Vue.component(Backtop.name, Backtop)
+        Vue.component(Icon.name, Icon)
         Vue.use(Loading)
     }
 }

@@ -5,7 +5,7 @@ const state = {
     curPost: {}
 }
 
-import {format} from 'date-fns'
+import { format } from 'date-fns'
 import * as _ from 'lodash-es'
 
 const getters = {
@@ -15,8 +15,8 @@ const getters = {
     getList(state) {
         let postList = []
         recursivePostTree(state.postTrees, (node) => {
-            if (!node.isGroup){
-                node.createDate=format(node.createTime,"yyyy-MM-dd hh:mm")
+            if (!node.isGroup) {
+                node.createDate = format(node.createTime, "yyyy-MM-dd hh:mm")
                 postList.push(node)
             }
         })
@@ -24,14 +24,42 @@ const getters = {
         return postList;
     }
     ,
-    getArchives(state,getters) {
+    getArchives(state, getters) {
         let postList = getters["getList"]
 
         for (let post of postList) {
             post.year = format(post.createTime, "yyyy")
             post.month = format(post.createTime, "MM/dd")
         }
+
+
+
         let groupByYear = _.groupBy(postList, 'year')
+
+        for (let k in groupByYear) {
+
+        }
+
+        groupByYear = _.map(groupByYear, (v, k) => {
+            return { year: k, posts: v }
+        })
+        groupByYear = _.sortBy(groupByYear, (p) => p.year).reverse()
+
+        // console.log(_.fromPairs({a:"aa",b:"bb"}))
+        // console.log(_.map({a:"aa",b:"bb"},(v,k)=>{
+        //     console.log(v,k)
+        //     return v;
+        // }))
+
+        // console.log(_.partition(postList,(a)=>a.year))
+
+        // let r = _.mapKeys(groupByYear,(k)=>{console.log(k);return k})
+        // console.log(JSON.stringify(r))
+        // groupByYear = _.sortBy(groupByYear,(k,v)=>{
+        //     console.log(k,v);
+        //     return k
+        // })
+
         return groupByYear;
     },
     getTags(state) {

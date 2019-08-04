@@ -1,9 +1,7 @@
 
 import PostTags from './post-tags.vue'
+import Backtop from './backtop.vue'
 
 
-const install = function (Vue, opts = {}) { 
 
-};
-
-export default [PostTags]
+export default [PostTags,Backtop]

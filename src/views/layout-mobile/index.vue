@@ -1,5 +1,5 @@
 <template>
-  <div class="full-box">
+  <div class="full-box" style="display:flex;justify-content:center">
     <!-- 导航栏 -->
     <!-- position:fixed;width:100%;height:50px;z-index:1;transition: top 0.3s; -->
     <navbar
@@ -12,7 +12,8 @@
     <sidebar :visible.sync="sidebarVisible"></sidebar>
     <!-- 博客 -->
     <div
-      style="display:flex;justify-content:center;height: calc(100% - 50px);width:100%;position:relative;top:50px"
+      style="display:flex;justify-content:center;height: calc(100% - 50px);position:relative;top:50px"
+      :style="{width:isMobile()?'100%':'60%'}"
     >
       <router-view></router-view>
     </div>
@@ -24,24 +25,8 @@ import navbar from "@/views/navbar";
 import sidebar from "@/views/sidebar";
 import { isMobile } from "@/common/utils";
 
-// var prevScrollpos = window.pageYOffset;
-// window.onscroll = function() {
-//   var currentScrollPos = window.pageYOffset;
-//   if (prevScrollpos > currentScrollPos) {
-//     document.getElementById("navbar").style.top = "0";
-//   } else {
-//     document.getElementById("navbar").style.top = "-50px";
-//   }
-//   prevScrollpos = currentScrollPos;
-// }
 
 import Headroom from "headroom.js";
-
-// var headroom = new Headroom(,{onUnpin:()=>console.log("un!!")});
-// initialise
-// headroom.init();
-// onUnpin;
-//
 
 export default {
   name: "layout",
@@ -61,6 +46,9 @@ export default {
       offset: 205,
       tolerance: 10,
       classes: {
+        pinned : "navbar--pinned",
+        // when scrolling down
+        unpinned : "navbar--unpinned",
       }
     });
     headroom.init();
@@ -76,12 +64,11 @@ export default {
   width: 70%;
   color: red;
 }
-.headroom--unpinned {
+.navbar--unpinned {
   animation: fade-out 0.5s forwards;
 }
 
-.headroom--pinned {
-  color: red;
+.navbar--pinned {
   animation: fade-in 0.5s forwards;
 }
 

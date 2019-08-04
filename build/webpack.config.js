@@ -127,6 +127,7 @@ const config = {
                     { loader: "style-loader" },
                     { loader: MiniCssExtractPlugin.loader },
                     { loader: 'css-loader' },
+                    // { loader: "scss-loader" },
                     { loader: "sass-loader" }
                 ]
             },

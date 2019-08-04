@@ -1,6 +1,6 @@
 <template>
   <div class="post-tag-wrapper">
-    <el-tag v-for="item in tags" :key="item" effect="plain">{{ item }}</el-tag>
+    <el-tag v-for="tag in tags" :key="tag" effect="plain" @click="clickTag(tag)">{{ tag }}</el-tag>
   </div>
 </template>
 
@@ -8,7 +8,13 @@
 export default {
     name:"post-tags",
     // functional:true,
-    props:{tags:{type:Array,required:true}}
+    props:{tags:{type:Array,required:true}},
+    methods:{
+      clickTag(tag){
+        console.log("!!!",tag)
+        this.$router.push({path:'/list',query:{tag}})
+      }
+    }
 };
 </script>
 
@@ -21,7 +27,9 @@ export default {
   align-items: center;
   align-content: center;
 }
-.el-tag{
+.post-tag-wrapper .el-tag{
+  cursor: pointer;
   margin:10px;
 }
 </style>
+

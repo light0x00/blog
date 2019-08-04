@@ -54,8 +54,12 @@ module.exports = function ({ publicPath, contextPath, postRootPath }) {
                 let postKey = desc.key || postPath.replace(/^\//, "")
                 let url = join(publicPath, contextPath, postPath, postFileName)
                 let { mtimeMS: modifyTime, ctimeMs: createTime } = fs.statSync(postFilePath)
-                if(desc.date)
-                    createTime = new Date(desc.date).getTime()
+                if(desc.date){
+                    let time = new Date(desc.date).getTime()
+                    if(isNaN(time))
+                        throw new Error(`Invalid date: ${desc.date},at ${join(nodePath,descFileName)}`)
+                    createTime = time
+                }
 
                 Object.assign(treeNode, {
                     url: url,

@@ -1,17 +1,17 @@
 <template>
   <div style="width:calc(100% - 20px);padding:10px">
     <!-- 按时间线显示 -->
-    <el-timeline v-for="(arch,archKey) in postArchives" :key="archKey">
-      <h2>{{archKey}}</h2>
+    <el-timeline v-for="arch in postArchives" :key="arch.year">
+      <h2>{{arch.year}}</h2>
 
       <el-timeline-item
-        v-for="(post,index) in arch"
+        v-for="(post,index) in arch.posts"
         :key="index"
         :timestamp="post.month"
         placement="top"
       >
         <el-card @click="openPost(post)">
-            <router-link tag="el-link" :to="'/post/'+post.key">{{post.title}}</router-link>
+            <router-link :to="'/post/'+post.key"><h3>{{post.title}}</h3></router-link>
           <!-- <el-link type="primary" @click=""> -->
             <!-- {{post.title}} -->
           <!-- </el-link> -->

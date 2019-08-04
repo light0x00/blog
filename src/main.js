@@ -9,7 +9,6 @@ import App from './app.vue'
 import ElementInstaller from "@/config/ElementInstaller";
 import AppInstaller from "@/config/AppInstaller";
 
-/* vue */
 let vm = new Vue(
   {
     el: "#app",

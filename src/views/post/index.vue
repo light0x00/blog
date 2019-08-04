@@ -1,7 +1,21 @@
 <template>
-  <div style="width:100%;" v-loading="pageState.loading">
-    <div id="post-container" class="markdown-body" v-html="postHtml"></div>
+  <div style="width:100%;" v-loading="pageState.loading" class="page-component__scroll">
+    <div id="post-container" class="markdown-body el-scrollbar__wrap" v-html="postHtml"></div>
+
     <post-tags :tags="post.tags"></post-tags>
+
+      <!-- <div
+        style="{
+        height: 100%;
+        width: 100%;
+        background-color: #f2f5f6;
+        box-shadow: 0 0 6px rgba(0,0,0, .12);
+        text-align: center;
+        line-height: 40px;
+        color: #1989fa;
+      }"
+      >UP</div> -->
+      <backtop></backtop>
   </div>
 </template>
 
@@ -12,7 +26,8 @@ import { mapState } from "vuex";
 import marked from "marked";
 import highlightCss from "highlightjs/styles/github.css";
 import hljs from "highlightjs/highlight.pack.min.js";
-import { setTimeout } from 'timers';
+import { setTimeout } from "timers";
+
 
 marked.setOptions({
   highlight: function(code) {
@@ -30,11 +45,11 @@ marked.setOptions({
 export default {
   data: function() {
     return {
-      post: {tags:[]},
+      post: { tags: [] },
       postContent: "空空如也~",
       postHtml: "",
       slideshowVisible: false,
-      pageState:{loading:false}
+      pageState: { loading: false }
     };
   },
   computed: {},
@@ -52,9 +67,8 @@ export default {
       this.postHtml = html2;
     },
     async loadPost(route) {
-      
-      this.pageState.loading=true
-      
+      this.pageState.loading = true;
+
       //得到post、postContent
       let postKey = route.path.replace(/^\/post\//, "");
       try {
@@ -68,21 +82,26 @@ export default {
       }
       //render
       this.renderMarkdown();
-      
-      this.pageState.loading=false
-      
+
+      this.pageState.loading = false;
     }
   },
   async beforeRouteUpdate(to, from, next) {
     next();
-  }
+  },
+
+  
 };
 </script>
 
 <style>
 #post-container {
+  height:auto;
   width: calc(100% - 42px);
   padding: 20px;
   overflow-x: hidden;
+  
 }
+
+
 </style>
