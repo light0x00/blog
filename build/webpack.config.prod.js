@@ -6,6 +6,8 @@ const baseConfig = require('./webpack.config.js');
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
+const { _resolve, rootPath } = require('./helpers')
+
 var config = {
     mode: 'production',
     output: {
@@ -41,8 +43,9 @@ var config = {
             }
         ),
         new CopyPlugin([
-            { from: 'public/sitemap.xml', to: 'sitemap.xml' },
-            { from: 'public/CNAME', to: '' },
+            { from: _resolve('public/sitemap.xml'), to: 'sitemap.xml' },
+            { from: _resolve('public/robots.txt'), to: 'robots.txt' },
+            { from: _resolve('public/CNAME'), to: 'CNAME' },
         ])
     ]
 }
