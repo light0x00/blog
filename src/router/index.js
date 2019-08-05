@@ -6,6 +6,7 @@ import { isMobile } from '@/common/utils'
 Vue.use(VueRouter);
 
 const routes = [
+
     {
         path: "/",
         component: () => import('@/views/layout-mobile'),
@@ -81,6 +82,10 @@ const routes = [
                 props: (route) => ({ query: {tag:route.query.tag} })
             }
         ]
+    },
+    {
+        path: "*",
+        redirect:"/"
     }
 ]
 
