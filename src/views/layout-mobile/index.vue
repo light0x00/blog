@@ -75,7 +75,7 @@ export default {
 .content-wrapper {
   display: flex;
   justify-content: center;
-  height: calc(100% - 50px);
+  /* height: calc(100% - 50px); */
   position: relative;
   top: 50px;
 }

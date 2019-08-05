@@ -31,6 +31,7 @@ export default {
 <style scoped>
 .tag-wrapper {
   width: 100%;
+  height:100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
