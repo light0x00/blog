@@ -43,8 +43,8 @@ var config = {
             }
         ),
         new CopyPlugin([
-            { from: _resolve('public/sitemap.xml'), to: 'sitemap.xml' },
-            { from: _resolve('public/robots.txt'), to: 'robots.txt' },
+            { from: _resolve('public/seo/sitemap.xml'), to: 'sitemap.xml' },
+            { from: _resolve('public/seo/robots.txt'), to: 'robots.txt' },
             { from: _resolve('public/CNAME'), to: '' },
             { from: _resolve('public/pages'), to: '' },
         ])
