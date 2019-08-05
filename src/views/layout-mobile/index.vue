@@ -4,17 +4,14 @@
     <!-- position:fixed;width:100%;height:50px;z-index:1;transition: top 0.3s; -->
     <navbar
       id="navbar"
-      style="position: fixed;z-index: 10;width:100%;"
+      style="position: fixed;z-index: 10;width:100vw;"
       v-bind:sidebarVisible.sync="sidebarVisible"
     ></navbar>
     <!-- 侧边栏 -->
     <!-- <div style="position:fixed;height:100%;left:0;width:70%;"> -->
-    <sidebar :visible.sync="sidebarVisible"></sidebar>
+    <sidebar style="width:100%" :visible.sync="sidebarVisible"></sidebar>
     <!-- 博客 -->
-    <div
-      style="display:flex;justify-content:center;height: calc(100% - 50px);position:relative;top:50px"
-      :style="{width:isMobile()?'100%':'60%'}"
-    >
+    <div class="content-wrapper" :style="{width:isMobile()?'100vw':'60vw'}">
       <router-view></router-view>
     </div>
   </div>
@@ -24,7 +21,6 @@
 import navbar from "@/views/navbar";
 import sidebar from "@/views/sidebar";
 import { isMobile } from "@/common/utils";
-
 
 import Headroom from "headroom.js";
 
@@ -46,9 +42,9 @@ export default {
       offset: 205,
       tolerance: 10,
       classes: {
-        pinned : "navbar--pinned",
+        pinned: "navbar--pinned",
         // when scrolling down
-        unpinned : "navbar--unpinned",
+        unpinned: "navbar--unpinned"
       }
     });
     headroom.init();
@@ -72,8 +68,15 @@ export default {
   animation: fade-in 0.5s forwards;
 }
 
-.headroom--top{
-  position:static
+.headroom--top {
+  position: static;
 }
 
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  height: calc(100% - 50px);
+  position: relative;
+  top: 50px;
+}
 </style>

@@ -23,11 +23,11 @@ const routes = [
         children: [
             {
                 path: "",
-                component: () => import('@/views/post'),
+                component: () => import(/* webpackPrefetch:true */'@/views/post'),
             },
             {
                 path: "*",
-                component: () => import('@/views/post'),
+                component: () => import(/* webpackPrefetch:true */'@/views/post'),
             }
         ]
     },

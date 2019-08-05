@@ -1,20 +1,8 @@
 <template>
   <div style="width:100%;" v-loading="pageState.loading" class="page-component__scroll">
-    <div id="post-container" class="markdown-body el-scrollbar__wrap" v-html="postHtml"></div>
+    <div id="post-container" class="markdown-body" v-html="postHtml"></div>
 
     <post-tags :tags="post.tags"></post-tags>
-
-      <!-- <div
-        style="{
-        height: 100%;
-        width: 100%;
-        background-color: #f2f5f6;
-        box-shadow: 0 0 6px rgba(0,0,0, .12);
-        text-align: center;
-        line-height: 40px;
-        color: #1989fa;
-      }"
-      >UP</div> -->
       <backtop></backtop>
   </div>
 </template>
@@ -24,9 +12,10 @@ import axios from "axios";
 import { mapState } from "vuex";
 
 import marked from "marked";
-import highlightCss from "highlightjs/styles/github.css";
-import hljs from "highlightjs/highlight.pack.min.js";
+
 import { setTimeout } from "timers";
+
+import hljs from './highlight'
 
 
 marked.setOptions({
@@ -100,7 +89,7 @@ export default {
   width: calc(100% - 42px);
   padding: 20px;
   overflow-x: hidden;
-  
+    
 }
 
 

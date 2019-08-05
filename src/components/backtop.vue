@@ -1,5 +1,5 @@
 <template>
-  <div class="backtop-wrapper" style>
+  <div class="backtop-wrapper" @click="doBacktop">
     <i class="el-icon-caret-top"></i>
   </div>
 </template>
@@ -26,6 +26,13 @@ export default {
     this.$once("hook:beforeDestroy", function() {
       headroom.destroy();
     });
+  },
+  methods:{
+      doBacktop(){
+          console.log(document.body.scrollTop)
+        //   window.scrollTo({top:0})
+        //   console.log(document.body.scrollTop)
+      }
   }
 };
 </script>

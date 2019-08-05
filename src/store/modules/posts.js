@@ -45,21 +45,6 @@ const getters = {
         })
         groupByYear = _.sortBy(groupByYear, (p) => p.year).reverse()
 
-        // console.log(_.fromPairs({a:"aa",b:"bb"}))
-        // console.log(_.map({a:"aa",b:"bb"},(v,k)=>{
-        //     console.log(v,k)
-        //     return v;
-        // }))
-
-        // console.log(_.partition(postList,(a)=>a.year))
-
-        // let r = _.mapKeys(groupByYear,(k)=>{console.log(k);return k})
-        // console.log(JSON.stringify(r))
-        // groupByYear = _.sortBy(groupByYear,(k,v)=>{
-        //     console.log(k,v);
-        //     return k
-        // })
-
         return groupByYear;
     },
     getTags(state) {

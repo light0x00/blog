@@ -1,9 +1,10 @@
 User-agent: *
-Disallow: /css/
-Disallow: /images/
-Disallow: /content/
-Disallow: /ui/
-Disallow: /js/
-Disallow: /*?* 
+Allow: /
+Allow: /archive/
+Allow: /post/
+Allow: /tags/
+Allow: /category/
+
+Disallow: /static/
 
 Sitemap: https://blog.light0x00.com/sitemap.xml
