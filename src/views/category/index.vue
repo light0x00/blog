@@ -1,5 +1,5 @@
 <template>
-    <PostTreeMenu></PostTreeMenu>
+    <PostTreeMenu style="margin:15px"></PostTreeMenu>
 </template>
 
 <script>

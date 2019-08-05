@@ -1,7 +1,13 @@
 
 .full-box{
+    width: 100%;
+    height: 100%;
+}
+
+
+.full-screen {
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 a{

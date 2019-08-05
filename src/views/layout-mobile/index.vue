@@ -1,18 +1,16 @@
 <template>
-  <div class="full-box" style="display:flex;justify-content:center">
+  <div class="full-box">
     <!-- 导航栏 -->
-    <!-- position:fixed;width:100%;height:50px;z-index:1;transition: top 0.3s; -->
     <navbar
-      id="navbar"
-      style="position: fixed;z-index: 10;width:100vw;"
+      class="navbar-wrapper"
+      :pin.sync="navbarPin"
       v-bind:sidebarVisible.sync="sidebarVisible"
     ></navbar>
     <!-- 侧边栏 -->
-    <!-- <div style="position:fixed;height:100%;left:0;width:70%;"> -->
-    <sidebar style="width:100%" :visible.sync="sidebarVisible"></sidebar>
+    <sidebar :visible.sync="sidebarVisible"></sidebar>
     <!-- 博客 -->
-    <div class="content-wrapper" :style="{width:isMobile()?'100vw':'60vw'}">
-      <router-view></router-view>
+    <div class="content-wrapper" :style="{top:navbarPin?'51px':'0'}">
+      <router-view :style="{width:isMobile()?'100vw':'60vw'}"></router-view>
     </div>
   </div>
 </template>
@@ -22,8 +20,6 @@ import navbar from "@/views/navbar";
 import sidebar from "@/views/sidebar";
 import { isMobile } from "@/common/utils";
 
-import Headroom from "headroom.js";
-
 export default {
   name: "layout",
   components: {
@@ -32,25 +28,13 @@ export default {
   },
   data: function() {
     return {
-      sidebarVisible: false
+      sidebarVisible: false,
+      navbarPin: true
     };
   },
-  mounted() {
-    let eleNavbar = document.getElementById("navbar");
-
-    var headroom = new Headroom(eleNavbar, {
-      offset: 205,
-      tolerance: 10,
-      classes: {
-        pinned: "navbar--pinned",
-        // when scrolling down
-        unpinned: "navbar--unpinned"
-      }
-    });
-    headroom.init();
-    this.$once("hook:beforeDestroy", function() {
-      headroom.destroy();
-    });
+  methods: {
+    onNavbarPin() {},
+    onNavbarUnpin() {}
   }
 };
 </script>
@@ -60,23 +44,24 @@ export default {
   width: 70%;
   color: red;
 }
-.navbar--unpinned {
-  animation: fade-out 0.5s forwards;
-}
 
-.navbar--pinned {
-  animation: fade-in 0.5s forwards;
-}
-
-.headroom--top {
-  position: static;
-}
-
-.content-wrapper {
+.navbar-wrapper {
+  position: fixed;
   display: flex;
   justify-content: center;
-  /* height: calc(100% - 50px); */
+  flex-wrap: nowrap;
+  border-bottom: solid 1px #e6e6e6;
+  background-color: #fff;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+  height: 50px;
+  width: 100%;
+  z-index:10;
+}
+.content-wrapper {
+  display: flex;
+  height: calc(100% - 51px);
+  justify-content: center;
   position: relative;
-  top: 50px;
+  /* top: 50px; */
 }
 </style>

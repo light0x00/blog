@@ -1,8 +1,5 @@
 <template>
-  <div class="full-box">
     <router-view />
-  </div>
-  
 </template>
 
 <script lang="js">
