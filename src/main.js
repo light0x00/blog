@@ -1,13 +1,18 @@
 import '@/config/premain'  //有副作用!
-import '@/styles/global.css'
 
+import '@/styles/global.css'
 import Vue from 'vue';
-import router from '@/router'
-import store from '@/store'
-import App from './app.vue'
 
 import ElementInstaller from "@/config/ElementInstaller";
 import AppInstaller from "@/config/AppInstaller";
+
+// plugin必须在组件之前注册,因为可能会被其他组件使用!
+Vue.use(ElementInstaller)
+Vue.use(AppInstaller)
+
+import router from '@/router'
+import store from '@/store'
+import App from './app.vue'
 
 let vm = new Vue(
   {
@@ -18,8 +23,6 @@ let vm = new Vue(
   }
 )
 
-Vue.use(ElementInstaller)
-Vue.use(AppInstaller)
 
 
 

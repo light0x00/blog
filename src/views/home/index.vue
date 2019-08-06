@@ -10,7 +10,7 @@
 <script>
 export default {
   mounted(){
-    this.$store.dispatch("music/initPlayer")
+    this.$store.dispatch("player/initPlayer")
   }
   
 };

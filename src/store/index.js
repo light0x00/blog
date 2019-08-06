@@ -6,7 +6,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
       modules:{
         posts:require('./modules/posts').default,
-        music:require('./modules/player').default,
+        player:require('./modules/player').default,
       }
   })
 
