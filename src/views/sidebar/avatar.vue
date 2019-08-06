@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       rotateDeg: 0, //当前度数
-      rotateRange: 180, //每次旋转总度数
+      rotateRange: 90, //每次旋转总度数
       isRotating: false,
       isRotatingBack: false, //是否正往回旋转!
       message: "hhhhh",
@@ -44,9 +44,8 @@ export default {
     this.rotateAvatar();
   },
   methods: {
-    onClickAvatar(){
-
-        this.$store.dispatch("player/toggle")
+    onClickAvatar() {
+      this.$store.dispatch("player/toggle");
     },
     showMessage(msg) {
       this.message = msg;
@@ -61,9 +60,19 @@ export default {
     rotateAvatar() {
       let avatar = document.getElementById("myAvatar");
 
+      if (this.isMobile()) {
+        avatar.addEventListener("click", () => {
+          rotate1(() => rotate2());
+        });
+      } else {
+        avatar.addEventListener("mouseenter", () => rotate1());
+        avatar.addEventListener("mouseleave", () => rotate2());
+      }
+
       let thisRef = this;
 
-      avatar.addEventListener("mouseenter", () => {
+      const rotate1 = onFinish => {
+        console.log(onFinish);
         if (thisRef.isRotatingBack || thisRef.isRotating) {
           //防止回旋过程中 再次触发旋转
           console.log("回旋过程中再次触发!!");
@@ -77,31 +86,40 @@ export default {
         let beginDeg = thisRef.rotateDeg;
         let changeDeg = thisRef.rotateRange - thisRef.rotateDeg;
         let duration = 30;
-        rotate(0, duration, offset => {
-          if (offset == duration) {
+        thisRef.isRotating = true;
+        rotate(
+          0,
+          duration,
+          offset => {
+            return Tween.Sine.easeIn(offset, beginDeg, changeDeg, duration);
+          },
+          () => {
             thisRef.isRotating = false;
-          } else if (offset == duration) {
-            thisRef.isRotating = true;
+            if (onFinish) onFinish();
           }
-          return Tween.Sine.easeIn(offset, beginDeg, changeDeg, duration);
-        });
-      });
+        );
+      };
 
-      avatar.addEventListener("mouseleave", () => {
+      const rotate2 = onFinish => {
         let beginDeg = thisRef.rotateDeg;
         let changeDeg = 0 - thisRef.rotateDeg; //因为希望回到初始的0度,所以设置变化量为负数
         let duration = 90;
 
-        rotate(0, duration, offset => {
-          if (offset == duration) {
-            thisRef.isRotatingBack = false;
-          } else if (offset == 1) {
-            thisRef.isRotatingBack = true;
-          }
+        thisRef.isRotatingBack = true;
 
-          return Tween.Elastic.easeOut(offset, beginDeg, changeDeg, duration);
-        });
-      });
+        rotate(
+          0,
+          duration,
+          offset => {
+            return Tween.Elastic.easeOut(offset, beginDeg, changeDeg, duration);
+          },
+          () => {
+            thisRef.isRotatingBack = false;
+            if (onFinish) onFinish();
+          }
+        );
+      };
+
       /**
        * @offset 当前帧
        * @beginDeg 开始值
@@ -109,15 +127,16 @@ export default {
        * @duration 持续帧数
        * @fn 动画函数
        */
-      function rotate(offset, duration, fn) {
+      function rotate(offset, duration, fn, onFinish) {
         window.requestAnimationFrame(() => {
           if (offset > duration) {
+            if (onFinish) onFinish();
             return;
           }
           let r = fn(offset);
           thisRef.rotateDeg = parseInt(r); //更新当前度数
           avatar.style.transform = `rotate(${thisRef.rotateDeg}deg)`; //旋转
-          rotate(++offset, duration, fn);
+          rotate(++offset, duration, fn, onFinish);
         });
       }
     }

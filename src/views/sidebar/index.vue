@@ -28,14 +28,14 @@
           src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
         />
       </a>
-      <a href="/" class="sidebar-a-button" target="_blank">
+      <a href="https://github.com/light0x00" target="_blank" class="sidebar-a-button">
         <img
           width="60"
           alt="GitHub Logomark"
           src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
         />
       </a>
-      <a href="/" class="sidebar-a-button">
+      <a href="https://github.com/light0x00" target="_blank" class="sidebar-a-button">
         <img
           width="60"
           alt="GitHub Logomark"
@@ -79,6 +79,8 @@ export default {
 /* drawer */
 .sidebar-wrapper .el-drawer.ltr {
   /* background-color: #24292e; */
+  /* 消息气泡在手机端的可见 */
+  overflow: visible;
 }
 
 /* drawer-header */
@@ -92,7 +94,6 @@ export default {
   color: #fff;
   margin-bottom: 50px;
 }
-
 
 /* drawer-body */
 .el-drawer__body {
@@ -124,6 +125,5 @@ export default {
 }
 
 .sidebar-a-button {
-  
 }
 </style>
