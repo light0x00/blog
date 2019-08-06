@@ -8,7 +8,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted(){
+    this.$store.dispatch("music/initPlayer")
+  }
+  
+};
 </script>
 
 <style scoped>

@@ -5,22 +5,25 @@ import { isMobile } from '@/common/utils'
 
 Vue.use(VueRouter);
 
+import Layout from '@/views/layout-mobile'
+import Home from '@/views/home'
+
 const routes = [
 
     {
         path: "/",
-        component: () => import('@/views/layout-mobile'),
+        component: Layout,
         children: [
             {
                 path: '',
-                component: require("@/views/home").default
+                component:Home
             }
         ]
     },
     {
         path: "/post",
         // component: () => isMobile()?import('@/views/layout-mobile'):import('@/views/layout'),
-        component: () => import('@/views/layout-mobile'),
+        component: Layout,
         children: [
             {
                 path: "",
@@ -34,7 +37,7 @@ const routes = [
     },
     {
         path: "/about",
-        component: () => import('@/views/layout-mobile'),
+        component: Layout,
         children: [
             {
                 path: '',
@@ -44,7 +47,7 @@ const routes = [
     },
     {
         path: "/archive",
-        component: () => import('@/views/layout-mobile'),
+        component: Layout,
         children: [
             {
                 path: '',
@@ -54,7 +57,7 @@ const routes = [
     },
     {
         path: "/category",
-        component: () => import('@/views/layout-mobile'),
+        component: Layout,
         children: [
             {
                 path: '',
@@ -64,7 +67,7 @@ const routes = [
     },
     {
         path: "/tags",
-        component: () => import('@/views/layout-mobile'),
+        component: Layout,
         children: [
             {
                 path: '',
@@ -74,7 +77,7 @@ const routes = [
     },
     {
         path: "/list",
-        component: () => import('@/views/layout-mobile'),
+        component: Layout,
         children: [
             {
                 path: '',
@@ -107,9 +110,9 @@ router.beforeEach(async (to, from, next) => {
 
     NProgress.start()
     if(to.path=="/"){
-        store.commit("music/show")
+        store.commit("player/show")
     }else{
-        store.commit("music/hide")
+        store.commit("player/hide")
     }
     next()
 })

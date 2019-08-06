@@ -11,9 +11,9 @@ const { _resolve, rootPath } = require('./helpers')
 var config = {
     mode: 'production',
     output: {
-        // publicPath: _resolve("dist/"),
+        publicPath: _resolve("dist/"),
         /* 一定要以/结尾!!! */
-        publicPath: "https://blog.light0x00.com/",
+        // publicPath: "https://blog.light0x00.com/",
     },
     // devtool: 'hidden-source-map',
     devtool: false,
@@ -29,7 +29,7 @@ var config = {
                     },
                     output: {
                         /* (default false) true or "all" to preserve all comments,"some" to preserve some comments, a regular expression string (e.g. /^!/) or a function.  */
-                        comments: true,
+                        comments: false,
                     },
                 },
             }),

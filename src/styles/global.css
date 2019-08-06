@@ -23,6 +23,15 @@ a:hover{
     text-decoration: underline;
 }
 
+/* 音乐控件的显示/隐藏 */
+.music-box-hide {
+    animation: fade-out .5s forwards;
+}
+
+.music-box-show  {
+    animation: fade-in .5s forwards;
+}
+
 /* ---------------------------- markdown ----------------------------*/
 
 .markdown-body{

@@ -43,14 +43,14 @@ export default {
         // when scrolling down
         unpinned: "navbar--unpinned"
       },
-       onPin : function() {
-         console.log("pin!!!")
-         thisRef.$emit("update:pin",true)
-       },
-      onUnpin : function() {
-        console.log("unpin!!!")
-         thisRef.$emit("update:pin",false)
+      onPin: function() {
+        console.log("pin!!!");
+        thisRef.$emit("update:pin", true);
       },
+      onUnpin: function() {
+        console.log("unpin!!!");
+        thisRef.$emit("update:pin", false);
+      }
     });
     headroom.init();
     this.$once("hook:beforeDestroy", function() {
@@ -65,12 +65,16 @@ export default {
   border-bottom: none;
   width: calc(100% - 50px);
   height: 100%;
-   background-color: inherit;
+  background-color: inherit;
+}
+
+.navbar-menu.el-menu{
+  border: none;
 }
 .navbar-menu .el-menu-item {
-  height:100%;
+  height: 100%;
   display: flex;
-  align-items:center;
+  align-items: center;
 }
 
 .button-box {
@@ -95,5 +99,4 @@ export default {
 .headroom--top {
   position: static;
 }
-
 </style>

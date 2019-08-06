@@ -1,7 +1,7 @@
 /* element */
 // import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/element-theme.scss'
-import { Button, Link,Icon, Backtop, Loading, Menu, MenuItem, MenuItemGroup, Submenu, Drawer, Avatar, Timeline, TimelineItem, Card, Tag } from 'element-ui';
+import { Button, Link,Divider,Icon, Backtop, Loading, Menu, MenuItem, MenuItemGroup, Submenu, Drawer, Avatar, Timeline, TimelineItem, Card, Tag } from 'element-ui';
 
 
 export default {
@@ -20,6 +20,7 @@ export default {
         Vue.component(Link.name, Link)
         Vue.component(Backtop.name, Backtop)
         Vue.component(Icon.name, Icon)
+        Vue.component(Divider.name, Divider)
         Vue.use(Loading)
     }
 }

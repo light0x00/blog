@@ -1,22 +1,12 @@
 
 /* player */
-import "APlayer/dist/APlayer.min.css";
-import APlayer from "APlayer";
-const ap = new APlayer({
-  container: document.getElementById("music-box"),
-  audio: PLAY_LIST,
-  // mini:true,
-  fixed: true,
-  order:"random",
-  autoplay:true
-});
 
 
 const state = {
-  playList: PLAY_LIST,
-  player: ap,
+  playList: [],
+  player: null,
   visible: true,
-  random:true
+  random: true
 }
 
 
@@ -39,14 +29,28 @@ const mutations = {
       let classList = document.getElementById("music-box").classList
       classList.remove("music-box-hide")
       classList.add("music-box-show")
-      state.visible=true
+      state.visible = true
     }
 
   }
 }
 
 const actions = {
+  async initPlayer({ state, getters }) {
+    state.playList = await import("@/config/play-list")
+    await import ("APlayer/dist/APlayer.min.css")
+    let {default:APlayer} = await import("APlayer");
+    const ap = new APlayer({
+      container: document.getElementById("music-box"),
+      audio: state.playList,
+      // mini:true,
+      fixed: true,
+      order: "random",
+      autoplay: false
+    });
+    state.player=ap;
 
+  }
 }
 
 export default {

@@ -5,9 +5,6 @@
       <navbar></navbar>
     </div>
     <div style="display:flex;justify-content:center; height: calc(100% - 20px)">
-      <div style="width:300px">
-        <!-- <Blog-Menu></Blog-Menu> -->
-      </div>
       <div style="width:1000px;">
         <router-view></router-view>
       </div>
@@ -16,14 +13,11 @@
 </template>
 
 <script>
-// import menu from "@/views/menu";
 
-import navbar from "@/views/navbar";
-import sidebar from "@/views/sidebar";
 export default {
   components: {
-    navbar: navbar,
-    sidebar: sidebar
+    navbar: ()=>import("@/views/navbar"),
+    sidebar: ()=>import("@/views/sidebar")
   }
 };
 </script>

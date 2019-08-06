@@ -9,7 +9,10 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
-let detector = require("./detector")
+let postDetector = require("./post-detector")
+
+
+
 /* 工具 */
 const { _resolve, rootPath } = require('./helpers')
 
@@ -207,7 +210,7 @@ const config = {
 };
 
 
-let music = require(_resolve("build/music.js"))
+let music = require(_resolve("build/music-detector.js"))
 
 module.exports = async function(){
 
@@ -215,7 +218,7 @@ module.exports = async function(){
 
     config.plugins.push(
         new webpack.DefinePlugin({
-            POST_TREES: detector({
+            POST_TREES: postDetector({
                 contextPath: "posts",
                 postRootPath: _resolve("public/posts"),
             }),

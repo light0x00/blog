@@ -5,8 +5,8 @@ const state = {
     curPost: {}
 }
 
-import { format } from 'date-fns'
-import * as _ from 'lodash-es'
+import {format} from 'date-fns'
+import * as _ from 'lodash-es' //这样不会影响tree-shaking
 
 const getters = {
     getPostTrees(state, getters, rootState) {
