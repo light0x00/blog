@@ -1,11 +1,12 @@
 /* element */
-// import 'element-ui/lib/theme-chalk/index.css'
-import '@/styles/element-theme.scss'
-import { Button, Link,Divider,Icon, Backtop, Loading, Menu, MenuItem, MenuItemGroup, Submenu, Drawer, Avatar, Timeline, TimelineItem, Card, Tag } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css'
+// import '@/styles/element-theme.scss'
+import { Tooltip,Button, Link,Divider,Icon, Backtop, Loading, Menu, MenuItem, MenuItemGroup, Submenu, Drawer, Avatar, Timeline, TimelineItem, Card, Tag } from 'element-ui';
 
 
 export default {
     install(Vue, options) {
+        Vue.component(Tooltip.name, Tooltip)
         Vue.component(Menu.name, Menu)
         Vue.component(MenuItem.name, MenuItem)
         Vue.component(MenuItemGroup.name, MenuItemGroup)

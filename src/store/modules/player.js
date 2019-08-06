@@ -36,21 +36,62 @@ const mutations = {
 }
 
 const actions = {
-  async initPlayer({ state, getters }) {
-    state.playList = await import("@/config/play-list")
-    await import ("APlayer/dist/APlayer.min.css")
-    let {default:APlayer} = await import("APlayer");
+  async initPlayer({ state }) {
+    let { default: playList } = await import("@/config/play-list")
+    state.playList = playList;
+    await import("APlayer/dist/APlayer.min.css")
+    let { default: APlayer } = await import("APlayer");
     const ap = new APlayer({
       container: document.getElementById("music-box"),
       audio: state.playList,
       // mini:true,
       fixed: true,
       order: "random",
-      autoplay: false
+      autoplay: false,
+      // preload
     });
-    state.player=ap;
+    state.player = ap;
 
-  }
+    ap.on('error', function (e) {
+      console.log('播放失败,可能所在地区不支持网易云!(是否有翻墙?)',e);
+      // ap.destroy()
+    });
+
+  },
+  async play({ state, dispatch }) {
+    if (state.player == null) {
+      await dispatch("initPlayer")
+    }
+    if (state.player) {
+      state.player.play()
+    }
+  },
+  //播放或暂停
+  async toggle({ state, dispatch }) {
+    if (state.player == null) {
+      await dispatch("initPlayer")
+    }
+    if (state.player) {
+      state.player.toggle()
+    }
+  },
+   //播放或暂停
+   async last({ state, dispatch }) {
+    if (state.player == null) {
+      await dispatch("initPlayer")
+    }
+    if (state.player) {
+      state.player.skipBack()
+    }
+  },
+  async next({ state, dispatch }) {
+    if (state.player == null) {
+      await dispatch("initPlayer")
+    }
+    if (state.player) {
+      state.player.skipForward()
+    }
+  },
 }
 
 export default {

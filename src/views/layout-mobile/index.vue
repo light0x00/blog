@@ -20,6 +20,8 @@ import navbar from "@/views/navbar";
 import sidebar from "@/views/sidebar";
 import { isMobile } from "@/common/utils";
 
+console.log(sidebar)
+
 export default {
   name: "layout",
   components: {
