@@ -16,13 +16,12 @@ const routes = [
         children: [
             {
                 path: '',
-                component:Home
+                component: Home
             }
         ]
     },
     {
-        path: "/post",
-        // component: () => isMobile()?import('@/views/layout-mobile'):import('@/views/layout'),
+        path: window.APP_CONFIG["postRoutePrefix"]||"/post",
         component: Layout,
         children: [
             {
@@ -82,20 +81,23 @@ const routes = [
             {
                 path: '',
                 component: () => import('@/views/list'),
-                props: (route) => ({ query: {tag:route.query.tag} })
+                props: (route) => ({ query: { tag: route.query.tag } })
             }
         ]
     },
     {
         path: "*",
-        redirect:"/"
+        redirect: "/"
     }
 ]
 
 const router = new VueRouter({
     routes: routes,
+    /* devServer运行时是输出到内存的,这会导致预渲染插件无法根据磁盘文件渲染
+        所以devServer模式使用hash,避免浏览器向服务器请求预渲染页导致404 */
+    mode:window.APP_CONFIG["activeProfile"]==="devServer"?"hash":"history"
+      
 })
-
 
 //-----------------------------------hook
 
@@ -109,9 +111,9 @@ NProgress.configure({ showSpinner: true })
 router.beforeEach(async (to, from, next) => {
 
     NProgress.start()
-    if(to.path=="/"){
+    if (to.path == "/") {
         store.commit("player/show")
-    }else{
+    } else {
         store.commit("player/hide")
     }
     next()

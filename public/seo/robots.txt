@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-Allow: *
-Allow: /archive/
-Allow: /post/
-Allow: /tags/
-Allow: /category/
-
-Sitemap: https://blog.light0x00.com/sitemap.xml

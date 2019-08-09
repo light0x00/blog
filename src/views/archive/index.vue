@@ -10,8 +10,8 @@
         :timestamp="post.month"
         placement="top"
       >
-        <el-card @click="openPost(post)">
-            <router-link :to="'/post/'+post.key"><h3>{{post.title}}</h3></router-link>
+        <el-card >
+            <router-link :to="post.routePath"><h3>{{post.title}}</h3></router-link>
           <!-- <el-link type="primary" @click=""> -->
             <!-- {{post.title}} -->
           <!-- </el-link> -->
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     openPost(post) {
-      $router.push("/post/" + post.key);
+      // $router.push("/post/" + post.key);
     }
   }
 };

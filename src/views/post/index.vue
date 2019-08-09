@@ -3,7 +3,7 @@
     <div id="post-container" class="markdown-body" v-html="postHtml"></div>
 
     <post-tags :tags="post.tags"></post-tags>
-      <backtop></backtop>
+    <backtop></backtop>
   </div>
 </template>
 
@@ -15,8 +15,7 @@ import marked from "marked";
 
 import { setTimeout } from "timers";
 
-import hljs from './highlight'
-
+import hljs from "./highlight";
 
 marked.setOptions({
   highlight: function(code) {
@@ -59,16 +58,12 @@ export default {
       this.pageState.loading = true;
 
       //得到post、postContent
-      let postKey = route.path.replace(/^\/post\//, "");
-      try {
-        this.post = await this.$store.dispatch("posts/getPost", postKey);
-        this.postContent = await this.$store.dispatch(
-          "posts/getPostContent",
-          postKey
-        );
-      } catch (e) {
-        console.log(`文章没有找到: ${postKey}`);
-      }
+      // let postKey = route.path.replace(/(^\/article\/)|(\/$)/g, ""); //从当前路由中提取key
+      this.post = await this.$store.dispatch("posts/getPostByRoute", this.$route);
+      this.postContent = await this.$store.dispatch(
+        "posts/getPostContentByRoute",
+        this.$route
+      );
       //render
       this.renderMarkdown();
 
@@ -77,20 +72,15 @@ export default {
   },
   async beforeRouteUpdate(to, from, next) {
     next();
-  },
-
-  
+  }
 };
 </script>
 
 <style>
 #post-container {
-  height:auto;
+  height: auto;
   width: calc(100% - 42px);
   padding: 20px;
   overflow-x: hidden;
-    
 }
-
-
 </style>

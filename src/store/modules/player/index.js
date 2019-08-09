@@ -37,7 +37,7 @@ const mutations = {
 
 const actions = {
   async initPlayer({ state }) {
-    // let { default: playList } = await import("@/config/play-list")
+    // let { default: playList } = await import("./play-list")
     // state.playList = playList;
     // await import("APlayer/dist/APlayer.min.css")
     // let { default: APlayer } = await import("APlayer");

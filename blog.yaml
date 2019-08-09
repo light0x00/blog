@@ -1,0 +1,7 @@
+#!文档文件(markdown)的挂载路径,如不指定,则使用当前环境的publicPath
+# postPublicPath: 
+postContextPath: 'doc'
+#!本地文档的目录(写markdown的地方)
+postRootPath: 'posts'
+#!文档路由前缀
+postRoutePrefix: '/article'

@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       rotateDeg: 0, //当前度数
-      rotateRange: 90, //每次旋转总度数
+      rotateRange: 90, //每次旋转总度数(旋转幅度)
       isRotating: false,
       isRotatingBack: false, //是否正往回旋转!
       message: "hhhhh",
@@ -40,8 +40,9 @@ export default {
   },
   computed: {},
   mounted() {
-    this.autoRandomMsg();
-    this.rotateAvatar();
+    // this.autoRandomMsg();
+    this.bindRotateEvent();
+    this.showMessage("hello")
   },
   methods: {
     onClickAvatar() {
@@ -57,31 +58,28 @@ export default {
         if (randomBoolean()) this.showMessage(getRandomMsg());
       }, 5000);
     },
-    rotateAvatar() {
+    randomMsg() {
+      if (randomBoolean()) this.showMessage(getRandomMsg());
+    },
+    bindRotateEvent() {
       let avatar = document.getElementById("myAvatar");
-
-      if (this.isMobile()) {
-        avatar.addEventListener("click", () => {
-          rotate1(() => rotate2());
-        });
-      } else {
-        avatar.addEventListener("mouseenter", () => rotate1());
-        avatar.addEventListener("mouseleave", () => rotate2());
-      }
 
       let thisRef = this;
 
-      const rotate1 = onFinish => {
-        console.log(onFinish);
+      avatar.addEventListener("click", () => {
+        //检查点击频率  (防止导致多个点击事件里同时修改头像的旋转度数)
         if (thisRef.isRotatingBack || thisRef.isRotating) {
-          //防止回旋过程中 再次触发旋转
-          console.log("回旋过程中再次触发!!");
-          thisRef.showMessage("不要点这么快~(试图掩盖bug");
-          if (Math.random() > 0.5) {
-            setTimeout(() => thisRef.showMessage("这不是bug,是feature~"), 4000);
-          }
+          thisRef.showMessage("不要点这么快~(试图掩盖bug)");
           return;
         }
+        //问候语
+        thisRef.randomMsg();
+        //旋转
+        rotate1(() => rotate2());
+      });
+      //旋转第一阶段
+      const rotate1 = onFinish => {
+        console.log(onFinish);
 
         let beginDeg = thisRef.rotateDeg;
         let changeDeg = thisRef.rotateRange - thisRef.rotateDeg;
@@ -99,7 +97,7 @@ export default {
           }
         );
       };
-
+      //旋转第二阶段
       const rotate2 = onFinish => {
         let beginDeg = thisRef.rotateDeg;
         let changeDeg = 0 - thisRef.rotateDeg; //因为希望回到初始的0度,所以设置变化量为负数

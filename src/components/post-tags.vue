@@ -20,16 +20,16 @@ export default {
 
 <style scoped>
 .post-tag-wrapper{
-  width: 100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
+  display: inline-block;
 }
 .post-tag-wrapper .el-tag{
   cursor: pointer;
-  margin:10px;
+  margin:5px;
 }
 </style>
 

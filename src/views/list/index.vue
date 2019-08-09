@@ -1,9 +1,8 @@
 <template>
   <div class="post-list-wrapper" style="width:100%">
-    <el-card v-for="post in postList" :key="post.key" @click="openPost(post)">
-
-      <div class="post-list-row">
-        <router-link :to="'/post/'+post.key">
+    <el-card class="post-list-row" v-for="post in postList" :key="post.key" @click="openPost(post)">
+      <div  class="post-info">
+        <router-link class="a-button" :to="'/post/'+post.key">
           <h3>{{post.title}}</h3>
         </router-link>
         <post-tags v-if="!isMobile()" :tags="post.tags"></post-tags>
@@ -51,9 +50,22 @@ export default {
 }
 
 .post-list-row {
-  width: 100%;
-  margin-top: 20px;
-  /* display: flex;
-  justify-content: space-around; */
+  width: auto;
+  /* margin-top: 20px; */
+  display: flex;
+  flex-direction:column;
+  /* justify-content: space-around; */
 }
+
+
+
+.post-info{
+  display: flex;
+  /* flex-direction:row; */
+  justify-content:space-between;
+}
+.post-title h3,p{
+  margin:0px;
+}
+
 </style>

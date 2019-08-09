@@ -1,16 +1,20 @@
 const merge = require('webpack-merge');
-const dev = require('./webpack.config.dev.js');
+const basicConfigFn = require('./webpack.config.js');
 const webpack = require('webpack');
 
 const { _resolve } = require('./helpers')
 
 
 const devServerConf = {
+
+    mode: 'development',
+    devtool: 'source-map',
     output: {
+        // publicPath: _resolve("dist/"),
         publicPath: "http://blog-dev.light0x00.com:4092/",
     },
     devServer: {
-        contentBase: [_resolve("dist/"), _resolve("dll/"), _resolve("public/")],
+        contentBase: [_resolve("dist/"), _resolve("public/")],
         // watchContentBase: true,
         host: 'blog-dev.light0x00.com',
         port: 4092,
@@ -37,13 +41,16 @@ const devServerConf = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
+        new webpack.DefinePlugin({
+            // 'process.env.NODE_ENV': JSON.stringify('development'),
+            PROFILE: JSON.stringify("devServer"),
+        }),
     ]
 }
 
 
 
 module.exports = async function() {
-    let devConf = await dev
-    let config = merge(devConf,devServerConf)
-    return config
-}()
+    return basicConfigFn(devServerConf,(finalConfig,storage)=>{
+    })
+}

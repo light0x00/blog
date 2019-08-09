@@ -1,18 +1,18 @@
 
 const webpack = require('webpack');
-const merge = require('webpack-merge');
-const baseConfig = require('./webpack.config.js');
+const basicConfigFn = require('./webpack.config.js');
 
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-
+const EmitSitemapPlugin = require('./tmp/emit-sitemap-plugin')
 const { _resolve, rootPath } = require('./helpers')
+const URL = require('url').URL
+
 
 var config = {
     mode: 'production',
     output: {
         // publicPath: _resolve("dist/"),
-        /* 一定要以/结尾!!! */
         publicPath: "https://blog.light0x00.com/",
     },
     // devtool: 'hidden-source-map',
@@ -38,20 +38,36 @@ var config = {
     plugins: [
         new webpack.DefinePlugin(
             {
-                'process.env.NODE_ENV': JSON.stringify('production'),
+                // 'process.env.NODE_ENV': JSON.stringify('production'),
                 PROFILE: JSON.stringify("prod")
             }
         ),
         new CopyPlugin([
-            { from: _resolve('public/seo/sitemap.xml'), to: 'sitemap.xml' },
-            { from: _resolve('public/seo/robots.txt'), to: 'robots.txt' },
+            // { from: _resolve('public/sitemap.xml'), to: 'sitemap.xml' },
+            { from: _resolve('public/robots.txt'), to: 'robots.txt' },
             { from: _resolve('public/CNAME'), to: '' },
-            { from: _resolve('public/pages'), to: '' },
+            // { from: _resolve('public/'), to: '' },
         ])
     ]
 }
 
+const getPrenderPlugin = require("./webpack-snippets/prender")
 
 module.exports = async function () {
-    return merge(await baseConfig, config)
+    return basicConfigFn(config,
+        //config initialized hook
+        (finalConfig, storage) => {
+            let publicPath = finalConfig.output.publicPath
+            let routePathList = Object.keys(storage.preRenderData);
+            //prender
+            let prenderPluin = getPrenderPlugin(storage.preRenderData)
+            finalConfig.plugins.push(prenderPluin)
+
+            //generate sitemap.xml
+            let urlset = routePathList.map(routePath => new URL(routePath, publicPath).href)
+            finalConfig.plugins.push(new EmitSitemapPlugin({
+                urlset,
+                originPath:_resolve('public/sitemap.xml')
+            }))
+        })
 }
