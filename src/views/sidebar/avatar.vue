@@ -18,10 +18,8 @@
 </template>
 
 <script>
-import Tween from "./tween";
-// import { setTimeout } from "timers";
 import getRandomMsg from "./message";
-import { setInterval } from "timers";
+import shakeDom from "./shake";
 
 function randomBoolean() {
   return Math.random() > 0.5;
@@ -41,8 +39,7 @@ export default {
   computed: {},
   mounted() {
     // this.autoRandomMsg();
-    this.bindRotateEvent();
-    this.showMessage("hello")
+    this.bindShakeEvent();
   },
   methods: {
     onClickAvatar() {
@@ -51,7 +48,7 @@ export default {
     showMessage(msg) {
       this.message = msg;
       this.messageVisible = true;
-      setTimeout(() => (this.messageVisible = false), 2000);
+      setTimeout(() => (this.messageVisible = false), 3000);
     },
     autoRandomMsg() {
       setInterval(() => {
@@ -61,82 +58,17 @@ export default {
     randomMsg() {
       if (randomBoolean()) this.showMessage(getRandomMsg());
     },
-    bindRotateEvent() {
-      let avatar = document.getElementById("myAvatar");
-
+    bindShakeEvent() {
       let thisRef = this;
-
-      avatar.addEventListener("click", () => {
-        //检查点击频率  (防止导致多个点击事件里同时修改头像的旋转度数)
-        if (thisRef.isRotatingBack || thisRef.isRotating) {
-          thisRef.showMessage("不要点这么快~(试图掩盖bug)");
-          return;
-        }
+      let eleAvatar = document.getElementById("myAvatar") 
+      eleAvatar.addEventListener("click", () => {
         //问候语
         thisRef.randomMsg();
-        //旋转
-        rotate1(() => rotate2());
+        this.shake()
       });
-      //旋转第一阶段
-      const rotate1 = onFinish => {
-        console.log(onFinish);
-
-        let beginDeg = thisRef.rotateDeg;
-        let changeDeg = thisRef.rotateRange - thisRef.rotateDeg;
-        let duration = 30;
-        thisRef.isRotating = true;
-        rotate(
-          0,
-          duration,
-          offset => {
-            return Tween.Sine.easeIn(offset, beginDeg, changeDeg, duration);
-          },
-          () => {
-            thisRef.isRotating = false;
-            if (onFinish) onFinish();
-          }
-        );
-      };
-      //旋转第二阶段
-      const rotate2 = onFinish => {
-        let beginDeg = thisRef.rotateDeg;
-        let changeDeg = 0 - thisRef.rotateDeg; //因为希望回到初始的0度,所以设置变化量为负数
-        let duration = 90;
-
-        thisRef.isRotatingBack = true;
-
-        rotate(
-          0,
-          duration,
-          offset => {
-            return Tween.Elastic.easeOut(offset, beginDeg, changeDeg, duration);
-          },
-          () => {
-            thisRef.isRotatingBack = false;
-            if (onFinish) onFinish();
-          }
-        );
-      };
-
-      /**
-       * @offset 当前帧
-       * @beginDeg 开始值
-       * @changeDeg 变化量
-       * @duration 持续帧数
-       * @fn 动画函数
-       */
-      function rotate(offset, duration, fn, onFinish) {
-        window.requestAnimationFrame(() => {
-          if (offset > duration) {
-            if (onFinish) onFinish();
-            return;
-          }
-          let r = fn(offset);
-          thisRef.rotateDeg = parseInt(r); //更新当前度数
-          avatar.style.transform = `rotate(${thisRef.rotateDeg}deg)`; //旋转
-          rotate(++offset, duration, fn, onFinish);
-        });
-      }
+    },
+    shake() {
+      shakeDom({ target: document.getElementById("myAvatar") });
     }
   }
 };
@@ -169,6 +101,7 @@ export default {
   width: 90px;
   border-radius: 50px;
   border: 5px solid white;
+  display:inline-block
 }
 
 .sidebar-bubble {

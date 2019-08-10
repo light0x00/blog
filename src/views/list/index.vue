@@ -1,8 +1,8 @@
 <template>
   <div class="post-list-wrapper" style="width:100%">
-    <el-card class="post-list-row" v-for="post in postList" :key="post.key" @click="openPost(post)">
+    <el-card class="post-list-row" v-for="post in postList" :key="post.key" >
       <div  class="post-info">
-        <router-link class="a-button" :to="'/post/'+post.key">
+        <router-link class="a-button" :to="post.routePath">
           <h3>{{post.title}}</h3>
         </router-link>
         <post-tags v-if="!isMobile()" :tags="post.tags"></post-tags>

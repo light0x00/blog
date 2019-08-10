@@ -12,7 +12,7 @@
   >
     <!-- 头 -->
 
-    <my-avator slot="title"></my-avator>
+    <my-avator ref="myAvator" slot="title"></my-avator>
     <!-- 中间 -->
     <h3 style="text-align:center">light0x00</h3>
     <h1 class="sidebar-slogen-text">
@@ -62,6 +62,14 @@ export default {
     return {
       fuck: true
     };
+  },
+  watch: {
+    visible(n, o) {
+      if (n) {
+        this.$refs["myAvator"].shake();
+        this.$refs["myAvator"].showMessage("Hello!");
+      }
+    }
   },
   methods: {
     syncVisible(e) {

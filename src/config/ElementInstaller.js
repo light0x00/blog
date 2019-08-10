@@ -1,6 +1,6 @@
 /* element */
-import 'element-ui/lib/theme-chalk/index.css'
-// import '@/styles/element-theme.scss'
+// import 'element-ui/lib/theme-chalk/index.css'
+import '@/styles/element-theme.scss'
 import { Tooltip,Button, Link,Divider,Icon, Backtop, Loading, Menu, MenuItem, MenuItemGroup, Submenu, Drawer, Avatar, Timeline, TimelineItem, Card, Tag } from 'element-ui';
 
 

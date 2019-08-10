@@ -102,18 +102,18 @@ const { readSync: readYamlSync } = require("node-yaml")
 async function initStorerage(config) {
 
     //1. fetch and adjust global config 
-    let { postPublicPath, postRoutePrefix, postRootPath, postContextPath } = readYamlSync(_resolve("blog.yaml"))
-    if (isAnyEmpty(postRoutePrefix, postRootPath, postContextPath)) {
-        throw new Error("blog.yaml not valid!")
-    }
+    // let { postPublicPath, postRoutePrefix, postRootPath, postContextPath,descFileName } = readYamlSync(_resolve("blog.yaml"))
+    let { postPublicPath, postRoutePrefix, postRootPath, postContextPath,descFileName } = readYamlSync(_resolve("blog.yaml"))
+  
     if (!path.isAbsolute(postRootPath)) {
         postRootPath = _resolve(postRootPath)
     }
     postPublicPath = postPublicPath || config.output.publicPath;
+    
     //2. fetch posts\ prender data
     let postDetector = require(_resolve("build/post-detector/index"))
     const { postTrees, preRenderData } = postDetector({
-        postPublicPath, postContextPath, postRoutePrefix, postRootPath
+        postPublicPath, postContextPath, postRoutePrefix, postRootPath,descFileName
     })
 
     //3. fetch 163 music  

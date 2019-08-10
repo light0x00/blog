@@ -3,8 +3,9 @@ const webpack = require('webpack');
 const basicConfigFn = require('./webpack.config.js');
 
 const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const EmitSitemapPlugin = require('./tmp/emit-sitemap-plugin')
+const EmitSitemapPlugin = require('./webpack-snippets/emit-sitemap-plugin')
 const { _resolve, rootPath } = require('./helpers')
 const URL = require('url').URL
 
@@ -33,6 +34,7 @@ var config = {
                     },
                 },
             }),
+            new OptimizeCSSAssetsPlugin({})
         ],
     },
     plugins: [
@@ -67,7 +69,8 @@ module.exports = async function () {
             let urlset = routePathList.map(routePath => new URL(routePath, publicPath).href)
             finalConfig.plugins.push(new EmitSitemapPlugin({
                 urlset,
-                originPath:_resolve('public/sitemap.xml')
+                originXmlPath:_resolve('public/sitemap.xml'),
+                originTxtPath:_resolve('public/sitemap.txt')
             }))
         })
 }

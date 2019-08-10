@@ -1,30 +1,50 @@
 <template>
-  <div class="wrapper full-box">
-    <h3 style="padding:10px">Long long the stream that runs to the sea.</h3>
-    <div>
-      <router-link to="/archive">文章列表</router-link>
-    </div>
+  <div class="home-wrapper">
+    <h3 style="padding:10px" class="home-slogan">Long long the stream that runs to the sea.</h3>
+    <router-link to="/archive" class="home-btn">
+      <i class="el-icon-d-arrow-right"></i>MORE
+    </router-link>
   </div>
 </template>
 
 <script>
 export default {
-  mounted(){
-    this.$store.dispatch("player/initPlayer")
+  mounted() {
+    this.$store.dispatch("player/initPlayer");
   }
-  
 };
 </script>
 
-<style scoped>
-.wrapper {
+<style>
+.home-wrapper {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: fill-available;
 }
-a {
-  font-size:14px;
-  font-weight: bold
+
+.home-wrapper .home-slogan {
+  /* font-family: "Open Sans script=latin rev=1";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400; */
+  /* text-align: center; */
+  /* font-family: 'Helvetica Neue', sans-serif; font-size: 28px;  */
+  /* font-family: 'Lato', sans-serif; font-size: 28px; font-weight: 300;  */
+  color: #909399;
+  font-style: italic;
+  color: #b6b6b6;
+  font-size: 24px;
+  margin-top: 20px;
+  text-align: center;
+  text-shadow: 0 1px 1px #fff;
+
+  /* font-family: 'Lato', arial, serif; line-height: 1.25; margin: 0 0 10px; font-size: 40px; font-weight: bold; */
+}
+.home-btn {
+  font-style: italic;
+  font-size: 14px;
+  /* text-decoration: underline */
 }
 </style>

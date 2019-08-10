@@ -1,5 +1,6 @@
 <template>
   <div class="post-tag-wrapper">
+    <i class="el-icon-price-tag" style="font-size:30px;transform: rotate(90deg);margin-right:10px"></i>
     <el-tag v-for="tag in tags" :key="tag" effect="plain" @click="clickTag(tag)">{{ tag }}</el-tag>
   </div>
 </template>
@@ -11,7 +12,6 @@ export default {
     props:{tags:{type:Array,required:true}},
     methods:{
       clickTag(tag){
-        console.log("!!!",tag)
         this.$router.push({path:'/list',query:{tag}})
       }
     }
@@ -21,11 +21,14 @@ export default {
 <style scoped>
 .post-tag-wrapper{
   display: flex;
-  justify-content: center;
+  align-items: center;
+  /* justify-content: center; */
+
+  /* justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-  align-content: center;
-  display: inline-block;
+  align-content: center; */
+  /* display: inline-block; */
 }
 .post-tag-wrapper .el-tag{
   cursor: pointer;

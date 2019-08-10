@@ -8,6 +8,8 @@ Vue.use(VueRouter);
 import Layout from '@/views/layout-mobile'
 import Home from '@/views/home'
 
+
+
 const routes = [
 
     {
@@ -21,7 +23,7 @@ const routes = [
         ]
     },
     {
-        path: window.APP_CONFIG["postRoutePrefix"]||"/post",
+        path: window.APP_CONFIG["postRoutePrefix"] || "/post",
         component: Layout,
         children: [
             {
@@ -87,7 +89,7 @@ const routes = [
     },
     {
         path: "*",
-        redirect: "/"
+        component: require("@/components/404").default
     }
 ]
 
@@ -95,8 +97,8 @@ const router = new VueRouter({
     routes: routes,
     /* devServer运行时是输出到内存的,这会导致预渲染插件无法根据磁盘文件渲染
         所以devServer模式使用hash,避免浏览器向服务器请求预渲染页导致404 */
-    mode:window.APP_CONFIG["activeProfile"]==="devServer"?"hash":"history"
-      
+    mode: window.APP_CONFIG["activeProfile"] === "devServer" ? "hash" : "history"
+
 })
 
 //-----------------------------------hook
@@ -115,6 +117,14 @@ router.beforeEach(async (to, from, next) => {
         store.commit("player/show")
     } else {
         store.commit("player/hide")
+    }
+
+    //title的动态更改
+    try{
+        let info = await store.dispatch("posts/getPostByRoute", to);
+        document.title=info.title;
+    }catch(e){
+        document.title="Light0x00的博客" 
     }
     next()
 })

@@ -75,7 +75,6 @@ const actions = {
         if (postInfo == null) {
             throw new Error(`can't find post that key is ${key}`)
         }
-        console.log(postInfo.url)
         let { data } = await Axios.request({ type: 'get', url: postInfo.url })
         return data;
     },

@@ -1,8 +1,10 @@
 
-const { isDir, getJson, exists } = require('./utils')
+const { isDir, getJson, exists,getYaml } = require('./utils')
 const { resolve, join } = require("path")
 const fs = require('fs')
 const URL = require("url").URL
+const urljoin = require('url-join');
+
 
 /**
  * 
@@ -28,12 +30,15 @@ function getPostTrees({ rootPath, descFileName, postFileName, publicPath, contex
 
         //获得描述文件
         let desc = null;
-        try {
-            desc = getJson(resolve(nodePath, descFileName))
-            Object.assign(treeNode, desc);
-        } catch (e) {
-            throw new Error(`can't find ${descFileName} in ${nodePath}`)
+        let descFilePath = resolve(nodePath, descFileName)
+        if(descFileName.endsWith(".yaml")){
+            desc = getYaml(descFilePath)
+        }else if(descFileName.endsWith(".json")){
+            desc = getJson(descFilePath)
+        }else{
+            throw new Error(`dont't support extenstion of ${descFileName},should use json or yaml`)
         }
+        Object.assign(treeNode, desc);
 
         //if post
         if (!desc.isGroup) {
@@ -44,10 +49,10 @@ function getPostTrees({ rootPath, descFileName, postFileName, publicPath, contex
             }
             let { title = "undefined", tags = [] } = desc;
             let postPath = nodePath.replace(rootPath, "");
-            let postKey = desc.key || postPath.replace(/^\/|\/$/g, "")
-            let routePath = join(routePrefix, postKey)
-            //url = publicPath + contextPath + postRelativeFilePath
-            let url = publicPath.replace(/\/$/, "") + '/'+ join(contextPath.replace(/^\//, ""), postPath, postFileName)
+            let postKey = desc.key || postPath.replace(/(^\/)|(\/$)/g, "")  //文档key
+            let routePath = join(routePrefix, postKey)  //路由
+            let baseUrl = urljoin(publicPath,contextPath, postPath,"/")  //文档的的基url
+            let url = urljoin(baseUrl,postFileName)    //文档的url
             let { mtimeMS: modifyTime, ctimeMs: createTime } = fs.statSync(postFilePath)
             if (desc.date) {
                 let time = new Date(desc.date).getTime()
@@ -55,16 +60,17 @@ function getPostTrees({ rootPath, descFileName, postFileName, publicPath, contex
                     throw new Error(`Invalid date: ${desc.date},at ${join(nodePath, descFileName)}`)
                 createTime = time
             }
-
+            
             Object.assign(treeNode, {
                 key: postKey,
-                url: url,
+                url,
                 routePath,
                 title,
                 tags,
                 createTime,
                 modifyTime,
-                description: desc.description
+                description: desc.description,
+                baseUrl
             })
         }
         //postGroup
@@ -129,10 +135,8 @@ function getPreRenderDataByTree(postTrees) {
  * routePrefix
  * rootPath     
  */
-module.exports = function ({ postPublicPath, postContextPath, postRoutePrefix, postRootPath }) {
+module.exports = function ({ descFileName = "desc.yaml", postFileName = "index.md", postPublicPath, postContextPath, postRoutePrefix, postRootPath }) {
     postPublicPath = postPublicPath || "/"
-    const descFileName = "desc.json" //改为yaml
-    const postFileName = "index.md"
 
     //得到文章的结构和描述
     let postTrees = getPostTrees({

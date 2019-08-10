@@ -1,5 +1,6 @@
 
 const fs = require('fs')
+const { readSync: readYamlSync } = require("node-yaml")
 
 function getJson(path) {
     let exists = fs.existsSync(path)
@@ -10,12 +11,20 @@ function getJson(path) {
     return JSON.parse(file)
 }
 
-const isDir = (path) => path && fs.statSync(path).isDirectory()
+function getYaml(path) {
+    let exists = fs.existsSync(path)
+    if (!exists) {
+        throw new Error(`不存在的文件:${path}`)
+    }
+    return readYamlSync(path)
+}
 
-const exists = (path) => fs.existsSync(path)
+function isDir(path) { return path && fs.statSync(path).isDirectory() }
+
+function exists(path) {return fs.existsSync(path)}
 
 
 
-module.exports={
-    getJson,isDir,exists
+module.exports = {
+    getJson, isDir, exists, getYaml
 }

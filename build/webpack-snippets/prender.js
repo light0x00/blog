@@ -15,9 +15,8 @@ module.exports = function prerenderPlugin(preRenderData) {
         // outputDir: _resolve('dist'),
         routes: routeList,
         postProcess(renderedRoute) {
-            
-            let {title,description,keywords} = preRenderData[renderedRoute.route]
 
+            let {title,description,keywords} = preRenderData[renderedRoute.route]
             const $ = cheerio.load( renderedRoute.html)
             $('title').text(title)
             $('meta[name=keywords]').attr('content',keywords)

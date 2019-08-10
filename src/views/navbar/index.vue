@@ -44,11 +44,9 @@ export default {
         unpinned: "navbar--unpinned"
       },
       onPin: function() {
-        console.log("pin!!!");
         thisRef.$emit("update:pin", true);
       },
       onUnpin: function() {
-        console.log("unpin!!!");
         thisRef.$emit("update:pin", false);
       }
     });

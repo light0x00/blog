@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     openPost(postNode) {
-      this.$router.push({ path: join("/post", postNode.key) });
+      this.$router.push({ path: postNode.routePath });
     }
   }
 };

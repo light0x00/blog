@@ -1,18 +1,19 @@
 <template>
   <div class="backtop-wrapper" @click="doBacktop">
-    <i class="el-icon-caret-top"></i>
+    <i class="el-icon-top"></i>
   </div>
 </template>
 
 <script>
 import Headroom from "headroom.js";
+import Tween from "@/common/tween";
 
 export default {
   name: "backtop",
   mounted() {
     let eleBacktop = document.querySelector(".backtop-wrapper");
     var headroom = new Headroom(eleBacktop, {
-      offset: 500, //第一次触发unpined
+      offset: 500, //第一次触发unpined的top距离
       //   offset: 205,
       tolerance: 10,
       classes: {
@@ -27,12 +28,29 @@ export default {
       headroom.destroy();
     });
   },
-  methods:{
-      doBacktop(){
-          console.log(document.body.scrollTop)
-        //   window.scrollTo({top:0})
-        //   console.log(document.body.scrollTop)
+  methods: {
+    doBacktop() {
+      let curTop = document.documentElement.scrollTop;
+
+      let offset = 0;
+      let duration = 35;
+      let begin = curTop;
+      let change = 0 - curTop;
+
+      backTopAnimation();
+      function backTopAnimation() {
+        requestAnimationFrame(() => {
+          if (offset > duration) {
+            return;
+          }
+          let top = Tween.Quint.easeOut(offset, begin, change, duration);
+          document.documentElement.scrollTop = parseInt(top);
+          console.log(parseInt(top));
+          ++offset;
+          backTopAnimation();
+        });
       }
+    }
   }
 };
 </script>
@@ -41,15 +59,15 @@ export default {
 .backtop-wrapper {
   width: 40px;
   height: 40px;
-  border-radius: 50px;
+  border-radius: 20px;
   background-color: #fff;
-  color: #409eff;
+  /* color: #409eff; */
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
   position: fixed;
-  bottom: 40px;
-  right: 40px;
+  bottom: 15px;
+  right: 30px;
   cursor: pointer;
-  font-size: 30px;
+  font-size: 20px;
   visibility: hidden;
   display: flex;
   justify-content: center;

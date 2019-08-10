@@ -13,6 +13,3 @@ window.APP_CONFIG = {
     activeProfile,
     ...conf1, ...conf2
 }
-
-
-console.log(window.APP_CONFIG)

@@ -1,5 +1,5 @@
 <template>
-  <div class="tag-wrapper" style>
+  <div class="tag-wrapper" >
     <a
       class="tag"
       v-for="(posts,tag) in tags"
@@ -18,8 +18,7 @@ import { mapGetters } from "vuex";
 
 export default {
   // components:{PostList},
-  created() {
-  },
+  created() {},
   computed: {
     tags() {
       return this.$store.getters["posts/getTags"];
@@ -31,7 +30,12 @@ export default {
 <style scoped>
 .tag-wrapper {
   width: 100%;
-  height:100%;
+  /* height: calc(100%);
+  height: 100%;
+  height: -moz-available; 
+  height: -webkit-fill-available; */
+  height: fill-available;
+
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

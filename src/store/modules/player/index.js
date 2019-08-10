@@ -53,7 +53,7 @@ const actions = {
     // state.player = ap;
 
     // ap.on('error', function (e) {
-    //   console.log('播放失败,可能所在地区不支持网易云!(是否有翻墙?)',e);
+    //   // console.log('播放失败,可能所在地区不支持网易云!(是否有翻墙?)',e);
     //   // ap.destroy()
     // });
 
