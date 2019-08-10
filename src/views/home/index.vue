@@ -1,6 +1,6 @@
 <template>
   <div class="home-wrapper">
-    <h3 style="padding:10px" class="home-slogan">Long long the stream that runs to the sea.</h3>
+    <div class="home-slogan">Long long the stream that runs to the sea.</div>
     <router-link to="/archive" class="home-btn">
       <i class="el-icon-arrow-right"></i>MORE
     </router-link>
@@ -36,7 +36,6 @@ export default {
   font-style: italic;
   color: #b6b6b6;
   font-size: 24px;
-  margin-top: 20px;
   text-align: center;
   text-shadow: 0 1px 1px #fff;
 

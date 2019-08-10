@@ -73,10 +73,11 @@ export default {
         const viewer = new Viewer(document.querySelector(".markdown-body"), {
           // inline: true,
           viewed() {
-            viewer.zoomTo(1);
+            // viewer.zoomTo(1);
           },
-          // navbar: 0, //顶部栏
-          title: 0, //图片名称
+          button:false,
+          // navbar: 0, //小图预览
+          // title: 0, //图片名称
           toolbar: {
             prev: { show: 4, size: "large" },
             play: {
