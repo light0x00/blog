@@ -35,6 +35,25 @@ a:hover{
     animation: fade-in .5s forwards;
 }
 
+
+
+/* ---------------------------- nprogress ----------------------------*/
+#nprogress .bar {
+    /* background-color: #28a745; */
+    background-color: #28a745;
+    /* height:3px; */
+}
+#nprogress .peg {
+    /* box-shadow: 0 0 20px  2px #9cddab, 0 0 20px 20px pink; */
+    /* box-shadow: 0 0 20px 2px #9cddab, 0 0 7px 5px #9cddab; */
+    /* box-shadow: 0 0 20px 2px pink, 0 0 7px 5px pink; */
+}
+
+#nprogress .spinner-icon {
+    /* border-color:#28a745 */
+    border-top-color: #28a745;
+    border-left-color: #28a745;
+}
 /* ---------------------------- markdown-toc ----------------------------*/
 
   .markdown-toc>ol{

@@ -70,7 +70,7 @@ export default {
         const observer = lozad(imgList); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
         observer.observe();
         //图片查看器
-        const gallery = new Viewer(document.querySelector(".markdown-body"), {
+        const viewer = new Viewer(document.querySelector(".markdown-body"), {
           // inline: true,
           viewed() {
             viewer.zoomTo(1);
@@ -86,9 +86,6 @@ export default {
             next: { show: 4, size: "large" },
           },
           transition:false,
-          viewed() {
-            viewer.zoomTo(1.2);
-          }
         });
       });
     },

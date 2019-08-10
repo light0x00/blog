@@ -2,7 +2,7 @@
   <div class="home-wrapper">
     <h3 style="padding:10px" class="home-slogan">Long long the stream that runs to the sea.</h3>
     <router-link to="/archive" class="home-btn">
-      <i class="el-icon-d-arrow-right"></i>MORE
+      <i class="el-icon-arrow-right"></i>MORE
     </router-link>
   </div>
 </template>
