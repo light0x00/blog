@@ -1,6 +1,6 @@
 <template>
   <div style v-loading="pageState.loading" element-loading-body class="post-wrapper">
-    <div class="markdown-toc" v-if="!isMobile()"></div>
+    <div class="markdown-toc" v-if="!isMobile()" style="left:80% "></div>
     <div id="post-container" class="markdown-body" v-html="postHtml"></div>
     <post-tags class="post-tags" :tags="post.tags"></post-tags>
     <backtop></backtop>
@@ -115,23 +115,22 @@ export default {
 </script>
 
 <style>
-.post-wrapper {
 
-}
-
-#post-container {
+#post-wrapper {
   height: auto;
   /* width:100%; */
-
   /* overflow-x: hidden; */
   width: calc(100% - 30px);
-  margin: 15px;
+  /* margin: 15px; */
 }
 
 .post-tags {
   width: calc(100% - 30px);
-  margin: 15px;
+  /* margin: 15px; */
 }
+
+
+
 /* 防止loading层把navbar的阴影遮住 */
 .post-wrapper.el-loading-parent--relative {
   margin-top: 5px;

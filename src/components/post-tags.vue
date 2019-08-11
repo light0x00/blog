@@ -22,13 +22,9 @@ export default {
 .post-tag-wrapper{
   display: flex;
   align-items: center;
-  /* justify-content: center; */
-
-  /* justify-content: center;
-  flex-wrap: wrap;
-  align-items: center;
-  align-content: center; */
-  /* display: inline-block; */
+}
+.post-tag-wrapper .el-icon-price-tag{
+  /* color: #0d6321; */
 }
 .post-tag-wrapper .el-tag{
   cursor: pointer;

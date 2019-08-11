@@ -21,6 +21,7 @@ const devServerConf = {
         index: 'index.html',
         open: false,
         openPage: "index.html", //在浏览器打开站点的哪个页面
+        historyApiFallback: true,
         hot: true,
         clientLogLevel: "info",
         /* 代理 https://github.com/chimurai/http-proxy-middleware#options */

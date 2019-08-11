@@ -97,7 +97,8 @@ const router = new VueRouter({
     routes: routes,
     /* devServer运行时是输出到内存的,这会导致预渲染插件无法根据磁盘文件渲染
         所以devServer模式使用hash,避免浏览器向服务器请求预渲染页导致404 */
-    mode: window.APP_CONFIG["activeProfile"] === "devServer" ? "hash" : "history"
+    // mode: window.APP_CONFIG["activeProfile"] === "devServer" ? "hash" : "history"
+    mode:"history"
 
 })
 

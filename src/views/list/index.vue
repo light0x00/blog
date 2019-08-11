@@ -2,7 +2,7 @@
   <div class="post-list-wrapper" style="width:100%">
     <el-card class="post-list-row" v-for="post in postList" :key="post.key" >
       <div  class="post-info">
-        <router-link class="a-button" :to="post.routePath">
+        <router-link class="post-button" :to="post.routePath">
           <h3>{{post.title}}</h3>
         </router-link>
         <post-tags v-if="!isMobile()" :tags="post.tags"></post-tags>
@@ -57,8 +57,6 @@ export default {
   /* justify-content: space-around; */
 }
 
-
-
 .post-info{
   display: flex;
   /* flex-direction:row; */
@@ -66,6 +64,11 @@ export default {
 }
 .post-title h3,p{
   margin:0px;
+}
+
+.post-button{
+  display: inline-block;
+  width:100%;
 }
 
 </style>

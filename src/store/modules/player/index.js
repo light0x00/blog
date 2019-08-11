@@ -36,26 +36,28 @@ const mutations = {
 }
 
 const actions = {
-  async initPlayer({ state }) {
-    // let { default: playList } = await import("./play-list")
-    // state.playList = playList;
-    // await import("APlayer/dist/APlayer.min.css")
-    // let { default: APlayer } = await import("APlayer");
-    // const ap = new APlayer({
-    //   container: document.getElementById("music-box"),
-    //   audio: state.playList,
-    //   // mini:true,
-    //   fixed: true,
-    //   order: "random",
-    //   autoplay: false,
-    //   preload:false
-    // });
-    // state.player = ap;
+  async initPlayer({ state ,commit}) {
+    let { default: playList } = await import("./play-list")
+    state.playList = playList;
+    await import("APlayer/dist/APlayer.min.css")
+    let { default: APlayer } = await import("APlayer");
+    const ap = new APlayer({
+      container: document.getElementById("music-box"),
+      audio: state.playList,
+      // mini:true,
+      fixed: true,
+      order: "random",
+      autoplay: false,
+      preload:false
+    });
+    state.player = ap;
 
-    // ap.on('error', function (e) {
-    //   // console.log('播放失败,可能所在地区不支持网易云!(是否有翻墙?)',e);
-    //   // ap.destroy()
-    // });
+    ap.on('error', function (e) {
+      console.log('播放失败,可能所在地区不支持网易云!',e);
+      // ap.destroy()
+      commit("hide")
+
+    });
 
   },
   async play({ state, dispatch }) {
