@@ -31,7 +31,7 @@ include:
   - node_js: 10.16.2
 
 install: npm install
-script: echo 'skip test'
+script: echo `date`
 
 # env:
 #   global:

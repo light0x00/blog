@@ -1,4 +1,7 @@
 
+[![Build Status](https://travis-ci.org/light0x00/gc-shop-api.svg?branch=master)](https://travis-ci.org/light0x00/gc-shop-api)
+
+
 # meta 标签
 
 title  
