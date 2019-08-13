@@ -35,6 +35,9 @@ export default {
   methods: {
     onNavbarPin() {},
     onNavbarUnpin() {}
+  },
+  mounted(){
+    this.$store.dispatch("player/initPlayer");
   }
 };
 </script>

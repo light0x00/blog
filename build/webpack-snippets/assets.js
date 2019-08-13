@@ -1,7 +1,7 @@
 const { _resolve, rootPath } = require('../helpers')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 /* 资源路径
 publicPath统一设置的,因为目前没有按类型分开部署的需求) */
@@ -91,14 +91,6 @@ module.exports = {
             filename: assetsPath.css,
             chunkFilename: assetsPath.cssChunk
         }),
-        new HtmlWebpackPlugin({
-            template: _resolve("src/index.html"),
-            filename: `index.html`,
-            chunks: ['main', 'vendors', 'default', 'async_common', 'initial_common', 'runtime', 'element_ui'],
-            favicon: _resolve("public/favicon.ico"),
-            templateParameters: {
-                // title: "Test"
-            }
-        })
+       
     ]
 }

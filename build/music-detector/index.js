@@ -13,6 +13,7 @@ let config = {
 async function fetchMusic () {
     let res = await Axios.request(config);
     var playList = []
+    let count = 0;
     for (let songInfo of res.data.allData) {
         let { id, name, ar: [{ name: artist }],al:{picUrl:cover} } = songInfo.song;
         if(cover)
@@ -24,6 +25,9 @@ async function fetchMusic () {
             url: `https://music.163.com/song/media/outer/url?id=${id}.mp3`,
             cover
         })
+        if (++count==30){
+            break;
+        }
     }
     return  playList;
 }

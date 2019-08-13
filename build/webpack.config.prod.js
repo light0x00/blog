@@ -14,7 +14,7 @@ var config = {
     mode: 'production',
     output: {
         // publicPath: _resolve("dist/"),
-        publicPath: "https://blog.light0x00.com/",
+        publicPath: "https://light0x00.com/",
     },
     // devtool: 'hidden-source-map',
     devtool: false,

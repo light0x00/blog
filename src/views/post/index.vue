@@ -60,22 +60,25 @@ export default {
 
       this.$nextTick(() => {
         //目录
-        tocbot.init({
-          tocSelector: ".markdown-toc",
-          contentSelector: ".markdown-body",
-          headingSelector: "h1,h2"
-        });
+        if (!this.isMobile) {
+          tocbot.init({
+            tocSelector: ".markdown-toc",
+            contentSelector: ".markdown-body",
+            headingSelector: "h1,h2"
+          });
+          this.$once("destroy", () => {
+            tocbot.destroy();
+          });
+        }
+
         //图片懒加载
         const imgList = document.querySelectorAll(".markdown-body img");
         const observer = lozad(imgList); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
         observer.observe();
+
         //图片查看器
         const viewer = new Viewer(document.querySelector(".markdown-body"), {
-          // inline: true,
-          viewed() {
-            // viewer.zoomTo(1);
-          },
-          button:false,
+          button: false,
           // navbar: 0, //小图预览
           // title: 0, //图片名称
           toolbar: {
@@ -84,9 +87,13 @@ export default {
               show: 4,
               size: "large"
             },
-            next: { show: 4, size: "large" },
+            next: { show: 4, size: "large" }
           },
-          transition:false,
+          transition: false
+        });
+
+        this.$once("destroy", () => {
+          viewer.destroy();
         });
       });
     },
@@ -115,21 +122,15 @@ export default {
 </script>
 
 <style>
-
-#post-wrapper {
-  height: auto;
-  /* width:100%; */
-  /* overflow-x: hidden; */
-  width: calc(100% - 30px);
-  /* margin: 15px; */
-}
-
 .post-tags {
   width: calc(100% - 30px);
   /* margin: 15px; */
 }
 
-
+.markdown-body {
+  width: calc(100% - 30px);
+  margin: 15px;
+}
 
 /* 防止loading层把navbar的阴影遮住 */
 .post-wrapper.el-loading-parent--relative {
@@ -138,6 +139,6 @@ export default {
 }
 
 .viewer-toolbar > ul > .viewer-large {
-  border-radius: 0
+  border-radius: 0;
 }
 </style>

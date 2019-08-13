@@ -11,6 +11,7 @@ const { join } = require("path")
 const URL = require('url').URL;
 const path = require('path')
 const { isFunction } = require('lodash')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /* ================================================================ 
 basicConfig
@@ -43,22 +44,36 @@ basicConfig = merge(merge(basicConfig, assetsConfig), optConfig)
 
 /**
  * config初始化时的hook
- * @param {*} config 配置
+ * @param {*} finalConfig 配置
  * @param {*} param1 全局状态
  */
-async function basicHook(config, { postTrees, playList, blogConfig: { postPublicPath, postRootPath, postRoutePrefix, postContextPath } }) {
-    config.plugins.push(new webpack.DefinePlugin({
+async function basicHook(finalConfig, { postTrees, playList, blogConfig: { postPublicPath, postRootPath, postRoutePrefix, postContextPath } }) {
+    finalConfig.plugins.push(new webpack.DefinePlugin({
         PLAY_LIST: JSON.stringify(playList),
         POST_TREES: JSON.stringify(postTrees),
         POST_ROUTE_PREFIX: JSON.stringify(postRoutePrefix)
     }))
     //如果博文与asstes挂载在相同的路径,则将其拷贝到输出路径(dist)
-    if (postPublicPath == config.output.publicPath) {
-        config.plugins.push(
+    if (postPublicPath == finalConfig.output.publicPath) {
+        finalConfig.plugins.push(
             new CopyPlugin([
-                { from: postRootPath, to: join(config.output.path, postContextPath) },
-            ]))
+                { from: postRootPath, to: join(finalConfig.output.path, postContextPath) },
+            ]),
+
+        )
     }
+
+    finalConfig.plugins.push(
+        new HtmlWebpackPlugin({
+            template: _resolve("src/index.html"),
+            filename: `index.html`,
+            chunks: ['main', 'vendors', 'default', 'async_common', 'initial_common', 'runtime', 'element_ui'],
+            favicon: _resolve("public/favicon.ico"),
+            templateParameters: {
+                publicPath: finalConfig.output.publicPath
+            }
+        })
+    )
 }
 
 
@@ -103,17 +118,17 @@ async function initStorerage(config) {
 
     //1. fetch and adjust global config 
     // let { postPublicPath, postRoutePrefix, postRootPath, postContextPath,descFileName } = readYamlSync(_resolve("blog.yaml"))
-    let { postPublicPath, postRoutePrefix, postRootPath, postContextPath,descFileName } = readYamlSync(_resolve("blog.yaml"))
-  
+    let { postPublicPath, postRoutePrefix, postRootPath, postContextPath, descFileName } = readYamlSync(_resolve("blog.yaml"))
+
     if (!path.isAbsolute(postRootPath)) {
         postRootPath = _resolve(postRootPath)
     }
     postPublicPath = postPublicPath || config.output.publicPath;
-    
+
     //2. fetch posts\ prender data
     let postDetector = require(_resolve("build/post-detector/index"))
     const { postTrees, preRenderData } = postDetector({
-        postPublicPath, postContextPath, postRoutePrefix, postRootPath,descFileName
+        postPublicPath, postContextPath, postRoutePrefix, postRootPath, descFileName
     })
 
     //3. fetch 163 music  
