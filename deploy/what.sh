@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# 适用于部署到github page
+
 function helpInfo(){
     echo "-s,--skip-compile"
     echo "-m    git commit message"
