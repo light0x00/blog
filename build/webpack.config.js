@@ -47,14 +47,14 @@ basicConfig = merge(merge(basicConfig, assetsConfig), optConfig)
  * @param {*} finalConfig 配置
  * @param {*} param1 全局状态
  */
-async function basicHook(finalConfig, { postTrees, playList, blogConfig: { postPublicPath, postRootPath, postRoutePrefix, postContextPath } }) {
+async function basicHook(finalConfig, { postTrees, playList, blogConfig: { postPublicPath, postRootPath, postRoutePrefix, postContextPath,neverCopy } }) {
     finalConfig.plugins.push(new webpack.DefinePlugin({
         PLAY_LIST: JSON.stringify(playList),
         POST_TREES: JSON.stringify(postTrees),
         POST_ROUTE_PREFIX: JSON.stringify(postRoutePrefix)
     }))
     //如果博文与asstes挂载在相同的路径,则将其拷贝到输出路径(dist)
-    if (postPublicPath == finalConfig.output.publicPath) {
+    if (postPublicPath == finalConfig.output.publicPath && neverCopy !==true) {
         finalConfig.plugins.push(
             new CopyPlugin([
                 { from: postRootPath, to: join(finalConfig.output.path, postContextPath) },
@@ -118,7 +118,7 @@ async function initStorerage(config) {
 
     //1. fetch and adjust global config 
     // let { postPublicPath, postRoutePrefix, postRootPath, postContextPath,descFileName } = readYamlSync(_resolve("blog.yaml"))
-    let { postPublicPath, postRoutePrefix, postRootPath, postContextPath, descFileName } = readYamlSync(_resolve("blog.yaml"))
+    let { postPublicPath, postRoutePrefix, postRootPath, postContextPath, descFileName ,neverCopy} = readYamlSync(_resolve("blog.yaml"))
 
     if (!path.isAbsolute(postRootPath)) {
         postRootPath = _resolve(postRootPath)
@@ -134,5 +134,5 @@ async function initStorerage(config) {
     //3. fetch 163 music  
     let getMusic = require(_resolve("build/music-detector/index"))  /* the fucking async config! It makes my config less elegant 😡 */
     let playList = await getMusic
-    return { postTrees, preRenderData, playList, blogConfig: { postPublicPath, postRoutePrefix, postRootPath, postContextPath } }
+    return { postTrees, preRenderData, playList, blogConfig: { postPublicPath, postRoutePrefix, postRootPath, postContextPath,neverCopy} }
 }

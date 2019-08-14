@@ -1,9 +1,11 @@
 #!文档文件(markdown)的挂载路径,如不指定,则使用当前环境的publicPath
-# postPublicPath: 
+# postPublicPath: https://raw.githubusercontent.com/light0x00/blog-articles/master
 # 文档文件的挂载path 文档文件路径=postPublicPath+postContextPath+文档相对路径
-postContextPath: 'doc'
+
+neverCopy: true
+postContextPath: '/article-source'
 #!本地文档的目录(写markdown的地方)
-postRootPath: 'posts'
+postRootPath: 'blog-articles'
 #!文档路由前缀
 postRoutePrefix: '/article'
 descFileName: 'desc.yaml'

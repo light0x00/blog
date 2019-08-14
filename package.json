@@ -14,7 +14,8 @@
     "devServer": "npx cross-env NODE_ENV=development webpack-dev-server --profile --config build/webpack.config.devServer.js",
     "dev": "npx cross-env NODE_ENV=development webpack --config build/webpack.config.dev.js --progress",
     "prod": "npx cross-env NODE_ENV=production webpack --profile --config build/webpack.config.prod.js --progress",
-    "deploy": "bash deploy/up-to-server.sh",
+    "deploy": "bash deploy/deploy-blog.sh",
+    "deploy-articles": "bash deploy/deploy-articles.sh",
     "serve": "http-server ./dist -c-1  -d -p 4092"
   },
   "keywords": [],

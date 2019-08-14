@@ -14,7 +14,7 @@ const devServerConf = {
         publicPath: "http://blog-dev.light0x00.com:4092/",
     },
     devServer: {
-        contentBase: [_resolve("dist/"), _resolve("public/")],
+        contentBase: [_resolve("dist/"), _resolve("public/"),_resolve("blog-articles/")],
         // watchContentBase: true,
         host: 'blog-dev.light0x00.com',
         port: 4092,

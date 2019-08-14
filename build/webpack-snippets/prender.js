@@ -29,6 +29,7 @@ module.exports = function prerenderPlugin(preRenderData) {
             renderedRoute.html=$.html()
             return renderedRoute
         },
+        renderAfterTime:10000  //Wait 10s
     })
     return prerenderPlugin;
 }

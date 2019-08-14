@@ -91,7 +91,9 @@ function getPostTrees({ rootPath, descFileName, postFileName, publicPath, contex
     let postTrees = []
     let treePaths = fs.readdirSync(rootPath).map(p => resolve(rootPath, p))
     for (let path of treePaths) {
-        postTrees.push(recursivePost({ level: 1 }, path))
+        let tree = recursivePost({ level: 1 }, path)
+        if(tree)  //忽略非文档文件,如.gitignore
+            postTrees.push(tree)
     }
     return postTrees;
 }

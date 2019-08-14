@@ -1,0 +1,3 @@
+[submodule "blog-articles"]
+	path = blog-articles
+	url = https://github.com/light0x00/blog-articles.git
