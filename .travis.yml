@@ -1,9 +1,15 @@
 os: linux
 language: node_js
 env:
-  - secure: S+bJGbkuvhxyRRIZHn2bhN46j4KQ85tYy0czkl1o3MzNt1bJYQ81fvUr+FikuJN4tYLEDDnXLQhXi9nZGl8IaTe4MpqTeBpn+4WXPboN5Bz8ACCJcmwfQMMXTNPt0jHnLsUba/x1zU3wG2Oh0sMyESXp0bLvbb1baRYWFjpHOerjBZLdS/ggx+fHo59Y6VpcmnQOmDfU5rmRiZcE9mx9CODQ4Tj5knFhdYjqFW6dye5MMTKpE8Wxm2wpYlGhu7wi7r4zx9CtBvbRAulCCmmL5lW5uMY7+zjMF3yain7q/4gCVazuasZrPxlB9AzJmPxkvNKperf6CV4JMv2HMX4Pr75URv1ObTBIONA2kB+h50JWDVQDsqt6elw3cvE9nhEris/YcET11gB2tmcC5NzN+XfSrA2JKhUNnDq4xIYxUYQjlX1G+T07Nelg09jrdXA78bVWrZ42jrJT7gET+/H+ZQlKsuq7JaeoMwRWo8eKctwU0ELaNT4UUhgT3L+yRA6afnOsLTTScj4phOE4KX2D0fJsj7YsPwzZdotnwS94WFzAqMrRKDBTUHjexHf98QSYMItM2gLN/PCewNHb66K62bz/PuHccwYigJUFzyk+fw/u1xeENaJu6fm9recwZEdZfE/S8DXcOgZA4eyOxtD3n+0ArOTl2y5w6zDYeKzvOCQ=
-  - secure: DQDoZjY8T/e1RDgT221IrAPsyRMbUg+ZvaXXwF8X2fRIeuB25MKa6qYNU3L7UGpIA89SGRp7XfTd7FxZBZhk0MUrvDgU1nipL9LGkndzCY4Td63wbY2pQd7Fdh2RXaCx3YffRY/5DcCG3EW7znUUQNJglKTb16a8/y43iZwCmwY4VcD93ZwuOwPLzmF6Mr3G4DzH0fkoXlMWCr2NirCTd92ke3vryJQyKyHCGhJBIKhCyloIfqTsHf5BS/So74/Vao0tAc5ZVg0l5+HAjRP9WI4mj13pOyEMFr+ssISxwTThahG+ZMNRAGjzrm4YniHM6eMcrim1gjliVQXjDkyh3mhTsHRm9cGsx7RsoHgHZFrFINd6rbPDrxyew0E7wfLD5gEoBCBCj6BTn6Qa29mmHgBm3VQ/Y8kE2RRY5Ta3czy5oe6UeNJYUZXZq8L+lQxd6phJgnc29EPyX3TMDw963Tj1mcyGMAsHD6TAB/waDNms2PcD49eDUjAMVt30LuUkHj22hxwE4A5pef67KZjB0I55eEPnQ+nBC+fd8+JW6ZfbrESxNGVn3o3BFPTmIeq2b+F/QPuXzsVAgHOZJs+/byp6gJAzR35UJTQSsHOC5yowe1hGg2SWtcXy+GjI2qSJhlLjrqn/8K2pO5KnompJzV1iDrxREQ732/0GvO6uLYQ=
+  global:
+    - secure: S+bJGbkuvhxyRRIZHn2bhN46j4KQ85tYy0czkl1o3MzNt1bJYQ81fvUr+FikuJN4tYLEDDnXLQhXi9nZGl8IaTe4MpqTeBpn+4WXPboN5Bz8ACCJcmwfQMMXTNPt0jHnLsUba/x1zU3wG2Oh0sMyESXp0bLvbb1baRYWFjpHOerjBZLdS/ggx+fHo59Y6VpcmnQOmDfU5rmRiZcE9mx9CODQ4Tj5knFhdYjqFW6dye5MMTKpE8Wxm2wpYlGhu7wi7r4zx9CtBvbRAulCCmmL5lW5uMY7+zjMF3yain7q/4gCVazuasZrPxlB9AzJmPxkvNKperf6CV4JMv2HMX4Pr75URv1ObTBIONA2kB+h50JWDVQDsqt6elw3cvE9nhEris/YcET11gB2tmcC5NzN+XfSrA2JKhUNnDq4xIYxUYQjlX1G+T07Nelg09jrdXA78bVWrZ42jrJT7gET+/H+ZQlKsuq7JaeoMwRWo8eKctwU0ELaNT4UUhgT3L+yRA6afnOsLTTScj4phOE4KX2D0fJsj7YsPwzZdotnwS94WFzAqMrRKDBTUHjexHf98QSYMItM2gLN/PCewNHb66K62bz/PuHccwYigJUFzyk+fw/u1xeENaJu6fm9recwZEdZfE/S8DXcOgZA4eyOxtD3n+0ArOTl2y5w6zDYeKzvOCQ=
+    - secure: DQDoZjY8T/e1RDgT221IrAPsyRMbUg+ZvaXXwF8X2fRIeuB25MKa6qYNU3L7UGpIA89SGRp7XfTd7FxZBZhk0MUrvDgU1nipL9LGkndzCY4Td63wbY2pQd7Fdh2RXaCx3YffRY/5DcCG3EW7znUUQNJglKTb16a8/y43iZwCmwY4VcD93ZwuOwPLzmF6Mr3G4DzH0fkoXlMWCr2NirCTd92ke3vryJQyKyHCGhJBIKhCyloIfqTsHf5BS/So74/Vao0tAc5ZVg0l5+HAjRP9WI4mj13pOyEMFr+ssISxwTThahG+ZMNRAGjzrm4YniHM6eMcrim1gjliVQXjDkyh3mhTsHRm9cGsx7RsoHgHZFrFINd6rbPDrxyew0E7wfLD5gEoBCBCj6BTn6Qa29mmHgBm3VQ/Y8kE2RRY5Ta3czy5oe6UeNJYUZXZq8L+lQxd6phJgnc29EPyX3TMDw963Tj1mcyGMAsHD6TAB/waDNms2PcD49eDUjAMVt30LuUkHj22hxwE4A5pef67KZjB0I55eEPnQ+nBC+fd8+JW6ZfbrESxNGVn3o3BFPTmIeq2b+F/QPuXzsVAgHOZJs+/byp6gJAzR35UJTQSsHOC5yowe1hGg2SWtcXy+GjI2qSJhlLjrqn/8K2pO5KnompJzV1iDrxREQ732/0GvO6uLYQ=
 before_install: 
+  - openssl enc -aes-128-cbc -in d_rsa_light.enc -out id_rsa_light -K $aes_key -iv $aes_iv -d
+  - eval "$(ssh-agent)"
+  - chmod u=r,og-rwx id_rsa_light
+  - ssh-add id_rsa_light
+  - ssh light@47.244.152.125 "echo $(date) >> ~/test.txt"
 install: echo 'skip install'
 script: echo 'skip test'
 after_success: 
@@ -11,12 +17,6 @@ deploy:
   provider: script
   skip_cleanup: true
   script: 
-  - openssl enc -aes-128-cbc -in d_rsa_light.enc -out id_rsa_light -K $aes_key -iv $aes_iv -d
-  - in id_rsa_light.enc -out id_rsa_light -d
-  - eval "$(ssh-agent)"
-  - chmod u=r,og-rwx id_rsa_light
-  - ssh-add id_rsa_light
-  - ssh light@47.244.152.125 "echo $(date) >> ~/test.txt"
   on:
     branch: master
 addons:
