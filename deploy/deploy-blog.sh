@@ -6,7 +6,7 @@
     --skip-pull \
     --skip-compile \
     --app-name=blog \
-    --local-path=/Users/light/Desktop/my-workbench/blog/ \
+    --local-path=$TRAVIS_BUILD_DIR \
     --compile-target-path=dist \
     --remote-ip=47.244.152.125 \
     --remote-user=light \
