@@ -4,23 +4,24 @@ env:
   global:
   - secure: Z407neSpJwubwgtgndeJCBn2I1oXKOkdoggjJZBasbuWax/mqLbNclZl4ixW4mE4s4qs5l579jYrtQG3FFDW7mUz6/Mk+6Qti1GJKqWbD4OvDuIZBilVaC3Ak4eNk/0dCIj7B6IJibCxiHf1gjkOfdLZ9mU4J4k+l5KAY5VfF9+0sYiPmPA1tw256h+iColPD0AQchtN3P5jc+chEp4gs7h/4IuROsyNqeT941CXqri4+JLaILyHBqr3O3AzLlHNTkzLWSShFsE4mOzlyAV+e5Z/R5xB1m+w7+27KTcssCrInuHzU3AmaFFGhoCQ6m5WHOMRETJP3B86R0hoZ7iPr7kCI4vD5/9kUfGg/ZKMvJIQCdKa7NjbRjZtVIUBIoh4PQ8i3MFZ8n3Im0mo5DWwSQSfkGUaeCR/rmdaoExvmdaTggVgmBZED2dUzbX7XNI0epHYY5B3lChNdF53VURigWRWQsg2QZbMmLJu3WO0DF8uPjqBGr/N7BFnoFByABcsh4RAuBBpnwugbqc/ijschQobYW/dEewazTdn7gnszSBqgfjZ7FjmMCsuNwwJQgYjxSkAYAjUSXVo575W/78xDjCOFYCAskWXN9fdU0yr6YPOafpnTuS4B5Cyf6AGj8g9GkbqKq7rX0eEgxu+0jeruHf857Yp5HtkCFurbBuSabY=
   - secure: mTpv89qRBM9rXiahWRT0zWaamDmq7H+obt679gHNFCSuFRMf5/WGQpsi0g7X7wx/avIamXKQFP6DeyIBVc8ftvlxNJ3SwwFPL1dsDh14rIfUmahtyq2UwNWM1KDS2Uzf77tijGMXPIzSeE24F7g4rgwMzaK5eadFQip8MFs/7csl0GslW3mxUsn6VsZ/bW7XWtYDGRcAHB4coIUjLXU9ZEQ2hpkSY+I28ClVwTdJJDqIaDtFOuFljONjLKI5zqiU9qJ5TPGXvH7G9MKLMEXH7XsA441jSV1oKjU0gihiCdynG8e1Dva+7mJdFNjJ+odtXehEf/E1m638Q22kHsc4f5Xdze5NnKG8bLELkjgnAQM3RspWp6G9Pz0DMJAiu2Ii/UpO3Hfd+QRKs5O0JgG+cmgnL9Wz53n2yRXtBZ7uqOjeJLdx00dft7GqGVJL7Bk/jDowebs/LXoGz3kNTxKIw8ALG4ZxTCedtJQxlgdSoZGRL0wDDkFZWSeu/RKOQG1fPt+HRBCvzGSK0SbQxkQJj9KQ1SgKBwcZS4Q/1yjiMCDquUY9oBy/IbytmwN3swU+9WtjdZl+H0MiCd/GES2rkJRkqIpiHgC0uOcKxzgFyRmw31Xq666aJHVe/z044W85RNwCT/lVFA3MAisO77bu9CxFjoAHm+ArP1UOufsW7Ls=
+  - secure: VQHMsTowd2OsCcqvbdqshk4dJUIYouSu3dZNe69pdUA3XYOrHn/9sV4thdBIDH4KM8fmyZfSolxLOfDZDvRTujcEAFuPaUdMqmmvxRbKHgT+NYaMK6YawLbx9xBSCuZiGKrMY8qHzlikVsLhfbik0SnHl6TT1j1DkhqvG+0d05N+nfCUYab+SV8zoX2plypgNOu2iiSet3u8aVY/uByLn3NF6PZo7DE1mrsknzuLM9jIczDMu9GLYKDhwmUEydmRrNh4HaTcwjKPY5wn6o9e050qGYVnubEuqoaUxf+XJ2Ks+7cfUf5EEib5OAAs+Rw+75mjKr+4yy493zmtPMqAS9zogR2y39sXjcJ45+v3GIGwfxq+lMyOxiOr8fa2urFRQjlCBYn7hUVRbJgShTNuO+x56K0iOA5sz8QmJvABSKIz7cHx9aPrQFtlXfuZMy2Ggk8cBMWxiYgfz3jqFCwpCYIPdOBVsEi4HKO4rwz3xWKW/sSI2s8ttQOUsdMCeAoROcnBkNWeZN3ZsRi/oUDLQJfPOJS4IlrbRp7OTt9LLn7uZhtByFE8zVVz1EFClXCkRbhS4qfP9EuMHWypuISDswZOjtoP64iiuJDWrIvNZsnAdyVNmQvtL6BP0wAvv2owA8YAVhXNc9+tGYMJ88dBnlQxLWUchT3hspxYIr6PI90=
 before_install:
-- echo $aes_key,$aes_iv
-- openssl enc -aes-256-cbc -in id_rsa_light.enc -out id_rsa_light -K $aes_key -iv
-  $aes_iv -d
-- eval "$(ssh-agent)"
-- chmod u=r,og-rwx id_rsa_light
-- ssh-add id_rsa_light
-- ssh light@47.244.152.125 "echo $(date) >> ~/test.txt"
-install: echo 'skip install'
-script: echo 'skip test'
-after_success: 
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: 
-  on:
-    branch: master
-addons:
-  ssh_known_hosts:
-  - 47.244.152.125
+- echo $SSH_IP
+# - openssl enc -aes-256-cbc -in id_rsa_light.enc -out id_rsa_light -K $aes_key -iv
+#   $aes_iv -d
+# - eval "$(ssh-agent)"
+# - chmod u=r,og-rwx id_rsa_light
+# - ssh-add id_rsa_light
+# - ssh light@47.244.152.125 "echo $(date) >> ~/test.txt"
+# install: echo 'skip install'
+# script: echo 'skip test'
+# after_success: 
+# deploy:
+#   provider: script
+#   skip_cleanup: true
+#   script: 
+#   on:
+#     branch: master
+# addons:
+#   ssh_known_hosts:
+#   - 47.244.152.125
