@@ -3,10 +3,10 @@ language: node_js
 node_js:
 - 8.12.0
 before_install:
-- openssl aes-256-cbc -K $encrypted_6176c71fe03c_key -iv $encrypted_6176c71fe03c_iv -in id_rsa_light.enc -out /tmp/id_rsa_light -d
+- openssl aes-256-cbc -K $encrypted_6176c71fe03c_key -iv $encrypted_6176c71fe03c_iv -in id_rsa_light.enc -out id_rsa_light -d
 - eval "$(ssh-agent -s)"
-- chmod u=r,og-rwx /tmp/id_rsa_light
-- ssh-add /tmp/id_rsa_light
+- chmod u=r,og-rwx id_rsa_light
+- ssh-add id_rsa_light
 install: echo 'skip install'
 script: echo 'skip test'
 after_success: 
