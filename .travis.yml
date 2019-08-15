@@ -3,8 +3,8 @@ language: node_js
 node_js: 8
 env:
   global:
-    - secure: "G3j2K9gDH1kLbJXevCCHCASyAblGR/+GYMO3QzJUCUL/jpmFstchZT0fexfaDfYj8kKcWusX5ohvf6vP+7pFFVZANTz3fIQaRNmtzZwOV7pFW9Ks0n5ONNgPKsFEDl+sGzIbf2IG/7xWMCnSFH0Nomip49b0kcOzKVanVLuzz+kfpGvMDL0scYt4KKihDzPFdXMb9u5fFbuGObKatpFgwtT2ULXghWhoGEyWOvRXksD9Pd4V1jOKSAvvsRz3kY9DZ05AvD+xlgTkmPuZnHIzrP3W548HEFu0VsYPw2g7zr739fGsH6ur9fspMGQsTmRrhwInEu9fvGwZ+toT0E3XLSGq2HOyxv50H2kOCVtnsJMVWS8LgYnUXzw/w7Cj/stnn9IssFJas6O6jDdWxRg2yy77Nx3WxJIpoI7WVaen2QkdJTDJkOqrY/3JTsT+pGroZpXcCPTErLE1cIGl//5UGKJhWaOvAC8icbziiHujtdoU7lbanQtzJ1hklFixVuSVYOBAUpEHYT5SXMSmuBxN45CFuFPVWeMclR46salK4qCEXEy4PGcEp9lskbge/Sqm6Eq+tfGAYTxil1hLMo3FisS4b/LZg8WIneWp0yIJ5LnCCjHzkrxCW8njTp7tSybUDOwiqU4nhG8azEy4sZe4OrGlmdzRFdng+TF+cfCLpGM="
-    - secure: "5C0AAURwqa4uazfWMTk4u3+vEZI9sD09DVAwCnlf3k5MvVfyMtCH34HtVCUkZxM1BX8qXzbHITD82RCMbbnVYZ8AQLese7y629kuoiQYGrjJs078B2fRms6HyB+zNK3th07730/MrCoiyYM6kUeqlmj65LsjezKKzYtCxYRYKSNNHODzo33dQbdXdUA9Zi9C7USrj1XRXgbc3EpYJFq/Oh2MMXCjMsIekSRihbdRhRsxGvyqifOjQw9G23ES0WECugr1KlEfXDGRikUEBE6IP5UHupCQIQSH6F4rVp5qRH2Sx8+swsBZ4G2SVy6L3d0DeuCv5xg8J/GyCQCUis/MzbThoONk55hDAsJ+0UVNBtMcLaCLyHSuPK2hTT/qf//dttXZgadqojk0+uCF4puES/XKl/e8+sngCc7kYeaG47bShACqE2Zntw9BjLbAhMHytsecBUujM76NGqx57Lp3dJCnC1rFU2FviE8v5XwmisiyLO0OrV8tp7lVsEIRF3bINwJS3T0/5eA9Ms9lazANPp6Wm7GEUIbdpvaEMkJa449qhHjRokFr/pBVe0xkpindZSK1oTka4CKS+tk5GCoH+K+Iipd3uP3Yc3hZvx/jKLUAvwO/bAYma77WZwbdKpPEL1nDYTTnIqKH8vANLcD6ZanQcT+t35QqkOmDIs+408I="
+    - secure: "FMfqTQ/0tQ4cWdc9hhUe690FOMi2OlJ6tANu2VCZZSUCIg/IAkgAR2mdAZ2B0BgIwQwvUK3I0r9Y3iAwLzhN9uHRAalXtec4b3i3wtSKeyYI2qrqSg2yJVtMeqaYgXcCzcL8a4KQ6/n96j0OUWNXoTVcoAPbKVOYBirrc3I0fE6agIn/vICWE/jRu4anuK/0xc7WCFVvniZjJcIj3ie7mXZNkLqA14d6rGo5opNwYkbwIe3uH4t9KuyaB/WNhuvX6NDSWIGxZM7tfcE0nRvpR8qo9CTa6cyTDhXbOfatdynFQehpk6z4Ky7ui10CCPNE9pUfV7677+SLDiroiTrFkbmhMQovb2sg+emc3OgkFCwvOqeSkTP8/hsbIDUad5me+pZ4Z1p2tU5deHA6lwJrJeH6rkav6IFNvRkgDun+cYC0+wc4jt14BlZs9pm/bOad7pCc2glquM4A1eWuyBOa5tTIw+5XFoJ61wvE1FlDez725uovEWnURoGlcTOWt7cV2cXt7qRUyG/IGa0PSIVaTZQg4URhT7qbmOt9bf7DriyT2a696aplEnuIDBc9MPpMVsI/4XZ8LMvVo+dBrQ/RJ+y4lC5Sp3uveqhT2oM+6RpDIxqPPLi1O9yfR+hx5tFsN/ylP8QbxSeBqAJFpU7N7vYI0YqlxUILDsUUmrQkNKY="
+    - secure: "CsCSCMFcXfAVsANOeEFV0Jx3LK+0wa6a/fT66fyB/TgfYP1PsKFYUiGAi3J1+719C+dzslThhNcGI9ctOa+4dkDHTPuX/ntoa7uzk6AvoU+iBXmgbgXCYWQ7D+Z+DPjL5n8iUS5m6TNCO2ML5lUHQ8pGrIf+b4Ru2DMDlCgXCkLahJL1LdK0+EMv0NQrG8cRlqXSQFXH/kGjzZ/znk7Qc4+YR8B/pDpGcAm7L/UPhSPSgcz2XE5QYMTcNmQogVIFlOrbcqrAQAPrVAxggLEFBOUcfo1ychoQFWmnMM7u3icrsaA7ThtVB2pBnrPvSvjOR5BO/obFWW1oTuklzqvU3lZXP2Wm1BAbCjLy5jCRGm2Nm0CUedkj7boYmj9KQz4z29/d/TguWESkrVAoLfJh0pvgBG7UaT6S7YF9/wskFIEmflbBhFWxnnrdal9r8jeS+gXw589UqVr5okHxgj1JLyef/ywizfMF26s5X90oEvO/39fOFl7BjFReOCLNgViGJBRvxrVSmnFq/qlQGa7Ji2MbsLerpnLOAKxEZ+mLs82QPZ6jZB5QYr13bn3MBzYG8MMSL0vqYtQt762svse/VwlcSCoFcwT5QPuTCsi7YfejOxV0BhouYErQZE25llKIs/4dv+IYLjWMLHqhsZz4/rrqskAbcSmLKBPSGzLZM4E="
 before_install:
 - echo $SSH_IP,$aes_key,$aes_iv
 install: echo 'skip install'
@@ -14,8 +14,7 @@ deploy:
   provider: script
   skip_cleanup: true
   script: 
-    - openssl enc -aes-256-cbc -in deploy/cert/id_rsa_light.enc -out id_rsa_light -K $aes_key -iv
-      $aes_iv -d
+    - openssl enc -aes-256-cbc -in deploy/cert/id_rsa_light.enc -out id_rsa_light -K $aes_key -iv $aes_iv -d
     - eval "$(ssh-agent)"
     - chmod u=r,og-rwx id_rsa_light
     - ssh-add id_rsa_light
