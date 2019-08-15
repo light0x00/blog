@@ -2,20 +2,26 @@ os: linux
 language: node_js
 node_js:
 - 8.12.0
-before_install:
-- openssl aes-256-cbc -K $encrypted_6176c71fe03c_key -iv $encrypted_6176c71fe03c_iv -in id_rsa_light.enc -out id_rsa_light -d
-- eval "$(ssh-agent -s)"
-- chmod u=r,og-rwx id_rsa_light
-- ssh-add id_rsa_light
+env:
+  blobal:
+    - secure: pUvI6B9DIA7ylXVfIj+0K2KQLWk1YmlxXJs8oaLpTcrgPpU2e2u7rSXPMW+fZ/RiS8S24A+ApuUJNISM3AJfVROLr/czSlPZejTcPpOTeH5/TLYEMy917xHH1tQ4ja+9hDbq4/VGpA7lcdRuUnKHwfeflBQY7xwkKLIMRgH/DQH7ZXvKk5rbe6CsvSIHyifFBCgdG1YPyBBog2ak96+chvkN6NRes04j/4wy8fMNjXgFcoXOgn8E0fN4xMItVrU7+fKum80GRYb1I+50KzO5wWGAliGeI8rPzxxwgKcOd3ZzyBx84okwBU2x3UwAQYOv9B1mGYR8WNSpKT9z1rC6SJ2DQi0TWs5R7KlpFXNurntDibzxfB6EUK1nT0NYdDuBfPoHu4lUyVPN6imIftTrXfaREZnlVniLh+JQRFncQqF2w8VGIhCzKlDl0fdocLL5MrfRAE+Ohw1yHvPdEEUUpVhTWFyay6A2jF93N9Q66ETF5ER+vqDsgaIoJ8jgWxpLHCDIEQdi9a3Jr/cSFo3ZOXgpAmr/YCSmeUPVqPRpurx1Zb73P8TJyzN+HDJN21ZdWTTWXKC468w3V2VPXrgDLqGQYelrJ/mMsJPJYIfSbhgdxdpaWCJLykGCYfCStHmfdpXzSXqWf0QjKy56eoyaaOk9pi2DBolKhkUh1zfFES0=
+# before_install:
+# - openssl aes-256-cbc -K $encrypted_6176c71fe03c_key -iv $encrypted_6176c71fe03c_iv
+#   -in id_rsa_light.enc -out id_rsa_light -d
+# - eval "$(ssh-agent -s)"
+# - chmod u=r,og-rwx id_rsa_light
+# - ssh-add id_rsa_light
 install: echo 'skip install'
 script: echo 'skip test'
 after_success: 
 deploy:
   provider: script
   skip_cleanup: true
-  script: ssh light@47.244.152.125 "echo $(date) >> ~/test.txt"
+  # script: ssh light@47.244.152.125 "echo $(date) >> ~/test.txt"
+  script:  echo $msg
   on:
     branch: master
 addons:
   ssh_known_hosts:
   - 47.244.152.125
+
