@@ -7,8 +7,8 @@
     --skip-compile \
     --app-name=blog \
     --local-path=$TRAVIS_BUILD_DIR \
-    --compile-target-path=dist \
-    --remote-ip=47.244.152.125 \
+    --compile-output-path=dist \
+    --remote-ip=$server_ip \
     --remote-user=light \
     --remote-path=/home/light/app/blog 
 # fi

@@ -6,7 +6,7 @@ ci-shell \
 --skip-compile \
 --app-name=blog \
 --local-path=$TRAVIS_BUILD_DIR \
---compile-target-path=blog-articles \
+--compile-output-path=blog-articles \
 --remote-ip=47.244.152.125 \
 --remote-user=light \
 --remote-path=/home/light/app/blog-articles
