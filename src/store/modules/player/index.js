@@ -39,8 +39,8 @@ const actions = {
   async initPlayer({ state ,commit}) {
     let { default: playList } = await import("./play-list")
     state.playList = playList;
-    await import("APlayer/dist/APlayer.min.css")
-    let { default: APlayer } = await import("APlayer");
+    await import("aplayer/dist/APlayer.min.css")
+    let { default: APlayer } = await import("aplayer");
     const ap = new APlayer({
       container: document.getElementById("music-box"),
       audio: state.playList,
