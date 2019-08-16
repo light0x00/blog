@@ -10,12 +10,12 @@ addons:
   ssh_known_hosts:
   - 47.244.152.125
 before_install:
-- echo $ssh_ip,$aes_key,$aes_iv
+- echo $server_ip,$aes_key,$aes_iv
 - openssl enc -aes-256-cbc -in deploy/cert/id_rsa_light.enc -out id_rsa_light -K $aes_key -iv $aes_iv -d
 - eval `ssh-agent`
 - chmod u=r,og-rwx id_rsa_light
 - ssh-add id_rsa_light
-install: npm run prod
+install: npm install && npm run prod
 script: skip
 after_success: 
 deploy:
