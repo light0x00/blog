@@ -31,7 +31,6 @@ const mutations = {
       classList.add("music-box-show")
       state.visible = true
     }
-
   }
 }
 

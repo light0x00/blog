@@ -6,9 +6,9 @@
     --skip-pull \
     --skip-compile \
     --app-name=blog \
-    --local-path=$TRAVIS_BUILD_DIR \
+    --local-path=./ \
     --compile-output-path=dist \
-    --remote-ip=$server_ip \
+    --remote-ip=11.22 \
     --remote-user=light \
     --remote-path=/home/light/app/blog 
 # fi
