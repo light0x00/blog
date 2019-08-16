@@ -15,7 +15,7 @@ before_install:
 - eval `ssh-agent`
 - chmod u=r,og-rwx id_rsa_light
 - ssh-add id_rsa_light
-install: skip
+install: npm run prod
 script: skip
 after_success: 
 deploy:
