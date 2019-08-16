@@ -53,7 +53,7 @@ const actions = {
     state.player = ap;
 
     ap.on('error', function (e) {
-      console.log('播放失败,可能所在地区不支持网易云!',e);
+      // console.log('播放失败,可能所在地区不支持网易云!',e);
       // ap.destroy()
       commit("hide")
 
