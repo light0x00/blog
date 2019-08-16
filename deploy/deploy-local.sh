@@ -8,7 +8,7 @@
     --app-name=blog \
     --local-path=./ \
     --compile-output-path=dist \
-    --remote-ip=11.22 \
+    --remote-ip=47.244.152.125 \
     --remote-user=light \
     --remote-path=/home/light/app/blog 
 # fi

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 适用于部署到github page
+# 部署到github page
 
 function helpInfo(){
     echo "-s,--skip-compile"

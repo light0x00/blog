@@ -1,5 +1,4 @@
 #!/bin/bash
-
 ci-shell \
 --mode=remote \
 --skip-pull \
