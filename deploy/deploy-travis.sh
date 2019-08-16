@@ -7,13 +7,17 @@ if [ -z $base_path ] ;then
     base_path=`dirname $0`
 fi
 
-$base_path/ci-shell/src/index.sh \
+base_path=$TRAVIS_BUILD_DIR
+
+$base_path/deploy/ci-shell/src/index.sh \
 --mode=remote \
 --skip-pull \
 --skip-compile \
 --app-name=blog \
---local-path=$TRAVIS_BUILD_DIR \
+--local-path=$base_path \
 --compile-output-path=dist \
 --remote-ip=$server_ip \
 --remote-user=light \
---remote-path=/home/light/app/blog 
+--remote-path=/home/light/app/blog \
+--ssh-key=$base_path/id_rsa_light
+-y
