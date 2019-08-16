@@ -23,7 +23,7 @@ let basicConfig = {
     resolve: {
         extensions: ['.vue', '.js', '.ts'],
         alias: { 'vue$': 'vue/dist/vue.runtime.esm', '@': _resolve("src"), },
-        modules: [_resolve('node_modules')]
+        // modules: [_resolve('node_modules')]
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], { root: rootPath }),
