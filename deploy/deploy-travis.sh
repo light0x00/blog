@@ -1,12 +1,3 @@
-# 拉取ci子模块
-# git submodule update --remote ci-shell
-
-# 得到运行时根路径
-base_path=`dirname $(readlink "$0")`
-if [ -z $base_path ] ;then
-    base_path=`dirname $0`
-fi
-
 base_path=$TRAVIS_BUILD_DIR
 
 $base_path/deploy/ci-shell/src/index.sh \
