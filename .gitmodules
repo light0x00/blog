@@ -1,6 +1,6 @@
 [submodule "blog-articles"]
 	path = blog-articles
 	url = https://github.com/light0x00/blog-articles.git
-[submodule "deploy/ci-shell"]
+[submodule "ci-shell"]
 	path = deploy/ci-shell
 	url = https://github.com/light0x00/ci-shell.git

@@ -19,7 +19,7 @@ install: npm install && npm run prod
 deploy:
   provider: script
   skip_cleanup: true
-  script: ssh -i id_rsa_light light@47.244.152.125 'echo `date` >> ~/test.txt'
+  script: bash deploy/deploy-travis.sh
   on:
     branch: master
 notifications:
