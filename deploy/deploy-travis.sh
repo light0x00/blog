@@ -12,5 +12,5 @@ $base_path/deploy/ci-shell/src/index.sh \
 --remote-path=/home/light/app/blog \
 --ssh-key=$base_path/id_rsa_light \
 -y \
-<<< "sudo service nginx reload"
+<<< "sudo /usr/sbin/service nginx reload"
 
