@@ -20,5 +20,6 @@ $base_path/deploy/ci-shell/src/index.sh \
 --remote-user=light \
 --remote-path=/home/light/app/blog \
 --ssh-key=$base_path/id_rsa_light \
--y
+-y \
+<<< "service nginx reload"
 
