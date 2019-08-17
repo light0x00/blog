@@ -9,16 +9,17 @@ env:
 addons:
   ssh_known_hosts: 
   - 47.244.152.125
+git:
+  submodules: false
 before_install:
+  - git submodule update --init --recursive --remote
   - openssl enc -aes-256-cbc -in deploy/cert/id_rsa_light.enc -out id_rsa_light -K $aes_key -iv $aes_iv -d
   - chmod u=r,og-rwx id_rsa_light
-  # - eval `ssh-agent`
-  # - ssh-add id_rsa_light
 install: npm install && npm run prod
 deploy:
   provider: script
   skip_cleanup: true
-  script: bash deploy/deploy-travis.sh
+  script: ssh -i id_rsa_light light@47.244.152.125 'echo `date` >> ~/test.txt'
   on:
     branch: master
 notifications:
