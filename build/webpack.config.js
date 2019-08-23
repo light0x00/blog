@@ -1,4 +1,6 @@
-/* https://webpack.js.org/configuration */
+/* https://webpack.js.org/configuration 
+构建性能 https://webpack.docschina.org/guides/build-performance/
+*/
 
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -12,6 +14,8 @@ const URL = require('url').URL;
 const path = require('path')
 const { isFunction } = require('lodash')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+
 
 /* ================================================================ 
 basicConfig
@@ -38,8 +42,8 @@ let basicConfig = {
     ]
 };
 // 合并basicConfig的多个片段
-let assetsConfig = require('./webpack-snippets/assets')
-let optConfig = require('./webpack-snippets/optimization')
+let assetsConfig = require('./webpack-segment/assets')
+let optConfig = require('./webpack-segment/optimization')
 basicConfig = merge(merge(basicConfig, assetsConfig), optConfig)
 
 /**
@@ -59,7 +63,6 @@ async function basicHook(finalConfig, { postTrees, playList, blogConfig: { postP
             new CopyPlugin([
                 { from: postRootPath, to: join(finalConfig.output.path, postContextPath) },
             ]),
-
         )
     }
 
@@ -82,6 +85,7 @@ async function basicHook(finalConfig, { postTrees, playList, blogConfig: { postP
 合并其他环境配置
 ================================================================ */
 
+const initStorerage = require('./build-storage')
 /*每个环境都会传入其配置给此方法,此方法合并所有配置后再返回Promise给webpack.*/
 module.exports = async function (profileConfig, configInitializedHook) {
     //合并其他环境的配置
@@ -108,31 +112,3 @@ module.exports = async function (profileConfig, configInitializedHook) {
     return finalConfig;
 }
 
-
-
-/* ================================================================
-初始化全局状态,状态会在配置初始化完成后作为回调参数传给其他环境.
-================================================================ */
-const { readSync: readYamlSync } = require("node-yaml")
-async function initStorerage(config) {
-
-    //1. fetch and adjust global config 
-    // let { postPublicPath, postRoutePrefix, postRootPath, postContextPath,descFileName } = readYamlSync(_resolve("blog.yaml"))
-    let { postPublicPath, postRoutePrefix, postRootPath, postContextPath, descFileName ,neverCopy} = readYamlSync(_resolve("blog.yaml"))
-
-    if (!path.isAbsolute(postRootPath)) {
-        postRootPath = _resolve(postRootPath)
-    }
-    postPublicPath = postPublicPath || config.output.publicPath;
-
-    //2. fetch posts\ prender data
-    let postDetector = require(_resolve("build/post-detector/index"))
-    const { postTrees, preRenderData } = postDetector({
-        postPublicPath, postContextPath, postRoutePrefix, postRootPath, descFileName
-    })
-
-    //3. fetch 163 music  
-    let getMusic = require(_resolve("build/music-detector/index"))  /* the fucking async config! It makes my config less elegant 😡 */
-    let playList = await getMusic
-    return { postTrees, preRenderData, playList, blogConfig: { postPublicPath, postRoutePrefix, postRootPath, postContextPath,neverCopy} }
-}

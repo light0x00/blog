@@ -15,6 +15,13 @@ module.exports = {
             automaticNameDelimiter: "-",
             name: true,
             cacheGroups: {
+                /* 迫不得已的举措,本来由于lodash使用node模块标准,不支持tree-shaking,所以此项目是使用lodash-es的.
+                但是第三方库mermaid、cheerio都依赖了lodash, 而这两个库是异步加载的,需要手动把共享的lodash抽成一个单独的chunk.*/
+                lodash:{
+                    test: /[\\/]node_modules[\\/]lodash[\\/]/,
+                    name: 'lodash',
+                    priority: 20,
+                },
                 /* ui库单独打包 */
                 element_ui: {
                     test: /[\\/]node_modules[\\/]_?element-ui(.*)/,
@@ -27,15 +34,6 @@ module.exports = {
                     test: /[\\/]node_modules[\\/]/,
                     priority: 17,
                     name: "vendors",
-                },
-                /* 存放异步chunk之间的共享模块(webpack会自动将异步共享模块放到这个chunk) */
-                async_common: {
-                    chunks: 'async',
-                    name: 'async_common',
-                    priority: 16,
-                    minChunks: 2,
-                    // maxSize: 1024 * 100,
-                    reuseExistingChunk: true,
                 },
                 /* 非第三方,非本项目的同步模块放到这个chunk,基本不可能产生这个chunk,但是这个是webpack默认的配置,为了防止潜在的坑,让其存在于此 */
                 default: {

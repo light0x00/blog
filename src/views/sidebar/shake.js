@@ -30,7 +30,6 @@ function doShake({ begin, change, duration, target, tweenFn, onShaking, onFinish
             let shakeVal = tweenFn(offset, begin, change, duration);
             target.style.transform = `rotate(${shakeVal}deg)`;
             if (offset == duration) {
-                console.log(offset, shakeVal)
             }
             if (onShaking)
                 onShaking(shakeVal)

@@ -13,3 +13,6 @@ window.APP_CONFIG = {
     activeProfile,
     ...conf1, ...conf2
 }
+
+
+import './date-locale'

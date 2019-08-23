@@ -45,7 +45,6 @@ export default {
           }
           let top = Tween.Quint.easeOut(offset, begin, change, duration);
           document.documentElement.scrollTop = parseInt(top);
-          console.log(parseInt(top));
           ++offset;
           backTopAnimation();
         });

@@ -1,0 +1,92 @@
+<template>
+  <div class="comment-list">
+    
+    <h2 style="margin-top:20px;border-bottom:1px solid #DCDFE6">{{pageInfo.total}}条评论</h2>
+
+    <comment-item v-for="(item,index) in commentList" :key="`comment${index}`" :comment="item"></comment-item>
+
+    <div class="comment-pagination">
+      <el-pagination
+        layout="prev, pager, next"
+        :hide-on-single-page="true"
+        :current-page.sync="pageInfo.index"
+        :page-size.sync="pageInfo.size"
+        :total.sync="pageInfo.total"
+        @current-change="loadData"
+      ></el-pagination>
+    </div>
+  </div>
+</template>
+
+<script>
+import CommentItem from "./comment-item";
+import { MsgCommentControllerApi } from "@/api/index";
+
+export default {
+  props: { list: { type: Array } },
+  components: { CommentItem },
+  data() {
+    return {
+      queryVo: {
+        articleKey: this.articleKey,
+        repliesPageInfo: { index: 1, size: 10 }
+      }
+    };
+  },
+  computed: {
+    pageInfo: {
+      get: function() {
+        return this.$store.state.comment.pageInfo;
+      },
+      set: function(v) {
+        this.$store.commit("comment/setPageInfo", v);
+      }
+    },
+    commentList: {
+      get: function() {
+        return this.$store.state.comment.commentList;
+      },
+      set: function(list) {
+        this.$store.commit("comment/setCommentList", list);
+      }
+    },
+    articleKey() {
+      return this.$store.state.comment.articleKey;
+    }
+  },
+  async created() {
+    this.loadData();
+  },
+  methods: {
+    async loadData() {
+      this.queryVo.articleKey = "foo"; //!for test
+      let {
+        body: { data, pageInfo }
+      } = await MsgCommentControllerApi.queryUsingPOST({
+        ...this.queryVo,
+        ...this.pageInfo
+      });
+      this.pageInfo = pageInfo;
+      this.commentList = data;
+    }
+  }
+};
+</script>
+
+<style>
+/* .comment-list a {
+  color: #009a61;
+  text-decoration: none;
+} */
+
+.comment-list > div:not(:last-child) {
+  margin-bottom: 15x;
+}
+
+.comment-pagination {
+  display: flex;
+  justify-content: center;
+  /* align-content: center; */
+  margin-top: 20px;
+}
+</style>

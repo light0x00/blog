@@ -90,15 +90,20 @@ const routes = [
     {
         path: "*",
         component: require("@/components/404").default
-    }
+    },
+    {
+        path: "/test",
+        component: require("@/views/test").default
+    },
 ]
+
 
 const router = new VueRouter({
     routes: routes,
     /* devServer运行时是输出到内存的,这会导致预渲染插件无法根据磁盘文件渲染
         所以devServer模式使用hash,避免浏览器向服务器请求预渲染页导致404 */
     // mode: window.APP_CONFIG["activeProfile"] === "devServer" ? "hash" : "history"
-    mode:"history"
+    mode: "history"
 
 })
 
@@ -121,11 +126,11 @@ router.beforeEach(async (to, from, next) => {
     }
 
     //title的动态更改
-    try{
+    try {
         let info = await store.dispatch("posts/getPostByRoute", to);
-        document.title=info.title;
-    }catch(e){
-        document.title="Light0x00的博客" 
+        document.title = info.title;
+    } catch (e) {
+        document.title = "Light0x00的博客"
     }
     next()
 })

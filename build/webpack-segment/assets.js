@@ -48,12 +48,21 @@ module.exports = {
                 loader: 'vue-loader'
             },
             {
-                test: /(\.jsx?)$/,
+                // test: /\.(jsx?)|(ts)$/,
+                test: /\.(jsx?)$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
                     cacheDirectory: true,
                 },
+            },
+            {
+                test: /\.tsx?$/, exclude: /node_modules/, use: [
+                    "babel-loader",
+                    { loader: "ts-loader",
+                    //  options: { appendTsSuffixTo: [/\.vue$/], transpileOnly: true } 
+                }
+                ]
             },
             /* assets */
             {

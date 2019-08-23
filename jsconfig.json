@@ -16,6 +16,6 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx",
-    "types/"
+    "types/", "tsconfig.json"
   ],
 }

@@ -6,7 +6,7 @@ const { _resolve } = require('../helpers')
 const { format } = require("date-fns")
 
 /**
- * 追加文件到输出
+ * 动态生成sitemap
  */
 module.exports = class EmitSitemapPlugin {
 

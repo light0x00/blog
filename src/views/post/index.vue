@@ -1,8 +1,21 @@
 <template>
-  <div style v-loading="pageState.loading" element-loading-body class="post-wrapper">
+  <div
+    v-loading="pageState.loading"
+    element-loading-body
+    class="post-wrapper"
+    style="overflow-x: hidden;"
+  >
+    <!-- 文章目录 -->
     <div class="markdown-toc" v-if="!isMobile()" style="left:80% "></div>
+    <!-- 文章 -->
     <div id="post-container" class="markdown-body" v-html="postHtml"></div>
+    <el-divider></el-divider>
+    <!-- 文章标签 -->
     <post-tags class="post-tags" :tags="post.tags"></post-tags>
+    <!-- 留言板 -->
+    <comments-area :articleKey="post.key"></comments-area>
+
+    <!-- 至顶 -->
     <backtop></backtop>
   </div>
 </template>
@@ -11,32 +24,19 @@
 import axios from "axios";
 import { mapState } from "vuex";
 
-import marked from "marked";
+import CommentsArea from "@/views/comments-area";
 
-import { setTimeout } from "timers";
-import hljs from "./highlight";
-import tocbot from "tocbot";
-import lozad from "lozad";
-import "viewerjs/dist/viewer.css";
-import Viewer from "viewerjs";
+import { lazyObserve, makeDomLazy } from "./feature";
 
-marked.setOptions({
-  highlight: function(code) {
-    return hljs.highlightAuto(code).value;
-  },
-  pedantic: false,
-  gfm: true,
-  breaks: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  xhtml: false
-});
+import marked from "@/common/marked";
 
 export default {
+  components: {
+    CommentsArea
+  },
   data: function() {
     return {
-      post: { tags: [] },
+      post: { key: "", tags: [] },
       postContent: "空空如也~",
       postHtml: "",
       slideshowVisible: false,
@@ -55,46 +55,40 @@ export default {
   },
   methods: {
     renderMarkdown() {
-      //正文
-      this.postHtml = marked(this.postContent, { baseUrl: this.post.baseUrl });
+      let rawHtml = marked(this.postContent, { baseUrl: this.post.baseUrl });
+      //懒加载
+      rawHtml = makeDomLazy(rawHtml);
+      this.postHtml = rawHtml;
 
-      this.$nextTick(() => {
+      this.$nextTick(async () => {
+        const thisRef = this;
+
         //目录
-        if (!this.isMobile) {
-          tocbot.init({
-            tocSelector: ".markdown-toc",
-            contentSelector: ".markdown-body",
-            headingSelector: "h1,h2"
-          });
-          this.$once("destroy", () => {
-            tocbot.destroy();
+        if (!this.isMobile()) {
+          import("./async-tocbot").then(({ markdownToc }) => {
+            let tocbot = markdownToc();
+            thisRef.$once("destroy", () => {
+              tocbot.destroy();
+            });
           });
         }
 
-        //图片懒加载
-        const imgList = document.querySelectorAll(".markdown-body img");
-        const observer = lozad(imgList); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
-        observer.observe();
+        //懒加载监听
+        lazyObserve();
 
         //图片查看器
-        const viewer = new Viewer(document.querySelector(".markdown-body"), {
-          button: false,
-          // navbar: 0, //小图预览
-          // title: 0, //图片名称
-          toolbar: {
-            prev: { show: 4, size: "large" },
-            play: {
-              show: 4,
-              size: "large"
-            },
-            next: { show: 4, size: "large" }
-          },
-          transition: false
+        import("./async-viewer").then(({ imageViewer }) => {
+          const viewer = imageViewer();
+          thisRef.$once("destroy", () => {
+            viewer.destroy();
+          });
         });
 
-        this.$once("destroy", () => {
-          viewer.destroy();
-        });
+        //UML支持
+        // renderFlow();
+        // import("./async-mermaid").then(({renderMermaid}) => {
+        //   renderMermaid();
+        // });
       });
     },
     async loadPost(route) {
@@ -122,14 +116,18 @@ export default {
 </script>
 
 <style>
+.post-wrapper {
+  margin: 20px;
+  width: 100%;
+}
+
 .post-tags {
   width: calc(100% - 30px);
-  /* margin: 15px; */
 }
 
 .markdown-body {
   width: calc(100% - 30px);
-  margin: 15px;
+  /* margin: 15px; */
 }
 
 /* 防止loading层把navbar的阴影遮住 */

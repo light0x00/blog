@@ -1,7 +1,7 @@
 /* element */
 // import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/element-theme.scss'
-import { Tooltip,Button, Link,Divider,Icon, Backtop, Loading, Menu, MenuItem, MenuItemGroup, Submenu, Drawer, Avatar, Timeline, TimelineItem, Card, Tag } from 'element-ui';
+import { Pagination,Dialog,Alert, Form, FormItem, Notification, Input, Tooltip, Button, Link, Divider, Icon, Backtop, Loading, Menu, MenuItem, MenuItemGroup, Submenu, Drawer, Avatar, Timeline, TimelineItem, Card, Tag } from 'element-ui';
 
 
 export default {
@@ -22,6 +22,25 @@ export default {
         Vue.component(Backtop.name, Backtop)
         Vue.component(Icon.name, Icon)
         Vue.component(Divider.name, Divider)
-        Vue.use(Loading)
+        Vue.component(Input.name, Input)
+        // Vue.component(Notification.name, Notification)
+        Vue.component(Form.name, Form)
+        Vue.component(FormItem.name, FormItem)
+        Vue.component(Alert.name, Alert)
+        Vue.component(Dialog.name, Dialog)
+        Vue.component(Pagination.name, Pagination)
+
+        Vue.use(Loading.directive);
+        Vue.prototype.$loading = Loading.service;
+        Vue.prototype.$notify = (opt)=>Notification({...opt,offset:60});
+        // Vue.prototype.validateForm = async (formName) => {
+        //     try {
+        //         await this.refs[formName].validate()
+        //         return true
+        //     } catch (e) {
+        //         return false
+        //     }
+        // }
+
     }
 }

@@ -7,5 +7,3 @@ let r = detector({
     postRootPath: resolve("public/posts"),
     routePrefix:'/article'
 })
-
-console.log(r)

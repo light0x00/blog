@@ -94,7 +94,7 @@ export default {
   animation: fade-in 0.5s forwards;
 }
 
-.headroom--top {
+/* .headroom--top {
   position: static;
-}
+} */
 </style>

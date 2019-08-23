@@ -51,6 +51,7 @@
 import PostMenu from "@/views/menu/index";
 
 import MyAvatar from "./avatar";
+import { setTimeout } from "timers";
 
 export default {
   created() {},
@@ -66,8 +67,11 @@ export default {
   watch: {
     visible(n, o) {
       if (n) {
-        this.$refs["myAvator"].shake();
-        this.$refs["myAvator"].showMessage("Hello!");
+        let thisRef = this;
+        thisRef.$refs["myAvator"].shake();
+        setTimeout(() => {
+          thisRef.$refs["myAvator"].showMessage("Hello!");
+        }, 500);
       }
     }
   },

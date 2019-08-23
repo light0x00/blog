@@ -10,7 +10,9 @@
     <sidebar :visible.sync="sidebarVisible"></sidebar>
     <!-- 博客 -->
     <div class="content-wrapper" :style="{top:navbarPin?'50px':'0'}">
-        <router-view :style="{width:isMobile()?'100%':'60%'}"></router-view>
+      <div class="content-inner-wrapper">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -36,7 +38,7 @@ export default {
     onNavbarPin() {},
     onNavbarUnpin() {}
   },
-  mounted(){
+  mounted() {
     this.$store.dispatch("player/initPlayer");
   }
 };
@@ -50,6 +52,9 @@ export default {
 
 .application-wrapper {
   height: 100%;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
 }
 
 .navbar-wrapper {
@@ -71,17 +76,32 @@ export default {
   justify-content: center;
   position: relative;
   top: 50px;
+  width: 100%;
+
 }
 
-.fade-enter-active {
-  transition: all .3s ease;
+@media (min-width: 1800px) {
+  .content-inner-wrapper {
+    width: 50%;
+  }
 }
-.fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+
+@media (min-width: 900px) and (max-width: 1800px) {
+  .content-inner-wrapper {
+    width: 60%;
+  }
 }
-.fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for below version 2.1.8 */ {
-  transform: translateX(10px);
-  opacity: 0;
+
+@media (max-width: 900px) {
+  .content-inner-wrapper {
+    width: 100%;
+  }
+}
+
+.content-inner-wrapper {
+  
+  display: flex;
+  justify-content: center;
+  position: relative;
 }
 </style>

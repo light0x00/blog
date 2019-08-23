@@ -8,7 +8,9 @@
         alt
       />
     </a>
-    <div class="sidebar-bubble" v-show="messageVisible">{{message}}</div>
+    <transition name="el-fade-in">
+      <div class="sidebar-bubble" v-show="messageVisible">{{message}}</div>
+    </transition>
 
     <!-- <div class="sidebar-bubble-box"> -->
     <!-- <div class="sidebar-bubble">哈哈</div> -->
@@ -60,11 +62,11 @@ export default {
     },
     bindShakeEvent() {
       let thisRef = this;
-      let eleAvatar = document.getElementById("myAvatar") 
+      let eleAvatar = document.getElementById("myAvatar");
       eleAvatar.addEventListener("click", () => {
         //问候语
         thisRef.randomMsg();
-        this.shake()
+        this.shake();
       });
     },
     shake() {
@@ -101,7 +103,7 @@ export default {
   width: 90px;
   border-radius: 50px;
   border: 5px solid white;
-  display:inline-block
+  display: inline-block;
 }
 
 .sidebar-bubble {

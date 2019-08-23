@@ -17,7 +17,7 @@
           "esmodules": true,
         },
         "spec": false, // 启用更多的规范兼容，但可能更慢，转换任何在这个预设中支持他们的插件。 (boolean, defaults to false)
-        "loose": false, //松散模式  编译将不完全按照es标准 (比如es6的class转为function时 会直接把类成员写到function的原型上)
+        "loose": true, //松散模式  编译将不完全按照es标准 (比如es6的class转为function时 会直接把类成员写到function的原型上)
         /* Enable transformation of ES6 module syntax to another module type.
           Setting this to false will not transform modules. 
           可选值: "amd" | "umd" | "systemjs" | "commonjs" | "cjs" | "auto" | false, defaults to "auto".
@@ -32,25 +32,20 @@
             false 不做处理,(适用于手动在入口文件全局引入填充的情况)
         */
         "useBuiltIns": false,
-        "debug": false, //是否输出编译日志
+        "debug": true, //是否输出编译日志
         "include": [], // 总是启用哪些 plugins
         "exclude": [] // 排除预设中的 plugins
       }
     ],
+    // "@babel/preset-typescript"
   ],
   "plugins": [
+    /* element */
     [
       "component",
       {
         "libraryName": "element-ui",
         "style":false
-        // "libDir":"packages",
-        // "styleLibrary":{
-        //   "name": "theme-chalk",
-        //   "path":"element-ui/theme-chalk/src/index",
-        // }
-        // "styleLibraryName": "theme-chalk"
-        // "styleLibraryName": "~element-ui/packages/theme-chalk/src/index"
       }
     ]
   ]

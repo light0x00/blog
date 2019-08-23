@@ -8,13 +8,13 @@ const { _resolve } = require('./helpers')
 const devServerConf = {
 
     mode: 'development',
-    devtool: 'source-map',
+    devtool: 'inline-source-map',
+    stats: 'minimal',
     output: {
-        // publicPath: _resolve("dist/"),
         publicPath: "http://blog-dev.light0x00.com:4092/",
     },
     devServer: {
-        contentBase: [_resolve("dist/"), _resolve("public/"),_resolve("blog-articles/")],
+        contentBase: [_resolve("dist/"), _resolve("public/")],
         // watchContentBase: true,
         host: 'blog-dev.light0x00.com',
         port: 4092,
@@ -24,9 +24,15 @@ const devServerConf = {
         historyApiFallback: true,
         hot: true,
         clientLogLevel: "info",
-        /* 代理 https://github.com/chimurai/http-proxy-middleware#options */
         proxy: {
-
+            "/blog-api": {
+                "target": "http://gc-dev.light0x00.com:8082/blog-api",
+                "changeOrigin": true,
+                "pathRewrite": {
+                    "^/blog-api": ""
+                }
+            },
+         
         },
         /* 构建异常时 异常信息覆盖浏览器整个屏幕 */
         overlay: {
@@ -43,7 +49,7 @@ const devServerConf = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
-            // 'process.env.NODE_ENV': JSON.stringify('development'),
+            'process.env.NODE_ENV': JSON.stringify('development'),
             PROFILE: JSON.stringify("devServer"),
         }),
     ]
@@ -51,7 +57,16 @@ const devServerConf = {
 
 
 
-module.exports = async function() {
-    return basicConfigFn(devServerConf,(finalConfig,storage)=>{
+module.exports = async function () {
+    return basicConfigFn(devServerConf, (finalConfig, storage) => {
+        //博客文件请求直接转发到线上服务器
+        Object.assign(finalConfig.devServer.proxy, {
+            [storage.blogConfig.postContextPath]: {
+                "target": "https://blog.light0x00.com/",
+                "changeOrigin": true,
+            }
+        })
+
     })
+
 }
