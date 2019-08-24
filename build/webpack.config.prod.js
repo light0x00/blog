@@ -5,7 +5,7 @@ const basicConfigFn = require('./webpack.config.js');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const EmitSitemapPlugin = require('./webpack-snippets/emit-sitemap-plugin')
+const EmitSitemapPlugin = require('./webpack-segment/emit-sitemap-plugin')
 const { _resolve, rootPath } = require('./helpers')
 const URL = require('url').URL
 
@@ -53,7 +53,7 @@ var config = {
     ]
 }
 
-const getPrenderPlugin = require("./webpack-snippets/prender")
+const getPrenderPlugin = require("./webpack-segment/prender")
 
 module.exports = async function () {
     return basicConfigFn(config,
