@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import comp1 from "./comp1";
 
 import "velocity-animate/velocity";
 import "velocity-animate/velocity.ui";
