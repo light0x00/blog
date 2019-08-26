@@ -15,11 +15,19 @@
         <el-alert title="评论不可以为空~" slot="error" type="error"></el-alert>
       </el-form-item>
     </el-form>
+    <div style="text-align:right;margin:3px 0" v-if="!isNilGuestInfo">
+      <a
+        href="javascript:void(0)"
+        @click="guestInfoDialogVisible=true"
+        style="width:100px"
+        class="el-icon-edit text-slave"
+      >编辑我的信息</a>
+    </div>
     <div style="display:flex;justify-content:center">
       <el-button type="primary" @click="commit" style="width:100px">提交</el-button>
     </div>
 
-    <el-dialog :visible.sync="guestInfoDialogVisible" title="信息设置">
+    <el-dialog :close-on-click-modal="false" :visible.sync="guestInfoDialogVisible" title="信息设置">
       <guest-info @commit="guestInfoDialogVisible=false"></guest-info>
     </el-dialog>
   </div>
@@ -86,8 +94,7 @@ export default {
       } = await MsgCommentControllerApi.addUsingPOST({
         ...this.guestInfo,
         ...this.editingModel,
-        // articleKey:this.articleKey //! for test
-        articleKey: "foo"
+        articleKey: this.articleKey
       });
       if (!this.resOK(code)) {
         this.$notify({ message: body.msg, type: "error" });
@@ -99,16 +106,25 @@ export default {
         body: { data, pageInfo }
       } = await MsgCommentControllerApi.queryUsingPOST({
         lastPage: true,
-        articleKey: "foo"
-      }); //! for test
+        articleKey: this.articleKey
+      });
       this.commentList = data;
       this.pageInfo = pageInfo;
+      this.clearText();
+    },
+    clearText(){
+      // this.editingModel.content=''
+      this.$refs['comment-form'].resetFields()
     }
   },
   mounted() {}
 };
 </script>
-
+<style scoped>
+.comment-editor .el-form-item {
+  margin: 0px !important;
+}
+</style>
 <style >
 .comment-editor .el-alert {
   height: 35px;
@@ -125,5 +141,17 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (min-width: 900px) {
+  .comment-editor .el-dialog {
+    width: 300px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .comment-editor .el-dialog {
+    width: 100% !important;
+  }
 }
 </style>

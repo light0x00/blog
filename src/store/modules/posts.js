@@ -1,14 +1,11 @@
 import Axios from "axios";
-
-const routePrefix = window.APP_CONFIG["postRoutePrefix"] || "/post"
+import { format } from 'date-fns'
+import * as _ from 'lodash-es' //这样不会影响tree-shaking
+import {extractPostKeyFromRoutePath,recursivePostTrees,searchPost} from "@/common/posts-util";
 
 const state = {
     postTrees: window.APP_CONFIG["postTrees"],
-    // curPost: {}
 }
-
-import { format } from 'date-fns'
-import * as _ from 'lodash-es' //这样不会影响tree-shaking
 
 const getters = {
     getPostTrees(state) {
@@ -69,86 +66,24 @@ const actions = {
         let postKey = extractPostKeyFromRoutePath(route.path)
         return dispatch("getPostContent", postKey);
     },
-    // async 
     async getPostContent({ state }, key) {
-        let postInfo = searchPost(state, key)
+        let postInfo = searchPost(state.postTrees, key)
         if (postInfo == null) {
             throw new Error(`can't find post that key is ${key}`)
         }
         let { data } = await Axios.request({ type: 'get', url: postInfo.url })
         return data;
     },
-    getPostByRoute({ state,dispatch }, route) {
+    async getPostByRoute({ state,dispatch }, route) {
         let postKey = extractPostKeyFromRoutePath(route.path)
         return dispatch("getPost", postKey);
     },
     getPost({ state }, key) {
-        let postInfo = searchPost(state, key)
+        let postInfo = searchPost(state.postTrees, key)
         if (postInfo == null) {
             throw new Error(`can't find post that key is ${key}`)
         }
         return postInfo;
-    }
-}
-
-function searchPost(state, key) {
-    function searchTree(treeNode) {
-        if (treeNode.key == key) {
-            return treeNode;
-        }
-        if (treeNode.isGroup) {
-            for (let child of treeNode.childs) {
-                let r = searchTree(child)
-                if (r != null)
-                    return r
-            }
-        }
-        return null;
-    }
-
-    for (let rootNode of state.postTrees) {
-        let r = searchTree(rootNode)
-        if (r)
-            return r;
-    }
-}
-
-/**
- * 从路由路径中提取文章的key
- * @param {*} routePath 路由路径
- */
-function extractPostKeyFromRoutePath(routePath){
-    let extractKeyReg = new RegExp("^" + routePrefix, "g");
-    // return routePath.replace(extractKeyReg, ""); //从当前路由中提取key
-    return routePath.replace(extractKeyReg,"").replace(/(^\/)|(\/$)/g,"")
-}
-
-function recursivePostTrees(postTrees, callback) {
-    function recursiveTree(treeNode) {
-        let canStop;
-        if (treeNode.isGroup) {
-            canStop = callback(treeNode)
-            if (canStop) {
-                return true;
-            }
-
-            for (let child of treeNode.childs) {
-                canStop = recursiveTree(child)
-                if (canStop)
-                    return true;
-            }
-        } else {
-            canStop = callback(treeNode)
-            if (canStop)
-                return true;
-        }
-        return false;
-    }
-
-    for (let rootNode of postTrees) {
-        let r = recursiveTree(rootNode)
-        if (r)
-            return r;
     }
 }
 

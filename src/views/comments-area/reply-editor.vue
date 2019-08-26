@@ -46,8 +46,8 @@ export default {
     //提交回复
     async commitReply() {
       let reply = {
-        // articleKey: this.articleKey,
-        articleKey: "foo", //!for test
+        articleKey: this.articleKey,
+        // articleKey: "foo", //!for test
         content: this.inputContent,
         refId: this.replyTarget.id,
         ...this.guestInfo

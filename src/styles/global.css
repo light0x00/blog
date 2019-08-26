@@ -81,19 +81,19 @@ a.text-normal:hover{
 
 @media (min-width: 1800px) {
     .el-dialog {
-      width: 30%!important;
+      width: 30%;
     }
   }
   
   @media (min-width: 900px) and (max-width: 1800px) {
     .el-dialog {
-      width: 40%!important;
+      width: 40%;
     }
   }
   
   @media (max-width: 900px) {
     .el-dialog {
-      width: 100% !important;
+      width: 100%;
     }
   }
 
@@ -104,11 +104,7 @@ a.text-normal:hover{
     background-color: #28a745;
     /* height:3px; */
 }
-#nprogress .peg {
-    /* box-shadow: 0 0 20px  2px #9cddab, 0 0 20px 20px pink; */
-    /* box-shadow: 0 0 20px 2px #9cddab, 0 0 7px 5px #9cddab; */
-    /* box-shadow: 0 0 20px 2px pink, 0 0 7px 5px pink; */
-}
+
 
 #nprogress .spinner-icon {
     /* border-color:#28a745 */

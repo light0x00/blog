@@ -24,6 +24,10 @@ let basicConfig = {
     context: rootPath,
     watchOptions: { ignored: /node_modules/ },
     stats: 'normal',
+    //for markdown-toc
+    node: {
+        fs: "empty"
+    },
     resolve: {
         extensions: ['.vue', '.js', '.ts'],
         alias: { 'vue$': 'vue/dist/vue.runtime.esm', '@': _resolve("src"), },
@@ -51,14 +55,14 @@ basicConfig = merge(merge(basicConfig, assetsConfig), optConfig)
  * @param {*} finalConfig 配置
  * @param {*} param1 全局状态
  */
-async function basicHook(finalConfig, { postTrees, playList, blogConfig: { postPublicPath, postRootPath, postRoutePrefix, postContextPath,neverCopy } }) {
+async function basicHook(finalConfig, { postTrees, playList, blogConfig: { postPublicPath, postRootPath, postRoutePrefix, postContextPath, neverCopy } }) {
     finalConfig.plugins.push(new webpack.DefinePlugin({
         PLAY_LIST: JSON.stringify(playList),
         POST_TREES: JSON.stringify(postTrees),
         POST_ROUTE_PREFIX: JSON.stringify(postRoutePrefix)
     }))
     //如果博文与asstes挂载在相同的路径,则将其拷贝到输出路径(dist)
-    if (postPublicPath == finalConfig.output.publicPath && neverCopy !==true) {
+    if (postPublicPath == finalConfig.output.publicPath && neverCopy !== true) {
         finalConfig.plugins.push(
             new CopyPlugin([
                 { from: postRootPath, to: join(finalConfig.output.path, postContextPath) },

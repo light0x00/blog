@@ -23,16 +23,16 @@ const routes = [
         ]
     },
     {
-        path: window.APP_CONFIG["postRoutePrefix"] || "/post",
+        path: window.APP_CONFIG["postRoutePrefix"] || "/article",
         component: Layout,
         children: [
             {
                 path: "",
-                component: () => import(/* webpackPrefetch:true */'@/views/post'),
+                component: () => import(/* webpackPrefetch:true */'@/views/article'),
             },
             {
                 path: "*",
-                component: () => import(/* webpackPrefetch:true */'@/views/post'),
+                component: () => import(/* webpackPrefetch:true */'@/views/article'),
             }
         ]
     },
@@ -91,10 +91,10 @@ const routes = [
         path: "*",
         component: require("@/components/404").default
     },
-    {
-        path: "/test",
-        component: require("@/views/test").default
-    },
+    // {
+    //     path: "/test",
+    //     component: require("@/views/test").default
+    // },
 ]
 
 

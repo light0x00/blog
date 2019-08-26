@@ -1,6 +1,5 @@
 <template>
   <div class="comment-list">
-
     <!-- 评论列表 -->
     <comment-list ></comment-list>
     <!-- 编辑评论 -->
@@ -27,17 +26,15 @@ export default {
       return this.$store.state.comment.commentList;
     }
   },
-  watch: {
-    articleKey(n, o) {
-      this.$store.commit("comment/setArticleKey", this.articleKey);
-    }
-  },
   async created() {
-   
+    // this.$store.commit("comment/setArticleKey", this.articleKey);
+    this.$store.commit("comment/setArticleKey", 'foo');
   },
   methods: {}
 };
 </script>
 
 <style>
+
+
 </style>

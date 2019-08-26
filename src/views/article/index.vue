@@ -6,15 +6,14 @@
     style="overflow-x: hidden;"
   >
     <!-- 文章目录 -->
-    <div class="markdown-toc" v-if="!isMobile()" style="left:80% "></div>
+    <article-toc :rawText="articleText"></article-toc>
     <!-- 文章 -->
-    <div id="post-container" class="markdown-body" v-html="postHtml"></div>
+    <div id="post-container" class="markdown-body" v-html="articleHTML"></div>
     <el-divider></el-divider>
     <!-- 文章标签 -->
     <post-tags class="post-tags" :tags="post.tags"></post-tags>
     <!-- 留言板 -->
     <comments-area :articleKey="post.key"></comments-area>
-
     <!-- 至顶 -->
     <backtop></backtop>
   </div>
@@ -23,58 +22,51 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-
 import CommentsArea from "@/views/comments-area";
-
-import { lazyObserve, makeDomLazy } from "./feature";
-
+// import { lazyObserve, makeDomLazy } from "./feature";
 import marked from "@/common/marked";
+import {extractPostKeyFromRoutePath} from "@/common/posts-util";
+import ArticleToc from "./article-toc";
+
 
 export default {
   components: {
-    CommentsArea
+    CommentsArea,ArticleToc
   },
   data: function() {
     return {
-      post: { key: "", tags: [] },
-      postContent: "空空如也~",
-      postHtml: "",
+      post: { key: extractPostKeyFromRoutePath(this.$route.path), tags: [] },
+      articleText: "空空如也~",
+      articleHTML: "",
       slideshowVisible: false,
       pageState: { loading: false }
     };
   },
   computed: {},
   async created() {
-    await this.loadPost(this.$route);
+    console.log(this.post)
+    await this.loadPost();
   },
   mounted() {},
   watch: {
     $route(n, o) {
-      this.loadPost(n);
+      // this.loadPost(n);
     }
   },
   methods: {
     renderMarkdown() {
-      let rawHtml = marked(this.postContent, { baseUrl: this.post.baseUrl });
+      let rawHtml = marked(this.articleText, { baseUrl: this.post.baseUrl });
       //懒加载
-      rawHtml = makeDomLazy(rawHtml);
-      this.postHtml = rawHtml;
+      // rawHtml = makeDomLazy(rawHtml);
+      this.articleHTML = rawHtml;
 
       this.$nextTick(async () => {
         const thisRef = this;
 
         //目录
-        if (!this.isMobile()) {
-          import("./async-tocbot").then(({ markdownToc }) => {
-            let tocbot = markdownToc();
-            thisRef.$once("destroy", () => {
-              tocbot.destroy();
-            });
-          });
-        }
 
         //懒加载监听
-        lazyObserve();
+        // lazyObserve();
 
         //图片查看器
         import("./async-viewer").then(({ imageViewer }) => {
@@ -99,7 +91,7 @@ export default {
         "posts/getPostByRoute",
         this.$route
       );
-      this.postContent = await this.$store.dispatch(
+      this.articleText = await this.$store.dispatch(
         "posts/getPostContentByRoute",
         this.$route
       );

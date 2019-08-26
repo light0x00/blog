@@ -24,7 +24,6 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(
     function (response) {
         let { code, msg } = response.data;
-        console.log(code)
         switch (code) {
             case ResponseStatus.Success:
                 break;

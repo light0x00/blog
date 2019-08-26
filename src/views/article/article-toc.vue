@@ -3,8 +3,18 @@
 </template>
 
 <script>
-import tocbot from "tocbot";
-export default {};
+// import * as toc from 'markdown-toc'
+
+export default {
+
+  props:{rawText:{type:String}},
+
+  created(){
+    // let a =toc(this.rawText).json;
+    // console.log(a)
+  }
+
+};
 </script>
 
 <style>

@@ -20,15 +20,16 @@ const devServerConf = {
         port: 4092,
         index: 'index.html',
         open: false,
-        openPage: "index.html", //在浏览器打开站点的哪个页面
+        openPage: "index.html",
         historyApiFallback: true,
         hot: true,
         clientLogLevel: "info",
         // https:true,
         proxy: {
+            
             "/blog-api": {
-                // "target": "https://blog.light0x00.com/blog-api",
-                "target": "http://blog.light0x00.com/blog-api",
+                "target": "https://blog.light0x00.com/blog-api",
+                // "target": "http://blog-dev.light0x00.com:8081/blog-api",
                 "changeOrigin": true,
                 "pathRewrite": {
                     "^/blog-api": ""

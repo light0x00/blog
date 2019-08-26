@@ -1,6 +1,6 @@
 <template>
   <!-- 回复 -->
-  <div class="reply-list">
+  <div class="reply-list"  v-loading="pageState.loading" element-loading-text="加载评论中😳" >
     <!-- 回复列表 -->
     <template>
       <reply-item v-for="item of renderingReplies" :reply="item" :key="`reply-${item.id}`"></reply-item>
@@ -48,7 +48,10 @@ export default {
   data() {
     return {
       expandable: false,
-      initialExpandNum: 3
+      initialExpandNum: 3,
+      pageState:{
+        loading:false
+      }
     };
   },
   computed: {
@@ -95,6 +98,7 @@ export default {
       this.expandable = true;
     },
     async loadData() {
+      this.pageState.loading=true
       let {
         body: { data, pageInfo, code }
       } = await MsgCommentControllerApi.queryRepliesUsingPOST({
@@ -103,6 +107,7 @@ export default {
       });
       this.mutablePageInfo = pageInfo;
       this.mutableReplies = data;
+      this.pageState.loading=false;
     }
   }
 };

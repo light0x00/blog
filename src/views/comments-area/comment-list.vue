@@ -1,10 +1,10 @@
 <template>
-  <div class="comment-list">
+  <div class="comment-list" v-loading="pageState.loading" element-loading-text="加载评论中...">
     
     <h2 style="margin-top:20px;border-bottom:1px solid #DCDFE6">{{pageInfo.total}}条评论</h2>
 
     <comment-item v-for="(item,index) in commentList" :key="`comment${index}`" :comment="item"></comment-item>
-
+    <div v-if="pageInfo.total!=null&&pageInfo.total==0" class="text-slave" style="text-align:center">还没有评论</div>
     <div class="comment-pagination">
       <el-pagination
         layout="prev, pager, next"
@@ -15,12 +15,15 @@
         @current-change="loadData"
       ></el-pagination>
     </div>
+
+
   </div>
 </template>
 
 <script>
 import CommentItem from "./comment-item";
 import { MsgCommentControllerApi } from "@/api/index";
+import { mapState } from 'vuex';
 
 export default {
   props: { list: { type: Array } },
@@ -30,6 +33,9 @@ export default {
       queryVo: {
         articleKey: this.articleKey,
         repliesPageInfo: { index: 1, size: 10 }
+      },
+      pageState:{
+        loading:false
       }
     };
   },
@@ -50,16 +56,19 @@ export default {
         this.$store.commit("comment/setCommentList", list);
       }
     },
-    articleKey() {
-      return this.$store.state.comment.articleKey;
-    }
+    // articleKey() {
+    //   return this.$store.state.comment.articleKey;
+    // }
+    ...mapState('comment',['articleKey'])
   },
   async created() {
     this.loadData();
   },
   methods: {
     async loadData() {
-      this.queryVo.articleKey = "foo"; //!for test
+      this.pageState.loading=true
+      this.queryVo.articleKey = this.articleKey; //!for test
+      console.log(this.articleKey)
       let {
         body: { data, pageInfo }
       } = await MsgCommentControllerApi.queryUsingPOST({
@@ -68,6 +77,7 @@ export default {
       });
       this.pageInfo = pageInfo;
       this.commentList = data;
+      this.pageState.loading=false
     }
   }
 };

@@ -59,9 +59,10 @@ module.exports = {
             {
                 test: /\.tsx?$/, exclude: /node_modules/, use: [
                     "babel-loader",
-                    { loader: "ts-loader",
-                     options: { appendTsSuffixTo: [/\.vue$/], transpileOnly: true } 
-                }
+                    {
+                        loader: "ts-loader",
+                        options: { appendTsSuffixTo: [/\.vue$/], transpileOnly: true }
+                    }
                 ]
             },
             /* assets */
@@ -100,6 +101,6 @@ module.exports = {
             filename: assetsPath.css,
             chunkFilename: assetsPath.cssChunk
         }),
-       
+
     ]
 }
