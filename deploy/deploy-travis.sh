@@ -32,6 +32,6 @@ open_ssh_agent
 
 deploy_to_remote
 
-exec_script_remote 'service nginx reload'
+exec_script_remote 'sudo /usr/sbin/service nginx reload'
 
 close_ssh_agent
