@@ -13,8 +13,8 @@ const URL = require('url').URL
 var config = {
     mode: 'production',
     output: {
-        // publicPath: _resolve("dist/"),
         publicPath: "https://blog.light0x00.com/",
+        // publicPath: "http://blog-dev.light0x00.com:4092/",
     },
     // devtool: 'hidden-source-map',
     devtool: false,

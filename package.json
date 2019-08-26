@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "sideEffects": [
-    "src/**/*.css",
-    "src/**/*.scss",
-    "src/main.js",
-    "src/config/**/*.js"
-  ],
   "scripts": {
     "devServer": "npx cross-env NODE_ENV=development webpack-dev-server --profile --config build/webpack.config.devServer.js",
     "dev": "npx cross-env NODE_ENV=development webpack --config build/webpack.config.dev.js --progress",

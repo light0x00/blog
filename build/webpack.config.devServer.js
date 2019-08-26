@@ -27,7 +27,8 @@ const devServerConf = {
         // https:true,
         proxy: {
             "/blog-api": {
-                "target": "https://blog.light0x00.com/blog-api",
+                // "target": "https://blog.light0x00.com/blog-api",
+                "target": "http://blog.light0x00.com/blog-api",
                 "changeOrigin": true,
                 "pathRewrite": {
                     "^/blog-api": ""
