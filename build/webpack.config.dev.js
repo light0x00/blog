@@ -29,8 +29,8 @@ module.exports = async (profileConfig,configInitializedHook) => {
     return basicConfigFn(merge(devConf, profileConfig || {}),
         (finalConfig,storage) => {
             //prender
-            let prenderPluin = require("./webpack-segment/prender")(storage.preRenderData)
-            finalConfig.plugins.push(prenderPluin)
+            // let prenderPluin = require("./webpack-segment/prender")(storage.preRenderData)
+            // finalConfig.plugins.push(prenderPluin)
 
             //将hook的触发传递给下层
             if(isFunction(configInitializedHook))

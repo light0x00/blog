@@ -24,9 +24,10 @@ const devServerConf = {
         historyApiFallback: true,
         hot: true,
         clientLogLevel: "info",
+        // https:true,
         proxy: {
             "/blog-api": {
-                "target": "http://gc-dev.light0x00.com:8082/blog-api",
+                "target": "https://blog.light0x00.com/blog-api",
                 "changeOrigin": true,
                 "pathRewrite": {
                     "^/blog-api": ""
