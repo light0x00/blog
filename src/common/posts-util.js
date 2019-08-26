@@ -1,9 +1,22 @@
+/* ------------------------------------------------------------------------------
+处理文章数据的工具方法
+------------------------------------------------------------------------------ */
 const routePrefix = window.APP_CONFIG["postRoutePrefix"] || "/article"
+
+/**
+ * 从路由路径中提取出文章的key
+ * @param {*} routePath 路由路径
+ */
 export function extractPostKeyFromRoutePath(routePath) {
-  let extractKeyReg = new RegExp("^" + routePrefix, "g");
-  return routePath.replace(extractKeyReg, "").replace(/(^\/)|(\/$)/g, "");
+    let extractKeyReg = new RegExp("^" + routePrefix, "g");
+    return routePath.replace(extractKeyReg, "").replace(/(^\/)|(\/$)/g, "");
 }
 
+/**
+ * 从文章树中找出指定key对于的文章信息
+ * @param {*} postTrees 文章树
+ * @param {*} key key
+ */
 export function searchPost(postTrees, key) {
     function searchTree(treeNode) {
         if (treeNode.key == key) {
@@ -25,6 +38,11 @@ export function searchPost(postTrees, key) {
     }
 }
 
+/**
+ * 遍历树
+ * @param {*} postTrees 文章树
+ * @param {*} callback 每当遍历一个树节点时调用,传入节点,返回值将决定是否继续遍历
+ */
 export function recursivePostTrees(postTrees, callback) {
     function recursiveTree(treeNode) {
         let canStop;

@@ -80,6 +80,12 @@ export default {
 
 }
 
+.content-inner-wrapper {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
 @media (min-width: 1800px) {
   .content-inner-wrapper {
     width: 50%;
@@ -98,10 +104,5 @@ export default {
   }
 }
 
-.content-inner-wrapper {
-  
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
+
 </style>

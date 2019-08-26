@@ -1,7 +1,4 @@
-/* element */
-import 'element-ui/lib/theme-chalk/index.css'
-// import '@/styles/element-theme.scss'
-// import { Button, Link,Divider,Icon, Backtop, Loading, Menu, MenuItem, MenuItemGroup, Submenu, Drawer, Avatar, Timeline, TimelineItem, Card, Tag } from 'element-ui';
+import '@/styles/element-theme.scss'
 
 /* 暂时使用的element组件不多 gizp仅20k 无需异步加载 */
 export default {

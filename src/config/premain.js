@@ -14,5 +14,3 @@ window.APP_CONFIG = {
     ...conf1, ...conf2
 }
 
-
-import './date-locale'

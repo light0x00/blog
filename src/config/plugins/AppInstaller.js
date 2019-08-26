@@ -1,7 +1,7 @@
 import { isMobile } from '@/common/utils'
-
 import components from '@/components'
-import { formatDistanceToNow, parseISO } from "date-fns";
+import { isoDateDistanceToNow } from "@/common/date-util";
+
 
 export default {
     install(Vue, options) {
@@ -10,7 +10,7 @@ export default {
         Vue.prototype.resOK = (code) => code == 0;
 
         Vue.filter('dateDistanceToNow', function (val) {
-            return formatDistanceToNow(parseISO(val), { locale: window.getDateLocale() });
+            return isoDateDistanceToNow(val);
         })
         //注册组件
         for (let comp of components) {
