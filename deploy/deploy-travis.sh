@@ -25,8 +25,7 @@ ssh_key="$app_base_path/id_rsa_light"
 
 # ------------------------------------------------------------
 
-
-source $app_base_path/deploy/ci-hell/src/libs/index.sh
+source $app_base_path/deploy/ci-shell/src/libs/index.sh
 
 open_ssh_agent
 
