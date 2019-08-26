@@ -22,7 +22,6 @@ ssh_key="$app_base_path/id_rsa_light"
 # 部署后运行的脚本
 # run_script="$app_base_path/deploy/run.sh"
 
-
 # ------------------------------------------------------------
 
 source $app_base_path/deploy/ci-shell/src/libs/index.sh

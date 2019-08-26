@@ -24,7 +24,7 @@
       >编辑我的信息</a>
     </div>
     <div style="display:flex;justify-content:center">
-      <el-button type="primary" @click="commit" style="width:100px">提交</el-button>
+      <el-button type="primary" @click="commit" style="width:100px;margin-top:10px">提交</el-button>
     </div>
 
     <el-dialog :close-on-click-modal="false" :visible.sync="guestInfoDialogVisible" title="信息设置">

@@ -22,6 +22,7 @@ export default {
   methods:{
     onUpvote(){
       if(!this.hasLogined){
+        this.$notify({message:"匿名用户不可以点赞😳"})
         console.log("匿名用户不可以点赞~")
       }
     }

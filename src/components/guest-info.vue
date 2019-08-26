@@ -40,7 +40,7 @@
         </template>
       </el-form-item>
     </el-form>
-    <div style="display:flex;justify-content:center">
+    <div style="display:flex;justify-content:center;">
       <el-button type="primary" @click="commit" style="width:100px">确认</el-button>
     </div>
   </div>
@@ -48,6 +48,7 @@
 
 <script>
 import rules from "@/common/rules";
+//
 import UAParser from "ua-parser-js";
 import { mapState } from "vuex";
 

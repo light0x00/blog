@@ -1,6 +1,6 @@
 
 
-import StorageUtil from "@/common/StorageUtil";
+import StorageUtil from "@/common/storage-util";
 
 
 const Storage_Key="Guest_Info"

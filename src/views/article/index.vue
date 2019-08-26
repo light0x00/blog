@@ -22,7 +22,7 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-import CommentsArea from "@/views/comments-area";
+import CommentsArea from "@/views/comments";
 // import { lazyObserve, makeDomLazy } from "./feature";
 import marked from "@/common/marked";
 import {extractPostKeyFromRoutePath} from "@/common/posts-util";

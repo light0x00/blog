@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-import StorageUtil from "@/common/StorageUtil";
+import StorageUtil from "@/common/storage-util";
 
 import { StringUtils } from "@/common/utils";
 

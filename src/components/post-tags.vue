@@ -1,6 +1,6 @@
 <template>
   <div class="post-tag-wrapper">
-    <i class="el-icon-price-tag" style="font-size:30px;transform: rotate(90deg);margin-right:10px"></i>
+    <i class="el-icon-price-tag" style="font-size:24px;transform: rotate(90deg);margin-right:10px"></i>
     <el-tag v-for="tag in tags" :key="tag" effect="plain" @click="clickTag(tag)">{{ tag }}</el-tag>
   </div>
 </template>

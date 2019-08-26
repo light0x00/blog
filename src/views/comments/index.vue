@@ -27,8 +27,8 @@ export default {
     }
   },
   async created() {
-    // this.$store.commit("comment/setArticleKey", this.articleKey);
-    this.$store.commit("comment/setArticleKey", 'foo');
+    this.$store.commit("comment/setArticleKey", this.articleKey);
+    // this.$store.commit("comment/setArticleKey", 'foo');
   },
   methods: {}
 };
