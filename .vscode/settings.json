@@ -1,3 +1,7 @@
 {
+    "jumpToAliasFile.alias": {
+        "vue$": "vue/dist/vue.runtime.esm",
+        "@": "/Users/light/Desktop/my-workbench/blog/src"
+    }
  
 }
