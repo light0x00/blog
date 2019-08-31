@@ -1,0 +1,28 @@
+
+/* ---------------------------- element ----------------------------*/
+
+@media (min-width: 1800px) {
+    .el-dialog {
+      width: 30% !important;
+    }
+  }
+  
+  @media (min-width: 900px) and (max-width: 1800px) {
+    .el-dialog {
+      width: 40% !important;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .el-dialog {
+      width: 100% !important;
+    }
+  }
+
+  .el-notification__content{
+      margin:0 !important; /* 此项目的通知框不需要标题,故不需要正文边距 */
+  }
+  .el-notification{
+    width: 330px;
+    right: calc( 50% - 330px / 2 ) !important;
+  }

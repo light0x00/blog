@@ -12,7 +12,9 @@ const state = {
     pageInfo: {
         index: 1,
         size: 10
-    }
+    },
+    //当前显示哪个回复的「回复栏」
+    whichRefDsiplay:""
 }
 
 const getters = {
@@ -26,11 +28,17 @@ const mutations = {
     setArticleKey(state, articleKey) {
         state.articleKey = articleKey;
     },
-    setCommentList(state, commentList) {
+    setList(state, commentList) {
         state.commentList = commentList;
     },
-    setPageInfo(state,pageInfo){
-        state.pageInfo=pageInfo;
+    setPageInfo(state, pageInfo) {
+        state.pageInfo = pageInfo;
+    },
+    push(state,comment){
+        state.commentList.push(comment)
+    },
+    setWhichRefDsiplay(state,replyId){
+        state.whichRefDsiplay=replyId
     }
 }
 

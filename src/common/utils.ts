@@ -7,6 +7,8 @@ export function isMobile() {
   return isMobile;
 }
 
+
+
 export class StringUtils {
   static isEmpty(val: string) {
     return val == null || val == ''

@@ -2,14 +2,14 @@
   <el-submenu v-if="treeNode.isGroup" :index="nodeIndex" active-text-color="red">
     <template slot="title">
       <i class="el-icon-s-management"></i>
-      <span>{{treeNode.title}}</span>
+      <span class="text-main">{{treeNode.title}}</span>
     </template>
     <template v-for="(childNode,childIndex) in treeNode.childs">
       <recursive-ptree :key="childIndex" :nodeIndex="nodeIndex+'-'+childIndex" :treeNode="childNode"></recursive-ptree>
     </template>
   </el-submenu>
   <el-menu-item v-else @click="openPost(treeNode)" >
-      {{treeNode.title}}
+      <span class="text-normal">{{treeNode.title}}</span>
   </el-menu-item>
 </template>
 

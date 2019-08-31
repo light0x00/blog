@@ -1,0 +1,118 @@
+
+body {
+    font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+}
+
+.full-box{
+    width: 100%;
+    height: 100%;
+}
+
+
+.full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+body {
+    color: #24292e
+}
+
+
+
+/* 音乐控件的显示/隐藏 */
+.music-box-hide {
+    animation: fade-out .5s forwards;
+}
+
+.music-box-show  {
+    animation: fade-in .5s forwards;
+}
+
+/* a标签 */
+
+a{
+    text-decoration: none;
+    color: #24292e;
+}
+a:hover{
+    text-decoration: underline;
+}
+a.ul-none:hover{
+    text-decoration: none;
+}
+
+a.text-slave:hover{
+    color:#606266
+}
+a.text-normal:hover{
+    color:#303133;
+}
+
+/* 字体 */
+
+.text-content{
+    color: #24292e;
+    font-size: 14px;
+}
+.text-normal{
+    color: #606266;
+    font-size: 14px;
+}
+
+.text-main {
+    color: #303133;
+    font-size: 14px;
+    font-weight: bold
+}
+
+.text-slave {
+    color: #999;
+  font-size: 13px;
+}
+
+.text-slave-small {
+    color: #909399;
+  font-size: 12px;
+}
+
+.text-primary{
+    color: #009a61;
+    font-size: 14px;
+}
+.text-primary-bold{
+    color: #009a61;
+    
+    font-size: 14px;
+    font-weight: bold
+}
+
+@media (max-width: 900px) {
+    .mobile-hidden{
+        display: none;
+    }
+  }
+
+/* ---------------------------- 动画 ----------------------------*/
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
+}

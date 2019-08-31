@@ -94,7 +94,7 @@ export default {
         return;
       }
       await this.$store.commit("guest/setInfo", this.guestInfo);
-      this.$notify({message:'设置成功~'})
+      this.$notify({type:'success',message:'设置成功!'})
       this.$emit("commit")
 
     }

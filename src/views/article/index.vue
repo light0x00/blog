@@ -114,11 +114,11 @@ export default {
 }
 
 .post-tags {
-  width: calc(100% - 30px);
+  /* width: calc(100% - 30px); */
 }
 
 .markdown-body {
-  width: calc(100% - 30px);
+  /* width: calc(100% - 30px); */
   /* margin: 15px; */
 }
 

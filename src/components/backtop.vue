@@ -30,8 +30,8 @@ export default {
   },
   methods: {
     doBacktop() {
-      let curTop = document.documentElement.scrollTop;
 
+      let curTop = document.scrollingElement.scrollTop;
       let offset = 0;
       let duration = 35;
       let begin = curTop;
@@ -44,7 +44,7 @@ export default {
             return;
           }
           let top = Tween.Quint.easeOut(offset, begin, change, duration);
-          document.documentElement.scrollTop = parseInt(top);
+          document.scrollingElement.scrollTop = parseInt(top);
           ++offset;
           backTopAnimation();
         });
@@ -52,6 +52,17 @@ export default {
     }
   }
 };
+
+function getDomScrollTop() {
+  console.log(platform.name == "Safari");
+  if (platform.name == "Safari") return window.pageYOffset;
+  else return document.documentElement.scrollTop;
+}
+
+function setDomScrollTop(top) {
+  if (platform.name == "Safari") window.pageYOffset = top;
+  else document.documentElement.scrollTop = top;
+}
 </script>
 
 <style>

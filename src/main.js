@@ -1,5 +1,5 @@
 import '@/config/premain' 
-import '@/styles/global.css'
+import '@/styles/index.css'
 
 import Vue from 'vue';
 import ElementInstaller from "@/config/plugins/ElementInstaller";

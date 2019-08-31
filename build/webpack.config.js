@@ -37,7 +37,7 @@ let basicConfig = {
         new CleanWebpackPlugin(['dist'], { root: rootPath }),
         new ManifestPlugin(),
         /* 影响tree-skaing 所以弃用 */
-        // new webpack.ProvidePlugin({_: 'lodash-es' }),
+        new webpack.ProvidePlugin({platform: 'platform' }),
         new BundleAnalyzerPlugin({
             analyzerMode: "static",
             reportFilename: "analyzer-report.html",

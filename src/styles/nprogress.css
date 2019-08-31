@@ -1,0 +1,13 @@
+/* ---------------------------- nprogress ----------------------------*/
+#nprogress .bar {
+    /* background-color: #28a745; */
+    background-color: #28a745;
+    /* height:3px; */
+}
+
+
+#nprogress .spinner-icon {
+    /* border-color:#28a745 */
+    border-top-color: #28a745;
+    border-left-color: #28a745;
+}

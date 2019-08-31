@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-editor">
+  <div class="comment-editor"  v-loading="pageState.loading" element-loading-text="发送中..." >
     <el-form ref="comment-form" :model="editingModel">
       <el-form-item prop="content" :rules="{required:true}">
         <el-input
@@ -18,7 +18,7 @@
     <div style="text-align:right;margin:3px 0" v-if="!isNilGuestInfo">
       <a
         href="javascript:void(0)"
-        @click="guestInfoDialogVisible=true"
+        @click="resetGuestInfo"
         style="width:100px"
         class="el-icon-edit text-slave"
       >编辑我的信息</a>
@@ -26,10 +26,7 @@
     <div style="display:flex;justify-content:center">
       <el-button type="primary" @click="commit" style="width:100px;margin-top:10px">提交</el-button>
     </div>
-
-    <el-dialog :close-on-click-modal="false" :visible.sync="guestInfoDialogVisible" title="信息设置">
-      <guest-info @commit="guestInfoDialogVisible=false"></guest-info>
-    </el-dialog>
+     <guest-info-dialog ref="guest-info-dialog"></guest-info-dialog>
   </div>
 </template>
 
@@ -44,7 +41,9 @@ export default {
       editingModel: {
         content: ""
       },
-      guestInfoDialogVisible: false
+      pageState:{
+        loading:false
+      }
     };
   },
   computed: {
@@ -63,14 +62,14 @@ export default {
         this.$store.commit("comment/setPageInfo", v);
       }
     },
-    commentList: {
-      get: function() {
-        return this.$store.state.comment.commentList;
-      },
-      set: function(list) {
-        this.$store.commit("comment/setCommentList", list);
-      }
-    },
+    // commentList: {
+    //   get: function() {
+    //     return this.$store.state.comment.commentList;
+    //   },
+    //   set: function(list) {
+    //     this.$store.commit("comment/setList", list);
+    //   }
+    // },
     articleKey() {
       return this.$store.state.comment.articleKey;
     }
@@ -83,14 +82,19 @@ export default {
       } catch (e) {
         return;
       }
+
+      
       //检查游客信息是否完善
-      if (this.isNilGuestInfo) {
-        this.guestInfoDialogVisible = true;
-        return;
+      let setGuestInfo = this.$refs['guest-info-dialog'].validate()
+      if(!setGuestInfo){
+        return 
       }
+   
+      this.pageState.loading=true;
+
       //添加
       let {
-        body: { code }
+        body: { code,data }
       } = await MsgCommentControllerApi.addUsingPOST({
         ...this.guestInfo,
         ...this.editingModel,
@@ -100,21 +104,28 @@ export default {
         this.$notify({ message: body.msg, type: "error" });
         return;
       }
+      this.$store.commit('comment/push',data)
       //刷新
       this.$notify({ message: "添加评论成功", type: "success" });
-      let {
-        body: { data, pageInfo }
-      } = await MsgCommentControllerApi.queryUsingPOST({
-        lastPage: true,
-        articleKey: this.articleKey
-      });
-      this.commentList = data;
-      this.pageInfo = pageInfo;
-      this.clearText();
+
+
+      this.pageState.loading=false;
+      // let {
+      //   body: { data, pageInfo }
+      // } = await MsgCommentControllerApi.queryUsingPOST({
+      //   lastPage: true,
+      //   articleKey: this.articleKey
+      // });
+      // this.commentList = data;
+      // this.pageInfo = pageInfo;
+      // this.clearText();
     },
     clearText(){
       // this.editingModel.content=''
       this.$refs['comment-form'].resetFields()
+    },
+    resetGuestInfo(){
+      this.$refs['guest-info-dialog'].show()
     }
   },
   mounted() {}

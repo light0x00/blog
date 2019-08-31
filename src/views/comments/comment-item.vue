@@ -8,7 +8,7 @@
       <div class="comment-meta">
         <a href="javascript:void(0)" class="comment-user text-primary-bold">{{comment.nickname}}</a>
         <span style="margin: 0 5px;">·</span>
-        <div class="comment-date text-slave">{{comment.postDate | dateDistanceToNow}}</div>
+        <div class="comment-date text-slave-small">{{comment.postDate | dateDistanceToNow}}</div>
       </div>
       <!-- 评论正文 -->
       <div class="comment-content text-content">{{comment.content}}</div>
@@ -16,9 +16,16 @@
       <div class="comment-opt">
         <comment-upvote :number="comment.upvote"></comment-upvote>
         <a class="comment-reference text-slave" href="javascript:void(0)" @click="onReply">回复</a>
+
+        <div class="comment-useragent text-slave-small">{{ comment.userAgent | formatUserAgent}}</div>
       </div>
       <!-- 回复列表 -->
-      <comment-reply-list v-if="replyListVisible" :rootId="comment.id" :replies.sync="comment.replies" :pageInfo.sync="comment.repliesPageInfo">
+      <comment-reply-list
+        v-if="replyListVisible"
+        :rootId="comment.id"
+        :replies.sync="comment.replies"
+        :pageInfo.sync="comment.repliesPageInfo"
+      >
         <reply-editor :comment="comment"></reply-editor>
       </comment-reply-list>
     </div>
@@ -38,12 +45,12 @@ export default {
   props: { comment: { type: Object } },
 
   computed: {
-    ...mapState("comment", ["articleKey","replyTarget"]),
+    ...mapState("comment", ["articleKey", "replyTarget"]),
     replyListVisible() {
       //当前评论的回复列表不为空 或者 当前评论为被回复目标
       return (
         (this.comment.replies != null && this.comment.replies.length > 0) ||
-        this.replyTarget.rootId == this.comment.id  
+        this.replyTarget.rootId == this.comment.id
       );
     }
   },
@@ -89,9 +96,11 @@ export default {
 
 .comment-meta {
   display: flex;
+  align-items: center;
 }
 .comment-opt {
   display: flex;
+  align-items: center;
 }
 
 .comment-meta > div:not(:last-child) {
@@ -105,12 +114,10 @@ export default {
   padding: 5px 0;
 }
 
-.comment-date {
-  color: #999;
-  font-size: 13px;
-}
-
 .comment-reference {
   /* margin-right: 10px; */
+}
+.comment-useragent {
+  margin-left: auto;
 }
 </style>
