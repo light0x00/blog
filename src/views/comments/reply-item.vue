@@ -109,37 +109,5 @@ export default {
   align-items: center;
   justify-content: flex-end;
 }
-/* .reply-date::before {
-  content: "·";
-  margin: 0 5px;
-} */
 
-/* .reply-reference {
-
-}
-.reply-reference > *:not(:last-child) {
-  margin-right: 10px;
-}
-
-.reply-reference {
-  display: none;
-}
-.reply-item:hover .reply-reference {
-  display: inline-block;;
-}
-
-@media (min-width: 1800px) {
-} */
-
-/* @media (min-width: 900px) and (max-width: 1800px) {
-  .el-dialog {
-    width: 40% !important;
-  }
-}
-
-@media (max-width: 900px) {
-  .el-dialog {
-    width: 100% !important;
-  }
-} */
 </style>

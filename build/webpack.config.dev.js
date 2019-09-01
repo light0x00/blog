@@ -15,7 +15,7 @@ let devConf = {
         publicPath: "http://blog-dev.light0x00.com:4092/",
     },
     optimization: {
-        sideEffects: true
+        sideEffects: false
     },
     plugins: [
         new webpack.DefinePlugin({

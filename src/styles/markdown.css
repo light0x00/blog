@@ -1,39 +1,5 @@
 /* ---------------------------- markdown-toc ----------------------------*/
 
-.markdown-toc>ol{
-    padding: 0
-  }
-.markdown-toc {
-    /* background-color: #fff; */
-    position: fixed;
-    right: 10px;
-    font-size: 16px;
-    font-weight: 400;
-}
-.markdown-toc ol{
-    display: block;
-    list-style-type: disc;
-    padding: 0;
-    margin: 0;
-    /* margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px; */
-    padding-inline-start: 40px;
-
-}
-.markdown-toc ol li{
-    list-style: none;
-}
-.markdown-toc ol li a:hover{
-    background-color: #ebedef;
-}
-
-.markdown-toc ol li a{
-    text-decoration: none;
-    display: block;
-    padding:5px;
-}
 
 
 /* ---------------------------- markdown ----------------------------*/

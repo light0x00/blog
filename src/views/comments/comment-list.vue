@@ -68,7 +68,6 @@ export default {
     async loadData() {
       this.pageState.loading = true;
       this.queryVo.articleKey = this.articleKey; 
-      console.log(this.articleKey)
       let {
         body: { data, pageInfo }
       } = await MsgCommentControllerApi.queryUsingPOST({

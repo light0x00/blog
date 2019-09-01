@@ -61,13 +61,14 @@ export default {
   position: fixed;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: nowrap;
   /* border-bottom: solid 1px #e6e6e6; */
   background-color: #fff;
   box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
   height: 50px;
   width: 100%;
-  z-index: 10;
+  z-index: 2;
 }
 .content-wrapper {
   min-height: calc(100% - 50px);
@@ -77,7 +78,6 @@ export default {
   position: relative;
   top: 50px;
   width: 100%;
-
 }
 
 .content-inner-wrapper {
@@ -103,6 +103,4 @@ export default {
     width: 100%;
   }
 }
-
-
 </style>

@@ -8,11 +8,10 @@
 
 <script>
 import { mapState } from "vuex";
-
-import recursive from "./recursive-ptree.vue";
-
+import RecursivePtree from "./recursive-ptree";
 import Vue from "vue";
-Vue.component("recursive-ptree", recursive);
+
+Vue.component(RecursivePtree.name, RecursivePtree);
 
 export default {
   name:"post-menu",

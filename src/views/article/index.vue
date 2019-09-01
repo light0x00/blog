@@ -6,7 +6,7 @@
     style="overflow-x: hidden;"
   >
     <!-- 文章目录 -->
-    <article-toc :rawText="articleText"></article-toc>
+    <article-toc ref="articleToc" :rawText="articleText"></article-toc>
     <!-- 文章 -->
     <div id="post-container" class="markdown-body" v-html="articleHTML"></div>
     <el-divider></el-divider>
@@ -22,36 +22,35 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-import CommentsArea from "@/views/comments";
-// import { lazyObserve, makeDomLazy } from "./feature";
-import marked from "@/common/marked";
-import {extractPostKeyFromRoutePath} from "@/common/posts-util";
-import ArticleToc from "./article-toc";
+// import { makeDomLazy } from "./feature";
+// 整理依赖!!!
 
+import marked from "@/common/marked";
+import { extractPostKeyFromRoutePath } from "@/common/posts-util";
+import ArticleToc from "./toc";
 
 export default {
   components: {
-    CommentsArea,ArticleToc
+    CommentsArea:()=>import(/* webpackPrefetch:true,webpackChunkName:'comment' */"@/views/comments"),
+    ArticleToc
   },
   data: function() {
     return {
       post: { key: extractPostKeyFromRoutePath(this.$route.path), tags: [] },
       articleText: "空空如也~",
       articleHTML: "",
-      slideshowVisible: false,
-      pageState: { loading: false }
+      pageState: { loading: true }
     };
   },
   computed: {},
   async created() {
-    console.log(this.post)
-    await this.loadPost();
+    
   },
-  mounted() {},
+  mounted() {
+    this.loadPost();
+  },
   watch: {
-    $route(n, o) {
-      // this.loadPost(n);
-    }
+
   },
   methods: {
     renderMarkdown() {
@@ -59,28 +58,35 @@ export default {
       //懒加载
       // rawHtml = makeDomLazy(rawHtml);
       this.articleHTML = rawHtml;
+      const thisRef = this;
 
       this.$nextTick(async () => {
-        const thisRef = this;
-
+        
         //目录
+        this.$refs['articleToc'].renderToc()
 
         //懒加载监听
-        // lazyObserve();
+        // import("./async-lozad").then(({ lazyObserve }) => {
+        //   lazyObserve();
+        // });
 
         //图片查看器
-        import("./async-viewer").then(({ imageViewer }) => {
-          const viewer = imageViewer();
-          thisRef.$once("destroy", () => {
-            viewer.destroy();
-          });
-        });
+        import(/* webpackPrefetch:true,webpackChunkName:'viewer' */ "./async-viewer").then(
+          ({ imageViewer }) => {
+            const viewer = imageViewer();
+            thisRef.$once("destroy", () => {
+              viewer.destroy();
+            });
+          }
+        );
 
         //UML支持
-        // renderFlow();
-        // import("./async-mermaid").then(({renderMermaid}) => {
-        //   renderMermaid();
-        // });
+        import(/* webpackPrefetch:true,webpackChunkName:'mermaid' */ "./async-mermaid").then(
+          ({ renderMermaid }) => {
+            renderMermaid();
+          }
+        );
+        
       });
     },
     async loadPost(route) {

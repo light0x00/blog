@@ -59,6 +59,10 @@ export default {
 </script>
 
 <style>
+.navbar {
+  align-items: center;
+}
+
 .navbar-menu {
   border-bottom: none;
   width: calc(100% - 50px);
@@ -66,7 +70,7 @@ export default {
   background-color: inherit;
 }
 
-.navbar-menu.el-menu{
+.navbar-menu.el-menu {
   border: none;
 }
 .navbar-menu .el-menu-item {
@@ -94,7 +98,5 @@ export default {
   animation: fade-in 0.5s forwards;
 }
 
-/* .headroom--top {
-  position: static;
-} */
+
 </style>

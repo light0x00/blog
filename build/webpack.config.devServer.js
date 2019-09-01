@@ -1,9 +1,11 @@
 const merge = require('webpack-merge');
 const basicConfigFn = require('./webpack.config.js');
 const webpack = require('webpack');
-
+const express = require('express')
 const { _resolve } = require('./helpers')
 
+const { readSync: readYamlSync } = require("node-yaml")
+const BlogConfig = readYamlSync(_resolve('blog.yaml'))
 
 const devServerConf = {
 
@@ -26,7 +28,7 @@ const devServerConf = {
         clientLogLevel: "info",
         // https:true,
         proxy: {
-            
+
             "/blog-api": {
                 "target": "https://blog.light0x00.com/blog-api",
                 // "target": "http://blog-dev.light0x00.com:8081/blog-api",
@@ -35,7 +37,9 @@ const devServerConf = {
                     "^/blog-api": ""
                 }
             },
-         
+        },
+        before(app) {
+            app.use(BlogConfig.postContextPath, express.static(_resolve(BlogConfig.postRootPath)))
         },
         /* 构建异常时 异常信息覆盖浏览器整个屏幕 */
         overlay: {
@@ -63,12 +67,12 @@ const devServerConf = {
 module.exports = async function () {
     return basicConfigFn(devServerConf, (finalConfig, storage) => {
         //博客文件请求直接转发到线上服务器
-        Object.assign(finalConfig.devServer.proxy, {
-            [storage.blogConfig.postContextPath]: {
-                "target": "https://blog.light0x00.com/",
-                "changeOrigin": true,
-            }
-        })
+        // Object.assign(finalConfig.devServer.proxy, {
+        //     [storage.blogConfig.postContextPath]: {
+        //         "target": "https://blog.light0x00.com/",
+        //         "changeOrigin": true,
+        //     }
+        // })
 
     })
 

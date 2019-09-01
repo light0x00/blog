@@ -1,13 +1,23 @@
+// export function isMobile() {
+//   var ua = navigator.userAgent;
+//   var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+//     isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+//     isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+//     isMobile = isIphone || isAndroid;
+//   return isMobile;
+// }
 export function isMobile() {
-  var ua = navigator.userAgent;
-  var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
-    isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
-    isAndroid = ua.match(/(Android)\s+([\d.]+)/),
-    isMobile = isIphone || isAndroid;
-  return isMobile;
+  var ua = navigator.userAgent,
+  isWindowsPhone = /(?:Windows Phone)/.test(ua),
+  isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone, 
+  isAndroid = /(?:Android)/.test(ua), 
+  isFireFox = /(?:Firefox)/.test(ua), 
+  isChrome = /(?:Chrome|CriOS)/.test(ua),
+  isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+  isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+  isPc = !isPhone && !isAndroid && !isSymbian;
+  return !isPc
 }
-
-
 
 export class StringUtils {
   static isEmpty(val: string) {

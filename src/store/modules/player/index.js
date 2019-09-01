@@ -36,10 +36,10 @@ const mutations = {
 
 const actions = {
   async initPlayer({ state ,commit}) {
-    let { default: playList } = await import("./play-list")
+    let { default: playList } = await import(/* webpackChunkName:'play-list' */"./play-list")
     state.playList = playList;
-    await import("aplayer/dist/APlayer.min.css")
-    let { default: APlayer } = await import("aplayer");
+    await import(/* webpackChunkName:'aplayer' */"aplayer/dist/APlayer.min.css")
+    let { default: APlayer } = await import(/* webpackChunkName:'aplayer' */ "aplayer");
     const ap = new APlayer({
       container: document.getElementById("music-box"),
       audio: state.playList,

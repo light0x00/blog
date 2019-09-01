@@ -13,7 +13,6 @@ export default {
             return isoDateDistanceToNow(val)+ '以前';
         })
         Vue.filter('formatUserAgent',function(userAgent){
-            console.log(platform.parse(userAgent))
             return '来自 '+platform.parse(userAgent).name
         })
         

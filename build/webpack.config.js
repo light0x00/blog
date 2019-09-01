@@ -30,14 +30,16 @@ let basicConfig = {
     },
     resolve: {
         extensions: ['.vue', '.js', '.ts'],
-        alias: { 'vue$': 'vue/dist/vue.runtime.esm', '@': _resolve("src"), },
+        alias: { 'vue$': 'vue/dist/vue.runtime.esm', '@': _resolve("src"),
+        'lodash':'lodash-es' 
+    },
         // modules: [_resolve('node_modules')]
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], { root: rootPath }),
         new ManifestPlugin(),
         /* 影响tree-skaing 所以弃用 */
-        new webpack.ProvidePlugin({platform: 'platform' }),
+        new webpack.ProvidePlugin({ platform: 'platform' }),
         new BundleAnalyzerPlugin({
             analyzerMode: "static",
             reportFilename: "analyzer-report.html",
@@ -74,7 +76,7 @@ async function basicHook(finalConfig, { postTrees, playList, blogConfig: { postP
         new HtmlWebpackPlugin({
             template: _resolve("src/index.html"),
             filename: `index.html`,
-            chunks: ['main', 'vendors', 'default', 'async_common', 'initial_common', 'runtime', 'element_ui'],
+            chunks: ['main', 'vendors', 'default', 'async_common', 'initial_common', 'runtime','ui','lodash-es'],
             favicon: _resolve("public/favicon.ico"),
             templateParameters: {
                 publicPath: finalConfig.output.publicPath

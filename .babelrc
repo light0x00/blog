@@ -32,7 +32,7 @@
             false 不做处理,(适用于手动在入口文件全局引入填充的情况)
         */
         "useBuiltIns": false,
-        "debug": true, //是否输出编译日志
+        "debug": false, //是否输出编译日志
         "include": [], // 总是启用哪些 plugins
         "exclude": [] // 排除预设中的 plugins
       }

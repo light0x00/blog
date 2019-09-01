@@ -26,13 +26,13 @@ const routes = [
         path: window.APP_CONFIG["postRoutePrefix"] || "/article",
         component: Layout,
         children: [
-            {
-                path: "",
-                component: () => import(/* webpackPrefetch:true */'@/views/article'),
-            },
+            // {
+            //     path: "",
+            //     component: () => import(/* webpackPrefetch:true,webpackChunkName:'article' */'@/views/article'),
+            // },
             {
                 path: "*",
-                component: () => import(/* webpackPrefetch:true */'@/views/article'),
+                component: () => import(/* webpackPrefetch:true,webpackChunkName:'article' */'@/views/article'),
             }
         ]
     },
@@ -42,7 +42,7 @@ const routes = [
         children: [
             {
                 path: '',
-                component: () => import('@/views/about')
+                component: () => import(/* webpackChunkName:'about' */'@/views/about')
             }
         ]
     },
@@ -52,7 +52,7 @@ const routes = [
         children: [
             {
                 path: '',
-                component: () => import('@/views/archive')
+                component: () => import(/* webpackChunkName:'archive' */'@/views/archive')
             }
         ]
     },
@@ -62,7 +62,7 @@ const routes = [
         children: [
             {
                 path: '',
-                component: () => import('@/views/category')
+                component: () => import(/* webpackChunkName:'category' */'@/views/category')
             }
         ]
     },
@@ -72,7 +72,7 @@ const routes = [
         children: [
             {
                 path: '',
-                component: () => import('@/views/tags')
+                component: () => import(/* webpackChunkName:'tags' */'@/views/tags')
             }
         ]
     },
@@ -82,7 +82,7 @@ const routes = [
         children: [
             {
                 path: '',
-                component: () => import('@/views/list'),
+                component: () => import(/* webpackChunkName:'list' */'@/views/list'),
                 props: (route) => ({ query: { tag: route.query.tag } })
             }
         ]

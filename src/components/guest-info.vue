@@ -49,7 +49,6 @@
 <script>
 import rules from "@/common/rules";
 //
-import UAParser from "ua-parser-js";
 import { mapState } from "vuex";
 
 export default {
