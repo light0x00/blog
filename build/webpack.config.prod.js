@@ -9,11 +9,14 @@ const EmitSitemapPlugin = require('./emit-sitemap-plugin')
 const { _resolve, rootPath } = require('./helpers')
 const URL = require('url').URL
 
+/* 构建期间,预渲染时会请求「文章源文件」,所以必须先发布文章,保证可访问性,后编译生产 */
+
+const DOMAIN = "https://blog.light0x00.com/"
 
 var config = {
     mode: 'production',
     output: {
-        publicPath: "https://blog.light0x00.com/", 
+        publicPath: "/",  
         // publicPath: "/", 
         // publicPath: "http://blog-dev.light0x00.com:4092/",
     },
@@ -57,14 +60,14 @@ module.exports = async function () {
     return basicConfigFn(config,
         //config initialized hook
         (finalConfig, storage) => {
-            let publicPath = finalConfig.output.publicPath
+            // let publicPath = finalConfig.output.publicPath
             let routePathList = Object.keys(storage.preRenderData);
             //prender
-            // let prenderPluin = getPrenderPlugin(storage.preRenderData)
-            // finalConfig.plugins.push(prenderPluin)
+            let prenderPluin = getPrenderPlugin(storage.preRenderData)
+            finalConfig.plugins.push(prenderPluin)
 
             //generate sitemap.xml
-            let urlset = routePathList.map(routePath => new URL(routePath, publicPath).href)
+            let urlset = routePathList.map(routePath => new URL(routePath, DOMAIN).href)
             finalConfig.plugins.push(new EmitSitemapPlugin({
                 urlset,
                 originXmlPath:_resolve('public/sitemap.xml'),
