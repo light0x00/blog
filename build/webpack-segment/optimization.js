@@ -22,11 +22,6 @@ module.exports = {
                     name: 'lodash-es',
                     priority: 20,
                 },
-                // aplayer:{
-                //     test: /[\\/]node_modules[\\/]aplayer[\\/]/,
-                //     name: 'aplayer',
-                //     priority: 20,
-                // },
                 /* ui库单独打包 */
                 element_ui: {
                     test: /[\\/]node_modules[\\/]_?element-ui(.*)/,

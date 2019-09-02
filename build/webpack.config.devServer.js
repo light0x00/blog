@@ -12,6 +12,7 @@ const devServerConf = {
     mode: 'development',
     devtool: 'inline-source-map',
     stats: 'minimal',
+    // stats: 'errors-warnings',
     output: {
         publicPath: "http://blog-dev.light0x00.com:4092/",
     },
@@ -28,8 +29,16 @@ const devServerConf = {
         clientLogLevel: "info",
         // https:true,
         proxy: {
-
-            "/blog-api": {
+            "/blog-api-dev": {
+                // "target": "https://blog.light0x00.com/blog-api",
+                "target": "http://blog-dev.light0x00.com:8081",
+                "changeOrigin": true,
+                "pathRewrite": {
+                    "^/blog-api-dev": "/blog\-api"
+                },
+                logLevel: 'debug'
+            },
+            "/blog-api-prod": {
                 "target": "https://blog.light0x00.com/blog-api",
                 // "target": "http://blog-dev.light0x00.com:8081/blog-api",
                 "changeOrigin": true,

@@ -2,7 +2,6 @@
 
 import axios, { AxiosResponse, Method, ResponseType } from "axios";
 // import apiUtil from "source/apiUtil";
-import { extend } from "lodash-es";
 const apiName = "blog-api";
 const contextPath = "/blog-api";
 export { apiName, contextPath }
@@ -111,7 +110,6 @@ export class MsgCommentControllerApi {
             headers: headerParams,
             responseType: <ResponseType>'json',
         };
-        if (_opt) config = extend({}, config, _opt);
         let promise = axios.request(config).then((res) => ({ body: res.data, data: res.data, response: res }))
         return promise as Promise<{ body: OutputModelMsgCommentVo, response: AxiosResponse }>
     }
@@ -130,7 +128,6 @@ export class MsgCommentControllerApi {
             headers: headerParams,
             responseType: <ResponseType>'json',
         };
-        if (_opt) config = extend({}, config, _opt);
         let promise = axios.request(config).then((res) => ({ body: res.data, data: res.data, response: res }))
         return promise as Promise<{ body: PagingOutputModelMsgCommentVo, response: AxiosResponse }>
     }
@@ -149,9 +146,47 @@ export class MsgCommentControllerApi {
             headers: headerParams,
             responseType: <ResponseType>'json',
         };
-        if (_opt) config = extend({}, config, _opt);
         let promise = axios.request(config).then((res) => ({ body: res.data, data: res.data, response: res }))
         return promise as Promise<{ body: PagingOutputModelMsgCommentVo, response: AxiosResponse }>
     }
 
 }
+
+export class MusicVo {
+    artist: string;
+    cover: string;
+    id: string;
+    name: string;
+    url: string;
+}
+export class OutputModelListMusicVo {
+    code: number;
+    data: Array<MusicVo>;
+    exp: Throwable;
+    msg: string;
+}
+export class MusicControllerApi {
+
+    /**
+    * 
+        * @summary get
+    * @param {*} [options] Override http request option.
+    * @throws {RequiredError}
+    */
+    public static getUsingGET ( )
+    : Promise<{ body: OutputModelListMusicVo;  }> {
+        const localVarPath =  apiUtil.getConfigUrl( '/music/list' , apiName);
+        let queryParameters: any = {};
+        let headerParams: any = {};
+        let config = {
+            url: localVarPath,
+            method: 'GET',
+            params: queryParameters,
+            headers: headerParams,
+            responseType: 'json',
+        };
+        let promise = axios.request(config).then((res)=>({body:res.data,data:res.data,response:res}))
+        return promise as  Promise<{ body: OutputModelListMusicVo ,response:AxiosResponse }>
+    }
+}
+

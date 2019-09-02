@@ -1,10 +1,18 @@
 #!/bin/bash
 
+
+
 if [ -z $TRAVIS_BUILD_DIR ] ;then
     app_base_path=/Users/light/Desktop/my-workbench/java/projects/blog-api # 没有通用的办法
 else
     app_base_path=$TRAVIS_BUILD_DIR
 fi
+
+# ------------------------------------------------------------
+
+# bash $app_base_path/deploy/deploy-articles.sh
+
+# ------------------------------------------------------------
 
 # 项目名
 name=blog-ui

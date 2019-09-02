@@ -34,9 +34,11 @@ const mutations = {
   }
 }
 
+import {MusicControllerApi} from '@/api'
+
 const actions = {
   async initPlayer({ state ,commit}) {
-    let { default: playList } = await import(/* webpackChunkName:'play-list' */"./play-list")
+    let {data:{data:playList}} = await MusicControllerApi.getUsingGET()
     state.playList = playList;
     await import(/* webpackChunkName:'aplayer' */"aplayer/dist/APlayer.min.css")
     let { default: APlayer } = await import(/* webpackChunkName:'aplayer' */ "aplayer");

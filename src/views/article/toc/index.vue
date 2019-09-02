@@ -9,6 +9,7 @@
     <!-- !宽度改为使用媒体查询 -->
     
     <el-drawer
+      v-loading="pageState.loading" 
       :wrapperClosable="true"
       :size="isMobile()?'75%':'350px'"
       :visible.sync="tocToggleFlag"
@@ -17,7 +18,7 @@
       :modal="false"
       :append-to-body="false"
     >
-      <el-menu v-loading="pageState.loading" ref="tocMenu" class="toc-body" :default-openeds="defaultExpanded">
+      <el-menu ref="tocMenu" class="toc-body" :default-openeds="defaultExpanded">
         <template v-for="(item,index) in headerTrees">
           <recursive-header :header="item" :key="index"></recursive-header>
         </template>

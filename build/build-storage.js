@@ -22,7 +22,7 @@ module.exports = async function initStorerage(config) {
     })
 
     //3. fetch 163 music  
-    let getMusic = require(_resolve("build/music-detector/index"))  /* the fucking async config! It makes my config less elegant 😡 */
-    let playList = await getMusic
-    return { postTrees, preRenderData, playList, blogConfig: { postPublicPath, postRoutePrefix, postRootPath, postContextPath,neverCopy} }
+    // let getMusic = require(_resolve("build/music-detector/index"))  /* the fucking async config! It makes my config less elegant 😡 */
+    // let playList = await getMusic
+    return { postTrees, preRenderData, blogConfig: { postPublicPath, postRoutePrefix, postRootPath, postContextPath,neverCopy} }
 }

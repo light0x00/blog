@@ -59,7 +59,7 @@ basicConfig = merge(merge(basicConfig, assetsConfig), optConfig)
  */
 async function basicHook(finalConfig, { postTrees, playList, blogConfig: { postPublicPath, postRootPath, postRoutePrefix, postContextPath, neverCopy } }) {
     finalConfig.plugins.push(new webpack.DefinePlugin({
-        PLAY_LIST: JSON.stringify(playList),
+        // PLAY_LIST: JSON.stringify(playList),
         POST_TREES: JSON.stringify(postTrees),
         POST_ROUTE_PREFIX: JSON.stringify(postRoutePrefix)
     }))

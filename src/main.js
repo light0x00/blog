@@ -22,7 +22,6 @@ let vm = new Vue(
     router
   }
 )
-console.log("!!")
 
 
 

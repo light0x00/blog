@@ -5,7 +5,7 @@
 neverCopy: true
 postContextPath: '/article-source'
 #!本地文档的目录(写markdown的地方)
-postRootPath: 'blog-articles'
+postRootPath: 'blog-articles/src/'
 #!文档路由前缀
 postRoutePrefix: '/article'
 descFileName: 'desc.yaml'
