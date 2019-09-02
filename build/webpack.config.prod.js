@@ -13,7 +13,8 @@ const URL = require('url').URL
 var config = {
     mode: 'production',
     output: {
-        publicPath: "https://blog.light0x00.com/",
+        publicPath: "https://blog.light0x00.com/", 
+        // publicPath: "/", 
         // publicPath: "http://blog-dev.light0x00.com:4092/",
     },
     // devtool: 'hidden-source-map',
@@ -40,15 +41,12 @@ var config = {
     plugins: [
         new webpack.DefinePlugin(
             {
-                // 'process.env.NODE_ENV': JSON.stringify('production'),
                 PROFILE: JSON.stringify("prod")
             }
         ),
         new CopyPlugin([
-            // { from: _resolve('public/sitemap.xml'), to: 'sitemap.xml' },
             { from: _resolve('public/robots.txt'), to: 'robots.txt' },
             { from: _resolve('public/CNAME'), to: '' },
-            // { from: _resolve('public/'), to: '' },
         ])
     ]
 }
@@ -62,8 +60,8 @@ module.exports = async function () {
             let publicPath = finalConfig.output.publicPath
             let routePathList = Object.keys(storage.preRenderData);
             //prender
-            let prenderPluin = getPrenderPlugin(storage.preRenderData)
-            finalConfig.plugins.push(prenderPluin)
+            // let prenderPluin = getPrenderPlugin(storage.preRenderData)
+            // finalConfig.plugins.push(prenderPluin)
 
             //generate sitemap.xml
             let urlset = routePathList.map(routePath => new URL(routePath, publicPath).href)

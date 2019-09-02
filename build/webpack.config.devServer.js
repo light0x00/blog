@@ -39,12 +39,13 @@ const devServerConf = {
                 logLevel: 'debug'
             },
             "/blog-api-prod": {
-                "target": "https://blog.light0x00.com/blog-api",
+                "target": "https://blog.light0x00.com/",
                 // "target": "http://blog-dev.light0x00.com:8081/blog-api",
                 "changeOrigin": true,
                 "pathRewrite": {
-                    "^/blog-api": ""
-                }
+                    "^/blog-api-prod": "/blog\-api"
+                },
+                logLevel: 'debug'
             },
         },
         before(app) {
