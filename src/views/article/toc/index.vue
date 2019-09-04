@@ -2,7 +2,7 @@
   <div class="markdown-toc-wrapper">
     <dock-button
       style="right:80px;z-index:3"
-      @click.native="toggleToc"
+      @click.native.stop="toggleToc"
       icon-class="el-icon-notebook-2"
     ></dock-button>
 
@@ -10,11 +10,11 @@
 
     <el-drawer
       v-loading="pageState.loading"
-      :wrapperClosable="isMobile()"
       :visible.sync="tocToggleFlag"
       :show-close="false"
       direction="rtl"
       :modal="false"
+      :modal-append-to-body="false"
       :append-to-body="false"
     >
       <el-menu ref="tocMenu" class="toc-body" :default-openeds="defaultExpanded">
@@ -60,7 +60,16 @@ export default {
       return keys;
     }
   },
-  mounted() {},
+  mounted() {
+    //只有手机端可以关闭 目录
+    if (this.isMobile()) {
+      let thisRef = this;
+      document.addEventListener("click", event => {
+        console.log(event.target);
+        thisRef.tocToggleFlag = false;
+      });
+    }
+  },
   methods: {
     /* 按照vue的渲染顺序  此方法应该在mounted里调用 不然会导致当前组件无法访问子组件 */
     renderToc() {
@@ -114,28 +123,31 @@ export default {
 
 <style>
 .markdown-toc-wrapper {
-  /* position: fixed; */
-
-  /* right: 10px; */
+  
 }
 
 .toc-body {
   width: 100%;
-  /* border: solid 1px #e6e6e6; */
-  /* transition: left 0.5s; */
-  /* height: 100%;
-  top: 0;
-  position: fixed;
-  z-index: 2; */
 }
 
-.markdown-toc-wrapper .el-dialog__wrapper {
+.markdown-toc-wrapper .el-dialog__wrapper,.el-drawer__container {
   z-index: 1 !important;
+  user-select:none;
 }
 
+.markdown-toc-wrapper .el-drawer {
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+   
+}
 @media (min-width: 900px) {
   .markdown-toc-wrapper .el-drawer {
     width: 350px !important;
+  }
+
+  .markdown-toc-wrapper .el-dialog__wrapper,
+  .el-drawer__container {
+    width: 360px !important;
+    left: calc(100% - 360px) !important;
   }
 }
 

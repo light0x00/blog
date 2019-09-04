@@ -63,6 +63,7 @@ export default {
     },
     showReference() {
       this.whichRefDsiplay = this.reply.id;
+      console.log("!!!")
     }
   }
 };
