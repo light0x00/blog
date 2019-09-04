@@ -65,7 +65,6 @@ export default {
     if (this.isMobile()) {
       let thisRef = this;
       document.addEventListener("click", event => {
-        console.log(event.target);
         thisRef.tocToggleFlag = false;
       });
     }

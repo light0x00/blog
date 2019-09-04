@@ -54,7 +54,6 @@ export default {
 };
 
 function getDomScrollTop() {
-  console.log(platform.name == "Safari");
   if (platform.name == "Safari") return window.pageYOffset;
   else return document.documentElement.scrollTop;
 }
