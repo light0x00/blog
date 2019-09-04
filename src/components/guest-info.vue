@@ -11,7 +11,7 @@
           show-word-limit
         />
         <template v-slot:error="scope">
-          <el-alert type="error" >{{scope.error}}</el-alert>
+          <el-alert type="error">{{scope.error}}</el-alert>
         </template>
       </el-form-item>
       <el-form-item prop="email">
@@ -24,7 +24,7 @@
           show-word-limit
         />
         <template v-slot:error="scope">
-          <el-alert type="error" >{{scope.error}}</el-alert>
+          <el-alert type="error">{{scope.error}}</el-alert>
         </template>
       </el-form-item>
       <el-form-item prop="website">
@@ -36,7 +36,7 @@
           show-word-limit
         ></el-input>
         <template v-slot:error="scope">
-          <el-alert type="error" >{{scope.error}}</el-alert>
+          <el-alert type="error">{{scope.error}}</el-alert>
         </template>
       </el-form-item>
     </el-form>
@@ -55,18 +55,18 @@ export default {
   name: "GuestInfo",
   data() {
     return {
-      editingGuestInfo:this.guestInfo,
+      editingGuestInfo: this.guestInfo,
       rormRules: {
-        nickname: { required: true, message: "起个名字,让别人记住你~" },
+        nickname: { required: true,trigger: "change", message: "起个名字,让别人记住你" },
         email: [
-          { required: true, message: "留下邮箱,放学别跑~" },
+          { required: true, message: "留下邮箱,在被回复时将发送邮件提醒", trigger: "change" },
           {
             validator: rules.forEmail({ errorMsg: "邮箱格式不正确" }),
-            trigger: "blur"
+            trigger: "change"
           }
         ],
         website: [
-          { required: false },
+          { required: false},
           {
             validator: rules.forURL({
               errorMsg: "网址格式不正确",
@@ -83,8 +83,7 @@ export default {
       guestInfo: "info"
     })
   },
-  created(){
-  },
+  created() {},
   methods: {
     async commit() {
       try {
@@ -93,9 +92,8 @@ export default {
         return;
       }
       await this.$store.commit("guest/setInfo", this.guestInfo);
-      this.$notify({type:'success',message:'设置成功!'})
-      this.$emit("commit")
-
+      this.$notify({ type: "success", message: "设置成功!" });
+      this.$emit("commit");
     }
   }
 };
@@ -117,8 +115,4 @@ export default {
 .guest-info .el-alert__description {
   margin: 0px !important;
 }
-
-
-
-
 </style>

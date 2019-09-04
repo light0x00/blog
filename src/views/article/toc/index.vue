@@ -1,5 +1,5 @@
 <template>
-  <div class="markdown-toc-wrapper" >
+  <div class="markdown-toc-wrapper">
     <dock-button
       style="right:80px;z-index:3"
       @click.native="toggleToc"
@@ -7,11 +7,10 @@
     ></dock-button>
 
     <!-- !宽度改为使用媒体查询 -->
-    
+
     <el-drawer
-      v-loading="pageState.loading" 
-      :wrapperClosable="true"
-      :size="isMobile()?'75%':'350px'"
+      v-loading="pageState.loading"
+      :wrapperClosable="isMobile()"
       :visible.sync="tocToggleFlag"
       :show-close="false"
       direction="rtl"
@@ -65,7 +64,6 @@ export default {
   methods: {
     /* 按照vue的渲染顺序  此方法应该在mounted里调用 不然会导致当前组件无法访问子组件 */
     renderToc() {
-
       /* 递归得到目录树 */
       let articleElement = document.querySelector(".markdown-body");
 
@@ -95,7 +93,7 @@ export default {
 
       let thisRef = this;
       this.$nextTick(() => {
-        thisRef.pageState.loading=false
+        thisRef.pageState.loading = false;
       });
     },
     toggleToc() {
@@ -133,5 +131,17 @@ export default {
 
 .markdown-toc-wrapper .el-dialog__wrapper {
   z-index: 1 !important;
+}
+
+@media (min-width: 900px) {
+  .markdown-toc-wrapper .el-drawer {
+    width: 350px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .markdown-toc-wrapper .el-drawer {
+    width: 75% !important;
+  }
 }
 </style>

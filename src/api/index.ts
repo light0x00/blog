@@ -150,6 +150,20 @@ export class MsgCommentControllerApi {
         return promise as Promise<{ body: PagingOutputModelMsgCommentVo, response: AxiosResponse }>
     }
 
+    public static countByArticle ( articleKey)
+    : Promise<{ body: number;  }> {
+        const localVarPath =  apiUtil.getConfigUrl( '/mc/countByArticle' , apiName);
+        let queryParameters: any = {articleKey};
+        let config = {
+            url: localVarPath,
+            method: 'GET',
+            params: queryParameters,
+            responseType: 'json',
+        };
+        let promise = axios.request(config).then((res)=>({body:res.data,data:res.data,response:res}))
+        return promise as  Promise<{ body: number ,response:AxiosResponse }>
+    }
+
 }
 
 export class MusicVo {

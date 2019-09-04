@@ -1,7 +1,7 @@
 <template>
   <div class="comment-editor"  v-loading="pageState.loading" element-loading-text="发送中..." >
     <el-form ref="comment-form" :model="editingModel">
-      <el-form-item prop="content" :rules="{required:true}">
+      <el-form-item prop="content" :rules="{required:true,trigger:'keyup'}">
         <el-input
           class="comment-content-input"
           type="textarea"
@@ -12,7 +12,7 @@
           v-model="editingModel.content"
           show-word-limit
         ></el-input>
-        <el-alert title="评论不可以为空~" slot="error" type="error"></el-alert>
+        <el-alert title="评论不可以为空" slot="error" type="error"></el-alert>
       </el-form-item>
     </el-form>
     <div style="text-align:right;margin:3px 0" v-if="!isNilGuestInfo">
@@ -105,11 +105,10 @@ export default {
         return;
       }
       this.$store.commit('comment/push',data)
-      //刷新
       this.$notify({ message: "添加评论成功", type: "success" });
-
-
       this.pageState.loading=false;
+      this.clearText();
+      /* -------------------------------- 不刷新列表 -------------------------------- */
       // let {
       //   body: { data, pageInfo }
       // } = await MsgCommentControllerApi.queryUsingPOST({
@@ -118,7 +117,7 @@ export default {
       // });
       // this.commentList = data;
       // this.pageInfo = pageInfo;
-      // this.clearText();
+      // 
     },
     clearText(){
       // this.editingModel.content=''

@@ -28,7 +28,9 @@ export default {
       inputContent: "",
       pageState: {
         loading: false
-      }
+      },
+      //用于定位
+      anchorReplyId: 75
     };
   },
   computed: {
@@ -70,7 +72,8 @@ export default {
         // articleKey: "foo", //!for test
         content: this.inputContent,
         refId: this.replyTarget.id,
-        ...this.guestInfo
+        ...this.guestInfo,
+        replyURL:window.location.href
       };
 
       //提交
@@ -85,13 +88,16 @@ export default {
         this.comment.replies.push(data);
         //清空回复
         this.clearReply();
-        this.replyTarget = {};
+        
+        
       }
 
       this.pageState.loading = false;
     },
     clearReply() {
       this.inputContent = "";
+      this.replyTarget = {};
+      this.$store.commit("comment/setWhichRefDsiplay", {  });
     }
   }
 };

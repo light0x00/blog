@@ -5,7 +5,7 @@
     </div>
 
     <!-- 回复正文 -->
-    <div class="reply-item-right" @click="showRef">
+    <div class="reply-item-right" @click="showReference">
       <div class="reply-content text-content">
         <a href="javascript:void(0)" class="text-primary">@{{reply.ref.nickname}}</a>
         {{reply.content}}
@@ -61,7 +61,7 @@ export default {
       let username = this.reply.nickname;
       this.$store.commit("comment/setReplyTarget", { rootId, id, username });
     },
-    showRef() {
+    showReference() {
       this.whichRefDsiplay = this.reply.id;
     }
   }
@@ -107,7 +107,7 @@ export default {
 .reply-reference {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 </style>

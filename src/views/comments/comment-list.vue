@@ -1,6 +1,6 @@
 <template>
   <div class="comment-list" v-loading="pageState.loading" element-loading-text="加载评论中...">
-    <h2 style="margin-top:20px;border-bottom:1px solid #DCDFE6">{{pageInfo.total|| 0}}条评论</h2>
+    <h2 style="margin-top:20px;border-bottom:1px solid #DCDFE6">{{commentTotal}}条评论</h2>
 
     <comment-item v-for="(item,index) in commentList" :key="`comment${index}`" :comment="item"></comment-item>
     <div
@@ -37,7 +37,8 @@ export default {
       },
       pageState: {
         loading: false
-      }
+      },
+      commentTotal: 0
     };
   },
   computed: {
@@ -66,8 +67,12 @@ export default {
   },
   methods: {
     async loadData() {
+      MsgCommentControllerApi.countByArticle(this.articleKey).then(
+        ({data:{data:total}}) => (this.commentTotal = total)
+      );
+
       this.pageState.loading = true;
-      this.queryVo.articleKey = this.articleKey; 
+      this.queryVo.articleKey = this.articleKey;
       let {
         body: { data, pageInfo }
       } = await MsgCommentControllerApi.queryUsingPOST({
@@ -76,7 +81,7 @@ export default {
       });
       this.pageInfo = pageInfo;
       this.commentList = data;
-      this.pageState.loading=false
+      this.pageState.loading = false;
     }
   }
 };

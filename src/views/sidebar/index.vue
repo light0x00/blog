@@ -3,7 +3,6 @@
   <!-- <div class="sidebar-wrapper"> -->
   <el-drawer
     class="sidebar-wrapper"
-    :size="isMobile()?'70%':'35%'"
     :visible="visible"
     @update:visible="syncVisible"
     :show-close="false"
@@ -136,6 +135,16 @@ export default {
   color: #909399;
 }
 
-.sidebar-a-button {
+@media (min-width: 900px) {
+  .sidebar-wrapper .el-drawer {
+    width: 500px !important;
+  }
 }
+
+@media (max-width: 900px) {
+  .sidebar-wrapper .el-drawer {
+    width: 75% !important;
+  }
+}
+
 </style>

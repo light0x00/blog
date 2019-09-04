@@ -1,7 +1,7 @@
 <template>
   <div class="comment-item">
     <div class="comment-left">
-      <img class="comment-user-avator" style height="36" width="36" />
+      <img class="comment-user-avator" style height="36" width="36"/>
     </div>
     <div class="comment-right">
       <!-- 评论用户信息 -->
@@ -85,6 +85,9 @@ export default {
   border-radius: 16px;
   width: 32px;
   height: 32px;
+  background-image: url(https://avatars1.githubusercontent.com/u/29830476?s=460&v=4);
+  background-size:contain;
+	background-repeat:no-repeat;
 }
 
 .comment-right {
