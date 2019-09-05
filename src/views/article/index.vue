@@ -22,8 +22,7 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-// import { makeDomLazy } from "./feature";
-// 整理依赖!!!
+// import { makeDomLazy } from "./async-make-lazy";
 
 import marked from "@/common/marked";
 import { extractPostKeyFromRoutePath } from "@/common/posts-util";
@@ -31,7 +30,10 @@ import ArticleToc from "./toc";
 
 export default {
   components: {
-    CommentsArea:()=>import(/* webpackPrefetch:true,webpackChunkName:'comment' */"@/views/comments"),
+    CommentsArea: () =>
+      import(
+        /* webpackPrefetch:true,webpackChunkName:'comment' */ "@/views/comments"
+      ),
     ArticleToc
   },
   data: function() {
@@ -43,68 +45,75 @@ export default {
     };
   },
   computed: {},
-  async created() {
-    
-  },
+  async created() {},
   mounted() {
     this.loadPost();
   },
-  watch: {
-
-  },
+  watch: {},
   methods: {
+    /* ------------------------------------------------------------------------------
+    加载
+    ------------------------------------------------------------------------------ */
+    async loadPost(route) {
+      this.pageState.loading = true;
+      try {
+        //得到文章信息、文章文本形式内容
+        this.post = await this.$store.dispatch(
+          "posts/getPostByRoute",
+          this.$route
+        );
+        //加载文章源文件
+        this.articleText = await this.$store.dispatch(
+          "posts/getPostContentByRoute",
+          this.$route
+        );
+      } catch (e) {
+        this.$notify({ type: "warning", message: "该文章不存在" });
+        this.$router.push({ path: "/404" });
+        return;
+      }
+      //渲染
+      this.renderMarkdown();
+      this.pageState.loading = false;
+    },
+    /* ------------------------------------------------------------------------------
+    渲染
+    ------------------------------------------------------------------------------ */
     renderMarkdown() {
       let rawHtml = marked(this.articleText, { baseUrl: this.post.baseUrl });
+
       //懒加载
-      // rawHtml = makeDomLazy(rawHtml);
+      // rawHtml = makeDomLazy(rawHtml);  
+
       this.articleHTML = rawHtml;
       const thisRef = this;
-
       this.$nextTick(async () => {
-        
-        //目录
-        this.$refs['articleToc'].renderToc()
+        /* -------------------------------- 目录 -------------------------------- */
+        this.$refs["articleToc"].renderToc();
 
-        //懒加载监听
+        /* -------------------------------- 懒加载监听 -------------------------------- */
         // import("./async-lozad").then(({ lazyObserve }) => {
         //   lazyObserve();
         // });
-
-        //图片查看器
-        import(/* webpackPrefetch:true,webpackChunkName:'viewer' */ "./async-viewer").then(
-          ({ imageViewer }) => {
-            const viewer = imageViewer();
-            thisRef.$once("destroy", () => {
-              viewer.destroy();
-            });
-          }
-        );
-
-        //UML支持
-        import(/* webpackPrefetch:true,webpackChunkName:'mermaid' */ "./async-mermaid").then(
-          ({ renderMermaid }) => {
-            renderMermaid();
-          }
-        );
         
+        /* -------------------------------- 图片查看器 -------------------------------- */
+        import(
+          /* webpackPrefetch:true,webpackChunkName:'viewer' */ "./async-viewer"
+        ).then(({ imageViewer }) => {
+          const viewer = imageViewer();
+          thisRef.$once("destroy", () => {
+            viewer.destroy();
+          });
+        });
+
+        /* -------------------------------- UML支持 -------------------------------- */
+        import(
+          /* webpackPrefetch:true,webpackChunkName:'mermaid' */ "./async-mermaid"
+        ).then(({ renderMermaid }) => {
+          renderMermaid();
+        });
+
       });
-    },
-    async loadPost(route) {
-      this.pageState.loading = true;
-
-      //得到文章信息、文章文本形式内容
-      this.post = await this.$store.dispatch(
-        "posts/getPostByRoute",
-        this.$route
-      );
-      this.articleText = await this.$store.dispatch(
-        "posts/getPostContentByRoute",
-        this.$route
-      );
-      //渲染
-      this.renderMarkdown();
-
-      this.pageState.loading = false;
     }
   },
   async beforeRouteUpdate(to, from, next) {
