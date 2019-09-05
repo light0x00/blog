@@ -10,7 +10,7 @@
         <a href="javascript:void(0)" class="text-primary">@{{this.replyTarget.username}}</a>
       </div>
     </template>
-    <template>
+    <template v-else>
       <a href="javascript:;" class="text-primary ul-none" @click="onReply">添加回复</a>
     </template>
     <!-- 游客信息弹框 -->

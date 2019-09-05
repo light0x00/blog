@@ -143,8 +143,7 @@ export default {
     width: 350px !important;
   }
 
-  .markdown-toc-wrapper .el-dialog__wrapper,
-  .el-drawer__container {
+  .markdown-toc-wrapper .el-dialog__wrapper,.markdown-toc-wrapper .el-drawer__container {
     width: 360px !important;
     left: calc(100% - 360px) !important;
   }
