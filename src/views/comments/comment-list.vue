@@ -88,10 +88,6 @@ export default {
 </script>
 
 <style>
-/* .comment-list a {
-  color: #009a61;
-  text-decoration: none;
-} */
 
 .comment-list > div:not(:last-child) {
   margin-bottom: 15x;

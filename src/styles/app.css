@@ -1,8 +1,15 @@
 
+:root {
+    --theme-primary-color: rgba(252,77,80,0.5);
+  }
+
+
 body {
     font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
 }
-
+body ::selection {
+    background: rgba(252,77,80,0.5);
+}
 .full-box{
     width: 100%;
     height: 100%;
@@ -79,12 +86,11 @@ a.text-normal:hover{
 }
 
 .text-primary{
-    color: #009a61;
+    color: var(--theme-primary-color);
     font-size: 14px;
 }
 .text-primary-bold{
-    color: #009a61;
-    
+    color: var(--theme-primary-color);
     font-size: 14px;
     font-weight: bold
 }
