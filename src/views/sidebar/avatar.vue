@@ -11,11 +11,6 @@
     <transition name="el-fade-in">
       <div class="sidebar-bubble" v-show="messageVisible">{{message}}</div>
     </transition>
-
-    <!-- <div class="sidebar-bubble-box"> -->
-    <!-- <div class="sidebar-bubble">哈哈</div> -->
-    <!-- <div class="sidebar-bubble">哈防辐射服各色如果是电饭锅电饭锅哈</div> -->
-    <!-- </div> -->
   </div>
 </template>
 

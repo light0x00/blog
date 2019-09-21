@@ -1,14 +1,14 @@
 <template>
   <!-- 回复 -->
-  <div class="reply-list"  v-loading="pageState.loading" element-loading-text="加载评论中😳" >
+  <div class="reply-list" v-loading="pageState.loading" element-loading-text="加载评论中😳">
     <!-- 回复列表 -->
     <template>
       <reply-item v-for="item of renderingReplies" :reply="item" :key="`reply-${item.id}`"></reply-item>
     </template>
-    <div class="reply-expand-block">
-      <!-- 分页栏 -->
-      <transition name="el-fade-in">
-        <template v-if="expandable">
+    <transition name="el-fade-in">
+      <div class="reply-expand-block">
+        <!-- 分页栏 -->
+        <template v-if="expanded==true">
           <el-pagination
             class="reply-pagination"
             layout="prev, pager, next"
@@ -19,15 +19,28 @@
             @current-change="loadData"
           ></el-pagination>
         </template>
-        <!-- 展开更多 -->
-        <template v-else-if="expandBtnVisible">
-          <a href="javascript:void(0)" class="text-normal" @click="expand">
-            <i class="el-icon-d-arrow-right" style="transform:rotate(90deg)"></i>
-            展开全部{{pageInfo.total}}条
-          </a>
+
+        <!-- 展开更多/收起 -->
+        <template v-if="expandable">
+          <template v-if="expanded==true">
+            <div>
+              <a href="javascript:void(0)" class="text-normal" @click="expanded=false">
+                <i class="el-icon-d-arrow-right" style="transform:rotate(-90deg)"></i>
+                收起
+              </a>
+              <!-- <template v-if="expanded==true">
+              </template>-->
+            </div>
+          </template>
+          <template v-else>
+            <a href="javascript:void(0)" class="text-normal" @click="expanded=true">
+              <i class="el-icon-d-arrow-right" style="transform:rotate(90deg)"></i>
+              展开全部{{pageInfo.total}}条
+            </a>
+          </template>
         </template>
-      </transition>
-    </div>
+      </div>
+    </transition>
     <!-- 回复输入区 -->
     <slot></slot>
   </div>
@@ -47,10 +60,10 @@ export default {
   },
   data() {
     return {
-      expandable: false,
+      expanded: false,
       initialExpandNum: 3,
-      pageState:{
-        loading:false
+      pageState: {
+        loading: false
       }
     };
   },
@@ -63,6 +76,7 @@ export default {
         this.$emit("update:pageInfo", val);
       }
     },
+    /* 跟踪replies的变化 */
     mutableReplies: {
       get: function() {
         return this.replies;
@@ -77,14 +91,18 @@ export default {
         this.replyTarget.rootId == this.comment.id
       );
     },
-    expandBtnVisible() {
-      return this.pageInfo.total > this.initialExpandNum && !this.expandable;
+    expandable() {
+      return this.replies.length > this.initialExpandNum;
     },
     renderingReplies() {
-      if (this.pageInfo.total > this.initialExpandNum && !this.expandable) {
+      //可展开,并且非展开状态 只显示initialExpandNum条
+      // console.log("expandable", this.expandable, "expanded", this.expanded);
+      if (this.expandable && !this.expanded) {
         let r = _.slice(this.replies, 0, this.initialExpandNum);
         return r;
-      } else {
+      }
+      //「不可展开」 或 「可展开且已展开」
+      else {
         return this.replies;
       }
     },
@@ -95,10 +113,10 @@ export default {
   mounted() {},
   methods: {
     expand() {
-      this.expandable = true;
+      this.expanded = true;
     },
     async loadData() {
-      this.pageState.loading=true
+      this.pageState.loading = true;
       let {
         body: { data, pageInfo, code }
       } = await MsgCommentControllerApi.queryRepliesUsingPOST({
@@ -107,7 +125,7 @@ export default {
       });
       this.mutablePageInfo = pageInfo;
       this.mutableReplies = data;
-      this.pageState.loading=false;
+      this.pageState.loading = false;
     }
   }
 };

@@ -74,7 +74,11 @@ export default {
       }
       //渲染
       this.renderMarkdown();
-      this.pageState.loading = false;
+
+      this.$nextTick(
+        ()=>this.pageState.loading = false
+      );
+      
     },
     /* ------------------------------------------------------------------------------
     渲染

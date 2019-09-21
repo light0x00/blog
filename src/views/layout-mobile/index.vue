@@ -10,9 +10,9 @@
     <sidebar :visible.sync="sidebarVisible"></sidebar>
     <!-- 博客 -->
     <div class="content-wrapper" :style="{top:navbarPin?'50px':'0'}">
-      <div class="content-inner-wrapper">
-        <router-view></router-view>
-      </div>
+        <div class="content-inner-wrapper">
+          <router-view></router-view>
+        </div>
     </div>
   </div>
 </template>

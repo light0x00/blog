@@ -83,7 +83,28 @@ const routes = [
             {
                 path: '',
                 component: () => import(/* webpackChunkName:'list' */'@/views/list'),
+                /* 将route.query.tag传给props.query.tags */
                 props: (route) => ({ query: { tag: route.query.tag } })
+            }
+        ]
+    },
+    {
+        path: "/friends",
+        component: Layout,
+        children: [
+            {
+                path: '',
+                component: () => import(/* webpackChunkName:'friends' */'@/views/friends'),
+            }
+        ]
+    },
+    {
+        path: "/me",
+        component: Layout,
+        children: [
+            {
+                path: '',
+                component: () => import(/* webpackChunkName:'friends' */'@/views/me'),
             }
         ]
     },
@@ -130,7 +151,7 @@ router.beforeEach(async (to, from, next) => {
         let info = await store.dispatch("posts/getPostByRoute", to);
         document.title = info.title;
     } catch (e) {
-        document.title = "Light0x00的博客"
+        document.title = "light0x00的博客"
     }
     next()
 })

@@ -15,7 +15,7 @@ const getters = {
         let postList = []
         recursivePostTrees(state.postTrees, (node) => {
             if (!node.isGroup) {
-                node.createDate = format(node.createTime, "yyyy-MM-dd hh:mm")
+                node.createDate = format(node.createTime, "yyyy-MM-dd")
                 postList.push(node)
             }
         })

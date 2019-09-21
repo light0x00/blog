@@ -1,25 +1,33 @@
 <template>
   <!-- style="position:fixed;max-width:700px" -->
   <!-- <div class="sidebar-wrapper"> -->
+  <!--     :visible="visible"
+  @update:visible="syncVisible"-->
   <el-drawer
     class="sidebar-wrapper"
-    :visible="visible"
-    @update:visible="syncVisible"
+    :visible.sync="mutableVisible"
     :show-close="false"
     direction="ltr"
     :append-to-body="false"
   >
     <!-- 头 -->
-
     <my-avator ref="myAvator" slot="title"></my-avator>
     <!-- 中间 -->
     <h3 style="text-align:center">light0x00</h3>
+
     <h1 class="sidebar-slogen-text">
       <a href="http://vanilla-js.com/">Vanilla JS</a>
       makes everything an object, which is very convenient for OO JS applications.
     </h1>
+
+    <!-- 页面入口 -->
+    <div class="sidebar-feature-box">
+      <a  href="javascript:void(0)" @click="mutableVisible=false;$router.push('/friends')">友链</a>
+      <a  href="javascript:void(0)" @click="mutableVisible=false;$router.push('/me')">关于我</a>
+    </div>
+
     <!-- 链接按钮 -->
-    <div class="sidebar-link-logo">
+    <div class="sidebar-link-box">
       <a href="https://github.com/light0x00" target="_blank" class="sidebar-a-button">
         <img
           width="60"
@@ -63,6 +71,16 @@ export default {
       fuck: true
     };
   },
+  computed: {
+    mutableVisible: {
+      get: function() {
+        return this.visible;
+      },
+      set: function(val) {
+        this.$emit("update:visible", val);
+      }
+    }
+  },
   watch: {
     visible(n, o) {
       if (n) {
@@ -74,19 +92,39 @@ export default {
       }
     }
   },
-  methods: {
-    syncVisible(e) {
-      this.$emit("update:visible", e);
-    }
-  },
+  methods: {},
   mounted() {}
 };
 </script>
 
 <style >
-/* 遮罩层 */
-.el-dialog__wrapper {
+.sidebar-link-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.sidebar-feature-box {
+  text-align: center;
+  font-size: 16px;
+}
+
+.sidebar-slogen-text {
+  color: #909399;
+  font-style: italic;
+  color: #b6b6b6;
+  font-size: 24px;
+  margin-top: 20px;
+  text-align: center;
+  text-shadow: 0 1px 1px #fff;
+  /* text-align:center */
+}
+.sidebar-slogen-text a {
+  color: #909399;
+}
+
+/********************** element组件样式 **********************/
+
 /* drawer */
 .sidebar-wrapper .el-drawer.ltr {
   /* background-color: #24292e; */
@@ -105,36 +143,12 @@ export default {
   color: #fff;
   margin-bottom: 50px;
 }
-
 /* drawer-body */
-.el-drawer__body {
+.sidebar-wrapper .el-drawer__body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-
-.sidebar-link-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.sidebar-link-logo img {
-}
-
-.sidebar-slogen-text {
-  color: #909399;
-  font-style: italic;
-  color: #b6b6b6;
-  font-size: 24px;
-  margin-top: 20px;
-  text-align: center;
-  text-shadow: 0 1px 1px #fff;
-  /* text-align:center */
-}
-.sidebar-slogen-text a {
-  color: #909399;
-}
-
 @media (min-width: 900px) {
   .sidebar-wrapper .el-drawer {
     width: 500px !important;
@@ -146,5 +160,4 @@ export default {
     width: 75% !important;
   }
 }
-
 </style>
