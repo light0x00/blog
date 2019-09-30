@@ -1,6 +1,6 @@
 <template>
   <!-- 回复 -->
-  <div class="reply-list" v-loading="pageState.loading" element-loading-text="加载评论中😳">
+  <div class="reply-list" v-loading="pageState.loading" element-loading-text="加载评论中...">
     <!-- 回复列表 -->
     <template>
       <reply-item v-for="item of renderingReplies" :reply="item" :key="`reply-${item.id}`"></reply-item>
