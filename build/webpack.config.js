@@ -106,7 +106,7 @@ module.exports = async function (profileConfig, configInitializedHook) {
      * 
      * Q:什么时候需要使用?
      * A:
-     *  1. 需要其他环境的配置的配置的时候(This is not a tongue twister!), 比如: publicPath只会存在于各环境的配置中,但是basicConfig中有时候需要用.
+     *  1. 需要其他环境的配置的配置的时候, 比如: publicPath只会存在于各环境的配置中,但是basicConfig中有时候需要用.
      *  2. 需要全局状态的时候
      */
     //基础环境的hook
