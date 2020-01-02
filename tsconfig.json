@@ -40,6 +40,7 @@
       /* Module Resolution Options */
       /* 寻找模块策略 */
       "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
+      //在node中使用 https://dev.to/larswaechter/path-aliases-with-typescript-in-nodejs-4353
       "baseUrl": ".", /* Base directory to resolve non-absolute module names. */
       "paths": {
         "@/*":["src/*"],
@@ -72,10 +73,6 @@
       "src/**/*.vue",
       "tests/**/*.ts",
       "tests/**/*.tsx",
-      // "src/",
-      // "types/"
     ],
     "exclude": ["node_modules","examples","mock"],
-    // "include": [],
-    // "files": ["src/pages/login/test.ts"]
   }
