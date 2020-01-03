@@ -1,4 +1,4 @@
-const { _resolve, rootPath } = require('../helpers')
+const { resolve } = require('../helpers')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
@@ -6,20 +6,20 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 /* 资源路径
 publicPath统一设置的,因为目前没有按类型分开部署的需求) */
 const assetsPath = {
-    js: "static/js/[name].[hash:4].js",
+    js: "static/js/[name].[hash:8].js",
     jsChunk: "static/js/[name].[contenthash:8].js",
     css: "static/css/[name].[contenthash:8].css",
     cssChunk: "static/css/[name].[contenthash:8].css",
-    font: "static/font/[name].[hash:4].[ext]",
-    others: "static/others/[name].[hash:4].[ext]",
+    font: "static/font/[name].[hash:8].[ext]",
+    others: "static/others/[name].[hash:8].[ext]",
 }
 
 module.exports = {
     entry: {
-        main: _resolve("src/main.js")
+        main: resolve("src/main.js")
     },
     output: {
-        path: _resolve('dist/'),
+        path: resolve('dist/'),
         filename: assetsPath.js,
         chunkFilename: assetsPath.jsChunk
     },

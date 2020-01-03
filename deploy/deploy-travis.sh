@@ -27,7 +27,7 @@ remote_ip=47.244.152.125
 remote_user=light
 # 私钥路径
 ssh_key="$app_base_path/id_rsa_light"
-# 部署后运行的脚本
+# 部署后运行的脚本(改为在ci机器执行)
 # run_script="$app_base_path/deploy/run.sh"
 
 # ------------------------------------------------------------

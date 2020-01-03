@@ -1,11 +1,13 @@
-#!文档文件(markdown)的挂载路径,如不指定,则使用当前环境的publicPath
-# postPublicPath: https://raw.githubusercontent.com/light0x00/blog-articles/master
-# 文档文件的挂载path 文档文件路径=postPublicPath+postContextPath+文档相对路径
-# postPublicPath: https://blog.light0x00.com/
-neverCopy: true
-postContextPath: '/article-source'
-#!本地文档的目录(写markdown的地方)
-postRootPath: 'blog-articles/src/'
-#!文档路由前缀
-postRoutePrefix: '/article'
+# 博文的挂载路径,如不指定,则使用当前环境的publicPath (最终的博文路径 = articlePublicPath+articleContextPath+文档相对路径)
+# articlePublicPath: https://blog.light0x00.com/
+# 博文的context-path
+articleContextPath: '/article-source'
+# 博文在本地目录(开发环境使用)
+articleRootPath: 'blog-articles/src/'
+# 博文路由前缀
+# postRoutePrefix: '/articles'
+articleRoutePrefix: '/articles'
+# 博文的描述文件
 descFileName: 'desc.yaml'
+# 构建时是否复制博文到dist
+neverCopy: true

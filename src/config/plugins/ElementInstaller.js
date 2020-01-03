@@ -1,8 +1,6 @@
-/* element */
-// import 'element-ui/lib/theme-chalk/index.css'
+/* element-ui按需导入 */
 import '@/styles/element-theme.scss'
 import { Pagination,Dialog,Alert, Form, FormItem, Notification, Input, Tooltip, Button, Link, Divider, Icon, Backtop, Loading, Menu, MenuItem, MenuItemGroup, Submenu, Drawer, Avatar, Timeline, TimelineItem, Card, Tag } from 'element-ui';
-
 
 export default {
     install(Vue, options) {
@@ -33,14 +31,5 @@ export default {
         Vue.use(Loading.directive);
         Vue.prototype.$loading = Loading.service;
         Vue.prototype.$notify = (opt)=>Notification({...opt,offset:60});
-        // Vue.prototype.validateForm = async (formName) => {
-        //     try {
-        //         await this.refs[formName].validate()
-        //         return true
-        //     } catch (e) {
-        //         return false
-        //     }
-        // }
-
     }
 }

@@ -16,7 +16,7 @@ export default {
             return '来自 '+platform.parse(userAgent).name
         })
         
-        //注册组件
+        //注册全局组件
         for (let comp of components) {
             Vue.component(comp.name, comp)
         }

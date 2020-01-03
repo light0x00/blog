@@ -1,6 +1,6 @@
 <template>
     <el-menu style="width:100%;border-right:none" :collapse-transition="false">
-      <template v-for="(node,index) in postTrees">
+      <template v-for="(node,index) in articleTrees">
         <recursive-ptree :treeNode="node" :nodeIndex="''+index" :key="node.compPath"></recursive-ptree>
       </template>
     </el-menu>
@@ -14,11 +14,13 @@ import Vue from "vue";
 Vue.component(RecursivePtree.name, RecursivePtree);
 
 export default {
-  name:"post-menu",
+  name:"articles-menu",
   props:{
   },
   computed: {
-    ...mapState("posts", ["postTrees"])
+    ...mapState("articles", ["articleTrees"])
+  },
+  created(){
   },
   data:function(){
     return {
@@ -30,18 +32,5 @@ export default {
 </script>
 
 <style scoped>
-/* dd {
-  display: block;
-  margin-inline-start: 10px;
-}
-dl {
-  margin: 0;
-  margin-block-start: 0;
-  margin-block-end: 0em;
-} */
 
-/* .el-menu-item,.el-submenu__title {
-    height:40px;
-    line-height:40px;
-} */
 </style>

@@ -2,11 +2,11 @@
   <div class="tag-wrapper" >
     <a
       class="tag"
-      v-for="(posts,tag) in tags"
+      v-for="(articles,tag) in tags"
       @click="$router.push({path:'/list',query:{tag}})"
       :key="tag"
       type="primary"
-      :style="'font-size:'+12*posts.length+'px'"
+      :style="'font-size:'+12*articles.length+'px'"
     >{{tag}}</a>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
   created() {},
   computed: {
     tags() {
-      return this.$store.getters["posts/getTags"];
+      return this.$store.getters["articles/getTags"];
     }
   }
 };

@@ -20,8 +20,7 @@ const urljoin = require('url-join');
  * @param {*} param0 
  */
 function getPostTrees({ rootPath, descFileName, postFileName, publicPath, contextPath, routePrefix }) {
-    //不做入参检查!
-
+	
     function recursivePost(treeNode, nodePath) {
 
         if (!isDir(nodePath)) {
@@ -137,19 +136,17 @@ function getPreRenderDataByTree(postTrees) {
  * routePrefix
  * rootPath     
  */
-module.exports = function ({ descFileName = "desc.yaml", postFileName = "index.md", postPublicPath, postContextPath, postRoutePrefix, postRootPath }) {
-    postPublicPath = postPublicPath || "/"
-
+module.exports = function ({ descFileName = "desc.yaml", postFileName = "index.md", articlePublicPath, articleContextPath, articleRoutePrefix, articleRootPath }) {
     //得到文章的结构和描述
-    let postTrees = getPostTrees({
-        publicPath: postPublicPath,
-        contextPath: postContextPath,
-        rootPath: postRootPath,
-        routePrefix: postRoutePrefix,
+    let articleTrees = getPostTrees({
+        publicPath: articlePublicPath,
+        contextPath: articleContextPath,
+        rootPath: articleRootPath,
+        routePrefix: articleRoutePrefix,
         descFileName,
         postFileName,
     })
     //预渲染时用的seo数据
-    let preRenderData = getPreRenderDataByTree(postTrees)
-    return { postTrees, preRenderData }
+    let preRenderData = getPreRenderDataByTree(articleTrees)
+    return { articleTrees, preRenderData }
 }

@@ -5,8 +5,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
       modules:{
-        posts:require('./modules/posts').default,
-        player:require('./modules/player/index').default,
+        articles:require('./modules/articles').default,
+        player:require('./modules/player').default,
         guest:require('./modules/guest').default,
         comment:require('./modules/comment').default,
       }

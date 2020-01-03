@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import navbar from "@/views/navbar";
-import sidebar from "@/views/sidebar";
+import navbar from "@/views/layout/navbar";
+import sidebar from "@/views/layout/sidebar";
 import { isMobile } from "@/common/utils";
 
 export default {

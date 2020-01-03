@@ -18,10 +18,9 @@
 import Vue from "vue";
 
 export default {
-  // props: {posts:{required:false,type:Array,default:Vue.$store.getters["posts/getList"]}},
   computed: {
     postList() {
-      let list = this.$store.getters["posts/getList"];
+      let list = this.$store.getters["articles/getList"];
       //根据搜索参数(如果有)过滤
       let query = this.$attrs.query;
       if (query != null) {

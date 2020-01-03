@@ -25,7 +25,7 @@ import { mapState } from "vuex";
 // import { makeDomLazy } from "./async-make-lazy";
 
 import marked from "@/common/marked";
-import { extractPostKeyFromRoutePath } from "@/common/posts-util";
+import { extractPostKeyFromRoutePath } from "@/common/articles-util";
 import ArticleToc from "./toc";
 
 export default {
@@ -59,12 +59,12 @@ export default {
       try {
         //得到文章信息、文章文本形式内容
         this.post = await this.$store.dispatch(
-          "posts/getPostByRoute",
+          "articles/getArticleByRoute",
           this.$route
         );
         //加载文章源文件
         this.articleText = await this.$store.dispatch(
-          "posts/getPostContentByRoute",
+          "articles/getPostContentByRoute",
           this.$route
         );
       } catch (e) {

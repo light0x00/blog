@@ -1,6 +1,6 @@
 import '@/styles/element-theme.scss'
 
-/* 暂时使用的element组件不多 gizp仅20k 无需异步加载 */
+/** @Deprecated 暂时使用的element组件不多 gizp仅20k 无需异步加载 */
 export default {
     install(Vue, options) {
         Vue.component('el-menu', ()=>import('element-ui/lib/menu'))

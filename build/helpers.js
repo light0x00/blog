@@ -5,7 +5,7 @@ const _ = require('lodash')
 const rootPath = path.resolve(__dirname, '../')
 
 //返回基于 rootPath 的全路径
-const _resolve = (relativePath) => path.join(rootPath, relativePath)
+const resolve = (relativePath) => path.join(rootPath, relativePath)
 
 function isAnyEmpty(target){
     if(_.isArray(target)){
@@ -21,7 +21,7 @@ function isAnyEmpty(target){
 }
 
 module.exports = {
-    rootPath, _resolve,isAnyEmpty
+    rootPath, resolve: resolve
 }
 
 

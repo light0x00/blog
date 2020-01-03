@@ -1,17 +1,10 @@
 import VueRouter from 'vue-router'
 import Vue from 'vue'
-
-import { isMobile } from '@/common/utils'
-
 Vue.use(VueRouter);
-
-import Layout from '@/views/layout-mobile'
+import Layout from '@/views/layout'
 import Home from '@/views/home'
 
-
-
 const routes = [
-
     {
         path: "/",
         component: Layout,
@@ -23,16 +16,12 @@ const routes = [
         ]
     },
     {
-        path: window.APP_CONFIG["postRoutePrefix"] || "/article",
+        path: window.APP_CONFIG["articleRoutePrefix"] ,
         component: Layout,
         children: [
-            // {
-            //     path: "",
-            //     component: () => import(/* webpackPrefetch:true,webpackChunkName:'article' */'@/views/article'),
-            // },
             {
                 path: "*",
-                component: () => import(/* webpackPrefetch:true,webpackChunkName:'article' */'@/views/article'),
+                component: () => import(/* webpackPrefetch:true,webpackChunkName:'articles' */'@/views/articles'),
             }
         ]
     },
@@ -47,22 +36,22 @@ const routes = [
         ]
     },
     {
-        path: "/archive",
+        path: "/archives",
         component: Layout,
         children: [
             {
                 path: '',
-                component: () => import(/* webpackChunkName:'archive' */'@/views/archive')
+                component: () => import(/* webpackChunkName:'archives' */'@/views/archives')
             }
         ]
     },
     {
-        path: "/category",
+        path: "/categories",
         component: Layout,
         children: [
             {
                 path: '',
-                component: () => import(/* webpackChunkName:'category' */'@/views/category')
+                component: () => import(/* webpackChunkName:'categories' */'@/views/categories')
             }
         ]
     },
@@ -121,14 +110,8 @@ const routes = [
 
 const router = new VueRouter({
     routes: routes,
-    /* devServer运行时是输出到内存的,这会导致预渲染插件无法根据磁盘文件渲染
-        所以devServer模式使用hash,避免浏览器向服务器请求预渲染页导致404 */
-    // mode: window.APP_CONFIG["activeProfile"] === "devServer" ? "hash" : "history"
     mode: "history"
-
 })
-
-//-----------------------------------hook
 
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'
@@ -136,10 +119,10 @@ import store from '@/store'
 
 NProgress.configure({ showSpinner: true })
 
-
 router.beforeEach(async (to, from, next) => {
 
-    NProgress.start()
+	NProgress.start()
+	//播放器隐藏
     if (to.path == "/") {
         store.commit("player/show")
     } else {
@@ -148,10 +131,10 @@ router.beforeEach(async (to, from, next) => {
 
     //title的动态更改
     try {
-        let info = await store.dispatch("posts/getPostByRoute", to);
+        let info = await store.dispatch("articles/getArticleByRoute", to);
         document.title = info.title;
     } catch (e) {
-        document.title = "light0x00的博客"
+        document.title = "light0x00的博客"  //TODO 改为从 blog.yaml 里获取
     }
     next()
 })

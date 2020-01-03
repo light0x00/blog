@@ -43,8 +43,6 @@ module.exports = class EmitSitemapPlugin {
         this.siteMapTxt = originSiteMapTxt;
     }
 
-
-
     apply(compiler) {
         let outputDir = compiler.options.output.path;
         let xmlPath = path.join(outputDir, 'sitemap.xml')
@@ -61,5 +59,3 @@ module.exports = class EmitSitemapPlugin {
         });
     }
 }
-
-// new EmitSitemapPlugin({ origin: "public/sitemap.xml", urlset: ["aa.com", "bb.com"] })

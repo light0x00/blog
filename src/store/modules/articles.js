@@ -1,19 +1,19 @@
 import Axios from "axios";
 import { format } from 'date-fns'
 import * as _ from 'lodash-es' //这样不会影响tree-shaking
-import {extractPostKeyFromRoutePath,recursivePostTrees,searchPost} from "@/common/posts-util";
+import {extractPostKeyFromRoutePath,recursiveArticleTrees,searchPost} from "@/common/articles-util";
 
 const state = {
-    postTrees: window.APP_CONFIG["postTrees"],
+    articleTrees: window.APP_CONFIG["articleTrees"],
 }
 
 const getters = {
-    getPostTrees(state) {
-        return state.postTrees
+    getArticleTrees(state) {
+        return state.articleTrees
     },
     getList(state) {
         let postList = []
-        recursivePostTrees(state.postTrees, (node) => {
+        recursiveArticleTrees(state.articleTrees, (node) => {
             if (!node.isGroup) {
                 node.createDate = format(node.createTime, "yyyy-MM-dd")
                 postList.push(node)
@@ -34,7 +34,7 @@ const getters = {
         let groupByYear = _.groupBy(postList, 'year')
 
         groupByYear = _.map(groupByYear, (v, k) => {
-            return { year: k, posts: v }
+            return { year: k, articles: v }
         })
         groupByYear = _.sortBy(groupByYear, (p) => p.year).reverse()
 
@@ -42,7 +42,7 @@ const getters = {
     },
     getTags(state) {
         let groupByTag = {}
-        recursivePostTrees(state.postTrees, (node) => {
+        recursiveArticleTrees(state.articleTrees, (node) => {
             if (node.isGroup || !node.tags)
                 return
 
@@ -67,19 +67,19 @@ const actions = {
         return dispatch("getPostContent", postKey);
     },
     async getPostContent({ state }, key) {
-        let postInfo = searchPost(state.postTrees, key)
+        let postInfo = searchPost(state.articleTrees, key)
         if (postInfo == null) {
             throw new Error(`can't find post that key is ${key}`)
         }
         let { data } = await Axios.request({ type: 'get', url: postInfo.url })
         return data;
     },
-    async getPostByRoute({ state,dispatch }, route) {
+    async getArticleByRoute({ state,dispatch }, route) {
         let postKey = extractPostKeyFromRoutePath(route.path)
         return dispatch("getPost", postKey);
     },
     getPost({ state }, key) {
-        let postInfo = searchPost(state.postTrees, key)
+        let postInfo = searchPost(state.articleTrees, key)
         if (postInfo == null) {
             throw new Error(`can't find post that key is ${key}`)
         }

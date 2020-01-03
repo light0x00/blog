@@ -5,8 +5,8 @@
     </el-button>
 
     <el-menu class="navbar-menu" mode="horizontal" router :default-active="$route.path">
-      <el-menu-item index="/category">分类</el-menu-item>
-      <el-menu-item index="/archive">归档</el-menu-item>
+      <el-menu-item index="/categories">分类</el-menu-item>
+      <el-menu-item index="/archives">归档</el-menu-item>
       <el-menu-item index="/tags">标签</el-menu-item>
     </el-menu>
     <el-button class="button-box" @click="$router.push('/')">
