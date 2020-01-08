@@ -5,9 +5,6 @@
       @click.native.stop="toggleToc"
       icon-class="el-icon-notebook-2"
     ></dock-button>
-
-    <!-- !宽度改为使用媒体查询 -->
-
     <el-drawer
       v-loading="pageState.loading"
       :visible.sync="tocToggleFlag"

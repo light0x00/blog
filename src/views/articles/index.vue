@@ -5,15 +5,16 @@
     class="post-wrapper"
     style="overflow-x: hidden;"
   >
+  
     <!-- 文章目录 -->
     <article-toc ref="articleToc" :rawText="articleText"></article-toc>
     <!-- 文章 -->
     <div id="post-container" class="markdown-body" v-html="articleHTML"></div>
     <el-divider></el-divider>
     <!-- 文章标签 -->
-    <post-tags class="post-tags" :tags="post.tags"></post-tags>
+    <post-tags class="post-tags" :tags="article.tags"></post-tags>
     <!-- 留言板 -->
-    <comments-area :articleKey="post.key"></comments-area>
+    <comments-area :articleKey="article.key"></comments-area>
     <!-- 至顶 -->
     <backtop></backtop>
   </div>
@@ -25,7 +26,7 @@ import { mapState } from "vuex";
 // import { makeDomLazy } from "./async-make-lazy";
 
 import marked from "@/common/marked";
-import { extractPostKeyFromRoutePath } from "@/common/articles-util";
+import { extractArticleKeyFromRoutePath } from "@/common/articles-util";
 import ArticleToc from "./toc";
 
 export default {
@@ -38,7 +39,7 @@ export default {
   },
   data: function() {
     return {
-      post: { key: extractPostKeyFromRoutePath(this.$route.path), tags: [] },
+      article: { key: extractArticleKeyFromRoutePath(this.$route.path), tags: [] },
       articleText: "空空如也~",
       articleHTML: "",
       pageState: { loading: true }
@@ -64,7 +65,7 @@ export default {
         );
         //加载文章源文件
         this.articleText = await this.$store.dispatch(
-          "articles/getPostContentByRoute",
+          "articles/getArticleContentByRoute",
           this.$route
         );
       } catch (e) {
@@ -84,7 +85,7 @@ export default {
     渲染
     ------------------------------------------------------------------------------ */
     renderMarkdown() {
-      let rawHtml = marked(this.articleText, { baseUrl: this.post.baseUrl });
+      let rawHtml = marked(this.articleText, { baseUrl: this.article.baseUrl });
 
       //懒加载
       // rawHtml = makeDomLazy(rawHtml);  

@@ -9,7 +9,7 @@ module.exports = {
 	devtool: 'inline-source-map',
 	stats: 'minimal',
 	output: {
-		publicPath: "http://blog-dev.light0x00.com:4092/",
+		publicPath: "/",
 	},
 	devServer: {
 		contentBase: [ resolve("public/")],

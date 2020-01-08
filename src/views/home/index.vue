@@ -2,7 +2,6 @@
   <div class="home-wrapper">
     <div class="home-slogan">There are only two hard things in Computer Science: cache invalidation and naming things.</div>
     <router-link to="/archive" class="home-btn">
-      <!-- <i class="el-icon-arrow-right">随便逛逛</i> -->
     </router-link>
   </div>
 </template>

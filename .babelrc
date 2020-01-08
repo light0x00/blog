@@ -14,7 +14,7 @@
           // ],
           /* 直接输出es module(配置后browsers会失效,不需要考虑兼容旧浏览器时建议设置为true,有助于缩小打包体积), 
           When specifying this option, the browsers field will be ignored. You can use this approach in combination with <script type="module"></script> to conditionally serve smaller scripts to users  */
-          "esmodules": true,
+          "esmodules": true
         },
         "spec": false, // 启用更多的规范兼容，但可能更慢，转换任何在这个预设中支持他们的插件。 (boolean, defaults to false)
         "loose": true, //松散模式  编译将不完全按照es标准 (比如es6的class转为function时 会直接把类成员写到function的原型上)
@@ -36,7 +36,7 @@
         "include": [], // 总是启用哪些 plugins
         "exclude": [] // 排除预设中的 plugins
       }
-    ],
+    ]
     // "@babel/preset-typescript"
   ],
   "plugins": [

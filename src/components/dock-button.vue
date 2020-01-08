@@ -1,5 +1,5 @@
 <template>
-  <div class="dock-button-wrapper" :id="elementId">
+  <div class="dock-button-wrapper" >
     <i :class="iconClass"></i>
   </div>
 </template>
@@ -8,8 +8,6 @@
 import Headroom from "headroom.js";
 import Tween from "@/common/tween";
 
-let seq = 1;
-
 export default {
   name: "dock-button",
   props: {
@@ -17,11 +15,10 @@ export default {
   },
   data() {
     return {
-      elementId: `dock-button-${++seq}`
     };
   },
   mounted() {
-    let eleDockBtn = document.getElementById(this.elementId);
+    let eleDockBtn = this.$el;
     var headroom = new Headroom(eleDockBtn, {
       offset: 500, //第一次触发unpined的top距离
       //   offset: 205,
@@ -42,7 +39,6 @@ export default {
 };
 
 function getDomScrollTop() {
-  console.log(platform.name == "Safari");
   if (platform.name == "Safari") return window.pageYOffset;
   else return document.documentElement.scrollTop;
 }

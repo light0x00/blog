@@ -26,14 +26,14 @@ module.exports = merge({
 		new ManifestPlugin(),
 		/* 全局导入的库无法tree-shaking,慎重使用 */
 		new webpack.ProvidePlugin({ platform: 'platform' }),
-		new BundleAnalyzerPlugin({
-			analyzerMode: "static",
-			reportFilename: "analyzer-report.html",
-			openAnalyzer: false,
-		}),
 		new webpack.DefinePlugin({
 			POST_TREES: JSON.stringify(articleTrees),
 			POST_ROUTE_PREFIX: JSON.stringify(articleRoutePrefix)
 		}),
+		new BundleAnalyzerPlugin({
+			analyzerMode: "static",
+			reportFilename: "analyzer-report.html",
+			openAnalyzer: false,
+		})
 	]
 }, require('./webpack-segments/assets'),require('./webpack-segments/optimization'))

@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { format } from 'date-fns'
 import * as _ from 'lodash-es' //这样不会影响tree-shaking
-import {extractPostKeyFromRoutePath,recursiveArticleTrees,searchPost} from "@/common/articles-util";
+import {extractArticleKeyFromRoutePath,recursiveArticleTrees,searchPost} from "@/common/articles-util";
 
 const state = {
     articleTrees: window.APP_CONFIG["articleTrees"],
@@ -62,26 +62,26 @@ const mutations = {
 }
 
 const actions = {
-    async getPostContentByRoute({ state, dispatch }, route) {
-        let postKey = extractPostKeyFromRoutePath(route.path)
-        return dispatch("getPostContent", postKey);
+    async getArticleContentByRoute({ state, dispatch }, route) {
+        let postKey = extractArticleKeyFromRoutePath(route.path)
+        return dispatch("getArticleContent", postKey);
     },
-    async getPostContent({ state }, key) {
+    async getArticleContent({ state }, key) {
         let postInfo = searchPost(state.articleTrees, key)
         if (postInfo == null) {
-            throw new Error(`can't find post that key is ${key}`)
+            throw new Error(`can't find article that key is ${key}`)
         }
         let { data } = await Axios.request({ type: 'get', url: postInfo.url })
         return data;
     },
     async getArticleByRoute({ state,dispatch }, route) {
-        let postKey = extractPostKeyFromRoutePath(route.path)
-        return dispatch("getPost", postKey);
+        let postKey = extractArticleKeyFromRoutePath(route.path)
+        return dispatch("getArticle", postKey);
     },
-    getPost({ state }, key) {
+    getArticle({ state }, key) {
         let postInfo = searchPost(state.articleTrees, key)
         if (postInfo == null) {
-            throw new Error(`can't find post that key is ${key}`)
+            throw new Error(`can't find article that key is ${key}`)
         }
         return postInfo;
     }

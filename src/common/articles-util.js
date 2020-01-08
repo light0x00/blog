@@ -7,7 +7,7 @@ const routePrefix = window.APP_CONFIG["articleRoutePrefix"]
  * 从路由路径中提取出文章的key
  * @param {*} routePath 路由路径
  */
-export function extractPostKeyFromRoutePath(routePath) {
+export function extractArticleKeyFromRoutePath(routePath) {
     let extractKeyReg = new RegExp("^" + routePrefix, "g");
     return routePath.replace(extractKeyReg, "").replace(/(^\/)|(\/$)/g, "");
 }
