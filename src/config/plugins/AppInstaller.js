@@ -2,7 +2,6 @@ import { isMobile } from '@/common/utils'
 import components from '@/components'
 import { isoDateDistanceToNow } from "@/common/date-util";
 
-
 export default {
     install(Vue, options) {
         //注册函数
@@ -15,8 +14,8 @@ export default {
         Vue.filter('formatUserAgent',function(userAgent){
             return '来自 '+platform.parse(userAgent).name
         })
-        
-        //注册全局组件
+		
+		//注册全局组件
         for (let comp of components) {
             Vue.component(comp.name, comp)
         }

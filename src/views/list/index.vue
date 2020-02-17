@@ -5,6 +5,7 @@
         <router-link class="post-button" :to="post.routePath">
           <h3>{{post.title}}</h3>
         </router-link>
+
         <post-tags v-if="!isMobile()" :tags="post.tags"></post-tags>
       </div>
       

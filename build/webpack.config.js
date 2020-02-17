@@ -17,7 +17,9 @@ module.exports = merge({
 	resolve: {
 		extensions: ['.vue', '.js', '.ts'],
 		alias: {
-			'vue$': 'vue/dist/vue.runtime.esm', '@': resolve("src"),
+			'vue$': 'vue/dist/vue.runtime.esm', 
+			/* TODO 改为~ */
+			'@': resolve("src"),
 			'lodash': 'lodash-es'
 		},
 	},

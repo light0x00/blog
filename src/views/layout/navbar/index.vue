@@ -1,7 +1,7 @@
 <template>
   <div id="navbar">
     <el-button class="button-box" @click.native.stop="collapseSidebar">
-      <i :class="sidebarVisible?'el-icon-s-unfold':'el-icon-s-fold'"></i>
+      <i :class="sidebarVisible?'el-icon-menu':'el-icon-menu'"></i>
     </el-button>
 
     <el-menu class="navbar-menu" mode="horizontal" router :default-active="$route.path">

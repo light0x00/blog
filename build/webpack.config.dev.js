@@ -4,7 +4,6 @@ const { resolve } = require('./helpers')
 const { blogConfig: BLOG_CONFIG } = require("./app-config")
 
 module.exports = {
-
 	mode: 'development',
 	devtool: 'inline-source-map',
 	stats: 'minimal',
@@ -14,7 +13,7 @@ module.exports = {
 	devServer: {
 		contentBase: [ resolve("public/")],
 		host: 'blog-dev.light0x00.com',
-		port: 4092,
+		port: 4093,
 		index: 'index.html',
 		open: false,
 		openPage: "index.html",

@@ -3,7 +3,7 @@
     <a
       class="tag"
       v-for="(articles,tag) in tags"
-      @click="$router.push({path:'/list',query:{tag}})"
+      @click="$router.push({path:'/archives',query:{tag}})"
       :key="tag"
       type="primary"
       :style="'font-size:'+12*articles.length+'px'"

@@ -76,6 +76,12 @@ a.text-normal:hover{
     font-weight: bold
 }
 
+.text-main-title {
+    color: #303133;
+    font-size: 24px;
+    font-weight: bold
+}
+
 .text-slave {
     color: #999;
   font-size: 13px;

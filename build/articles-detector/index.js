@@ -4,31 +4,35 @@ const { resolve, join } = require("path")
 const fs = require('fs')
 const URL = require("url").URL
 const urljoin = require('url-join');
-
+const assert = require("assert")
+const path = require('path')
 
 /**
  * 
  * 根据文件层级结构以及描述文件,返回树状结构的文档信息
  * 
- * rootPath: 文档根路径(写blog的根路径)
+ * articleRootPath: 文档根路径(写blog的根路径)
  * descFileName: 描述文件名称,eg: desc.json
- * postFileName: 文档文件名称,eg: index.md
- * publicPath:  文档挂载路径, url=「publicPath」+「文档相对(rootPath)路径」
- * routePrefix  文档的路由前缀, 文档实际路由=路由前缀+文档key
- * key: 文档的key默认使用「文档相对于rootPath路径」 ,可通过描述文件指定
+ * articleFileName: 文档文件名称,eg: index.md
+ * articlePublicPath:  文档挂载路径, url=「articlePublicPath」+「文档相对(articleRootPath)路径」
+ * articleRoutePrefix  文档的路由前缀, 文档实际路由=路由前缀+文档key
+ * key: 文档的key默认使用「文档相对于articleRootPath路径」 ,可通过描述文件指定
  * 
  * @param {*} param0 
  */
-function getPostTrees({ rootPath, descFileName, postFileName, publicPath, contextPath, routePrefix }) {
-	
+function getPostTrees({ articleRootPath, descFileName, articleFileName, articlePublicPath, articleContextPath, articleRoutePrefix }) {
+
+	// assert(!isNaN(articlePreviewLength),"`articlePreviewLength` is invalid" )
+	if (!path.isAbsolute(articleRootPath))
+		articleRootPath = resolve(articleRootPath)
+
     function recursivePost(treeNode, nodePath) {
 
         if (!isDir(nodePath)) {
             return;
         }
-
         //获得描述文件
-        let desc = null;
+        let desc;
         let descFilePath = resolve(nodePath, descFileName)
         if(descFileName.endsWith(".yaml")){
             desc = getYaml(descFilePath)
@@ -39,40 +43,49 @@ function getPostTrees({ rootPath, descFileName, postFileName, publicPath, contex
         }
         Object.assign(treeNode, desc);
 
-        //if post
+        //article
         if (!desc.isGroup) {
+            let articleFilePath = join(nodePath, articleFileName);
+            if (!exists(articleFilePath)) 
+                throw new Error(`can't find ${articleFileName} in ${nodePath}`)
+			let articlePath = nodePath.replace(articleRootPath, "");
 
-            let postFilePath = join(nodePath, postFileName);
-            if (!exists(postFilePath)) {
-                throw new Error(`can't find ${postFileName} in ${nodePath}`)
-            }
-            let { title = "undefined", tags = [] } = desc;
-            let postPath = nodePath.replace(rootPath, "");
-            let postKey = desc.key || postPath.replace(/(^\/)|(\/$)/g, "")  //文档key
-            let routePath = join(routePrefix, postKey)  //路由
-            let baseUrl = urljoin(publicPath,contextPath, postPath,"/")  //文档的的基url
-            let url = urljoin(baseUrl,postFileName)    //文档的url
-            let { mtimeMS: modifyTime, ctimeMs: createTime } = fs.statSync(postFilePath)
+			/* determine article properties */
+			let title = desc.title || 'No title'
+			let description = desc.description || 'No description'
+			let tags = desc.tags || []
+			let key = desc.key || articlePath.replace(/(^\/)|(\/$)/g, "")  
+			let baseUrl = urljoin(articlePublicPath,articleContextPath, articlePath,"/") 
+			let url = urljoin(baseUrl,articleFileName)    
+			let routePath = join(articleRoutePrefix, key)  
+			//时间
+			let createTime, modifyTime;	
             if (desc.date) {
-                let time = new Date(desc.date).getTime()
-                if (isNaN(time))
-                    throw new Error(`Invalid date: ${desc.date},at ${join(nodePath, descFileName)}`)
-                createTime = time
-            }
-            
+				createTime = new Date(desc.date).getTime()
+				modifyTime = createTime
+                if (isNaN(createTime))
+				 	throw new Error(`Invalid date: ${desc.date},at ${join(nodePath, descFileName)}`)
+            }else{
+				let { mtimeMS, ctimeMs} = fs.statSync(articleFilePath)
+				createTime = ctimeMs
+				modifyTime = mtimeMS
+			}
+
             Object.assign(treeNode, {
-                key: postKey,
-                url,
-                routePath,
                 title,
-                tags,
+                description,
+				tags,
+				key,
+				
+                url,
+                baseUrl,
+				routePath,
+				
                 createTime,
                 modifyTime,
-                description: desc.description,
-                baseUrl
             })
         }
-        //postGroup
+        //group
         else {
             let subPaths = fs.readdirSync(nodePath).map(p => resolve(nodePath, p))
 
@@ -86,9 +99,9 @@ function getPostTrees({ rootPath, descFileName, postFileName, publicPath, contex
         }
         return treeNode;
     }
-
+	//遍历文档跟路径下的一级目录 得到树的集合
     let postTrees = []
-    let treePaths = fs.readdirSync(rootPath).map(p => resolve(rootPath, p))
+    let treePaths = fs.readdirSync(articleRootPath).map(p => resolve(articleRootPath, p))
     for (let path of treePaths) {
         let tree = recursivePost({ level: 1 }, path)
         if(tree)  //忽略非文档文件,如.gitignore
@@ -114,7 +127,6 @@ function getPreRenderDataByTree(postTrees) {
             callback(treeNode)
         }
     }
-
     let preRenderData = {}
     for (let rootNode of postTrees) {
         recursiveTree(rootNode,
@@ -131,21 +143,14 @@ function getPreRenderDataByTree(postTrees) {
 }
 
 /**
- * publicPath
- * contextPath
- * routePrefix
- * rootPath     
+ * articlePublicPath
+ * articleContextPath
+ * articleRoutePrefix
+ * articleRootPath     
  */
-module.exports = function ({ descFileName = "desc.yaml", postFileName = "index.md", articlePublicPath, articleContextPath, articleRoutePrefix, articleRootPath }) {
+module.exports = function (blogConfig) {
     //得到文章的结构和描述
-    let articleTrees = getPostTrees({
-        publicPath: articlePublicPath,
-        contextPath: articleContextPath,
-        rootPath: articleRootPath,
-        routePrefix: articleRoutePrefix,
-        descFileName,
-        postFileName,
-    })
+    let articleTrees = getPostTrees(blogConfig)
     //预渲染时用的seo数据
     let preRenderData = getPreRenderDataByTree(articleTrees)
     return { articleTrees, preRenderData }

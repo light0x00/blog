@@ -48,7 +48,7 @@
 
 <script>
 import ReplyItem from "./reply-item";
-import _ from "lodash-es";
+import {slice} from "lodash-es";
 import { MsgCommentControllerApi } from "@/api/index";
 
 export default {
@@ -98,7 +98,7 @@ export default {
       //可展开,并且非展开状态 只显示initialExpandNum条
       // console.log("expandable", this.expandable, "expanded", this.expanded);
       if (this.expandable && !this.expanded) {
-        let r = _.slice(this.replies, 0, this.initialExpandNum);
+        let r = slice(this.replies, 0, this.initialExpandNum);
         return r;
       }
       //「不可展开」 或 「可展开且已展开」
