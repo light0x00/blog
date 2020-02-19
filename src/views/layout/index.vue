@@ -39,7 +39,7 @@ export default {
     onNavbarUnpin() {}
   },
   mounted() {
-    this.$store.dispatch("player/initPlayer");
+    // this.$store.dispatch("player/initPlayer");
   }
 };
 </script>

@@ -41,7 +41,7 @@ export default {
     data() {
         return {
             pageNo: 1,
-            pageSize: 1,
+            pageSize: 10,
             tag: undefined
         };
     },

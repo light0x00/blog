@@ -17,7 +17,7 @@ export function extractArticleKeyFromRoutePath(routePath) {
  * @param {*} articleTrees 文章树
  * @param {*} key key
  */
-export function searchPost(articleTrees, key) {
+export function searchArticle(articleTrees, key) {
     function searchTree(treeNode) {
         if (treeNode.key == key) {
             return treeNode;

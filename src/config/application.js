@@ -1,6 +1,7 @@
 export default {
     "articleTrees":POST_TREES,
-    "articleRoutePrefix":POST_ROUTE_PREFIX
+	"articleRoutePrefix":POST_ROUTE_PREFIX,
+	
 }
 
 const activeProfile = PROFILE

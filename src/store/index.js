@@ -6,7 +6,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
       modules:{
         articles:require('./modules/articles').default,
-        player:require('./modules/player').default,
+        // player:require('./modules/player').default,
         guest:require('./modules/guest').default,
         comment:require('./modules/comment').default,
       }

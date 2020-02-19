@@ -14,7 +14,7 @@
     <!-- 文章标签 -->
     <post-tags class="post-tags" :tags="article.tags"></post-tags>
     <!-- 留言板 -->
-    <comments-area :articleKey="article.key"></comments-area>
+    <comments-area :articleKey="articleKey"></comments-area>
     <!-- 至顶 -->
     <backtop></backtop>
   </div>
@@ -23,7 +23,7 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-// import { makeDomLazy } from "./async-make-lazy";
+import { makeDomLazy } from "./async-make-lazy";
 
 import marked from "@/common/marked";
 import { extractArticleKeyFromRoutePath } from "@/common/articles-util";
@@ -39,7 +39,8 @@ export default {
   },
   data: function() {
     return {
-      article: { key: extractArticleKeyFromRoutePath(this.$route.path), tags: [] },
+	  article: { tags:[]},
+	  articleKey: extractArticleKeyFromRoutePath(this.$route.path),
       articleText: "空空如也~",
       articleHTML: "",
       pageState: { loading: true }
@@ -48,26 +49,20 @@ export default {
   computed: {},
   async created() {},
   mounted() {
-    this.loadPost();
+    this.loadArticle();
   },
   watch: {},
   methods: {
     /* ------------------------------------------------------------------------------
     加载
     ------------------------------------------------------------------------------ */
-    async loadPost(route) {
+    async loadArticle() {
       this.pageState.loading = true;
       try {
         //得到文章信息、文章文本形式内容
-        this.post = await this.$store.dispatch(
-          "articles/getArticleByRoute",
-          this.$route
-        );
+        this.article = this.$store.getters["articles/getArticleByRoute"](this.$route)
         //加载文章源文件
-        this.articleText = await this.$store.dispatch(
-          "articles/getArticleContentByRoute",
-          this.$route
-        );
+        this.articleText = await this.$store.dispatch("articles/getArticleContentByRoute",this.$route);
       } catch (e) {
         this.$notify({ type: "warning", message: "该文章不存在" });
         this.$router.push({ path: "/404" });
@@ -83,12 +78,13 @@ export default {
     },
     /* ------------------------------------------------------------------------------
     渲染
-    ------------------------------------------------------------------------------ */
+	------------------------------------------------------------------------------ */
+	
     renderMarkdown() {
       let rawHtml = marked(this.articleText, { baseUrl: this.article.baseUrl });
 
       //懒加载
-      // rawHtml = makeDomLazy(rawHtml);  
+      rawHtml = makeDomLazy(rawHtml);  
 
       this.articleHTML = rawHtml;
       const thisRef = this;
@@ -97,9 +93,9 @@ export default {
         this.$refs["articleToc"].renderToc();
 
         /* -------------------------------- 懒加载监听 -------------------------------- */
-        // import("./async-lozad").then(({ lazyObserve }) => {
-        //   lazyObserve();
-        // });
+        import(/* webpackPrefetch:true,webpackChunkName:'img-lazy-load' */"./async-lozad").then(({ lazyObserve }) => {
+          lazyObserve();
+        });
         
         /* -------------------------------- 图片查看器 -------------------------------- */
         import(
@@ -112,11 +108,11 @@ export default {
         });
 
         /* -------------------------------- UML支持 -------------------------------- */
-        import(
-          /* webpackPrefetch:true,webpackChunkName:'mermaid' */ "./async-mermaid"
-        ).then(({ renderMermaid }) => {
-          renderMermaid();
-        });
+        // import(
+        //   /* webpackChunkName:'mermaid' */ "./async-mermaid"
+        // ).then(({ renderMermaid }) => {
+        //   renderMermaid();
+        // });
 
       });
     }

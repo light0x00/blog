@@ -10,9 +10,8 @@
 		"build:prod": "npx cross-env BUILD_MODE='prod' webpack --config build/setup.js --progress",
 		"postbuild:prod": "npm run prender",
 		"prender": "npx webpack --config build/webpack.config.prender.js --progress",
-		"deploy": "bash deploy/deploy-local.sh",
-		"deploy-articles": "bash deploy/deploy-articles.sh",
-		"serve": "http-server ./dist -c-1  -d -a blog-dev.light0x00.com -p 4092 -P https://blog.light0x00.com"
+		"serve": "http-server ./dist -c-1  -d -a blog-dev.light0x00.com -p 4092 -P https://blog.light0x00.com",
+		"deploy": "rsync -vrp dist/ light@light0x00.com:~/containers/www/blog-ui/"
 	},
 	"keywords": [],
 	"author": "",

@@ -1,14 +1,11 @@
 <template>
-  <!-- style="position:fixed;max-width:700px" -->
-  <!-- <div class="sidebar-wrapper"> -->
-  <!--     :visible="visible"
-  @update:visible="syncVisible"-->
   <el-drawer
     class="sidebar-wrapper"
     :visible.sync="mutableVisible"
     :show-close="false"
     direction="ltr"
     :append-to-body="false"
+	:modal="false"
   >
     <!-- 头 -->
     <my-avator ref="myAvator" slot="title"></my-avator>
@@ -16,8 +13,7 @@
     <h3 style="text-align:center">light0x00</h3>
 
     <h1 class="sidebar-slogen-text">
-      <a href="http://vanilla-js.com/">Vanilla JS</a>
-      makes everything an object, which is very convenient for OO JS applications.
+		...
     </h1>
 
     <!-- 页面入口 -->
@@ -35,7 +31,7 @@
           src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
         />
       </a>
-      <a href="https://github.com/light0x00" target="_blank" class="sidebar-a-button">
+      <!-- <a href="https://github.com/light0x00" target="_blank" class="sidebar-a-button">
         <img
           width="60"
           alt="GitHub Logomark"
@@ -48,21 +44,20 @@
           alt="GitHub Logomark"
           src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
         />
-      </a>
+      </a> -->
     </div>
   </el-drawer>
   <!-- </div> -->
 </template>
 
 <script>
-import PostMenu from "@/views/menu/index";
 
 import MyAvatar from "./avatar";
 import { setTimeout } from "timers";
 
 export default {
   created() {},
-  components: { PostMenu, "my-avator": MyAvatar },
+  components: { "my-avator": MyAvatar },
   props: {
     visible: Boolean
   },
@@ -127,14 +122,11 @@ export default {
 
 /* drawer */
 .sidebar-wrapper .el-drawer.ltr {
-  /* background-color: #24292e; */
-  /* 消息气泡在手机端的可见 */
   overflow: visible;
 }
 
 /* drawer-header */
 .sidebar-wrapper .el-drawer__header {
-  /* background-color: rgba(0, 0, 0, 0.009); */
   /* color:red; */
   background-color: #24292e;
   height: 20%;

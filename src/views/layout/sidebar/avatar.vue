@@ -35,12 +35,11 @@ export default {
   },
   computed: {},
   mounted() {
-    // this.autoRandomMsg();
     this.bindShakeEvent();
   },
   methods: {
     onClickAvatar() {
-      this.$store.dispatch("player/toggle");
+    //   this.$store.dispatch("player/toggle");
     },
     showMessage(msg) {
       this.message = msg;

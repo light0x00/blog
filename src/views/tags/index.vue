@@ -14,10 +14,7 @@
 <script>
 import { mapGetters } from "vuex";
 
-// import {PostList} from './list'
-
 export default {
-  // components:{PostList},
   created() {},
   computed: {
     tags() {
@@ -29,7 +26,7 @@ export default {
 
 <style scoped>
 .tag-wrapper {
-  width: 100%;
+  width: 400px;
   /* height: calc(100%);
   height: 100%;
   height: -moz-available; 

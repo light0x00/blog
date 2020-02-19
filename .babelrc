@@ -17,12 +17,6 @@
 				"styleLibraryName": "~src/styles/element-ui-theme"
 			},
 			"element-comp"
-		],
-		[
-			"@babel/plugin-transform-runtime",
-			{
-				"helpers": true
-			}
 		]
 	]
 }

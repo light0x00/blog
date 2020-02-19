@@ -46,34 +46,12 @@ const routes = [
         ]
     },
     {
-        path: "/categories",
-        component: Layout,
-        children: [
-            {
-                path: '',
-                component: () => import(/* webpackChunkName:'categories' */'@/views/categories')
-            }
-        ]
-    },
-    {
         path: "/tags",
         component: Layout,
         children: [
             {
                 path: '',
                 component: () => import(/* webpackChunkName:'tags' */'@/views/tags')
-            }
-        ]
-    },
-    {
-        path: "/list",
-        component: Layout,
-        children: [
-            {
-                path: '',
-                component: () => import(/* webpackChunkName:'list' */'@/views/list'),
-                /* 将route.query.tag传给props.query.tags */
-                props: (route) => ({ query: { tag: route.query.tag } })
             }
         ]
     },
@@ -124,9 +102,9 @@ router.beforeEach(async (to, from, next) => {
 	NProgress.start()
 	//播放器隐藏
     if (to.path == "/") {
-        store.commit("player/show")
+        // store.commit("player/show")
     } else {
-        store.commit("player/hide")
+        // store.commit("player/hide")
     }
 
     //title的动态更改

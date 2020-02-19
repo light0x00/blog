@@ -1,6 +1,6 @@
 <template>
   <div class="home-wrapper">
-    <div class="home-slogan">There are only two hard things in Computer Science: cache invalidation and naming things.</div>
+    <div class="home-slogan">...</div>
     <router-link to="/archive" class="home-btn">
     </router-link>
   </div>
@@ -8,7 +8,9 @@
 
 <script>
 export default {
-  mounted() {}
+  mounted() {
+	  this.$router.push({path:"archives"})
+  }
 };
 </script>
 
