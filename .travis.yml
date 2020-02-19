@@ -9,7 +9,7 @@ env:
         - secure: "5C0AAURwqa4uazfWMTk4u3+vEZI9sD09DVAwCnlf3k5MvVfyMtCH34HtVCUkZxM1BX8qXzbHITD82RCMbbnVYZ8AQLese7y629kuoiQYGrjJs078B2fRms6HyB+zNK3th07730/MrCoiyYM6kUeqlmj65LsjezKKzYtCxYRYKSNNHODzo33dQbdXdUA9Zi9C7USrj1XRXgbc3EpYJFq/Oh2MMXCjMsIekSRihbdRhRsxGvyqifOjQw9G23ES0WECugr1KlEfXDGRikUEBE6IP5UHupCQIQSH6F4rVp5qRH2Sx8+swsBZ4G2SVy6L3d0DeuCv5xg8J/GyCQCUis/MzbThoONk55hDAsJ+0UVNBtMcLaCLyHSuPK2hTT/qf//dttXZgadqojk0+uCF4puES/XKl/e8+sngCc7kYeaG47bShACqE2Zntw9BjLbAhMHytsecBUujM76NGqx57Lp3dJCnC1rFU2FviE8v5XwmisiyLO0OrV8tp7lVsEIRF3bINwJS3T0/5eA9Ms9lazANPp6Wm7GEUIbdpvaEMkJa449qhHjRokFr/pBVe0xkpindZSK1oTka4CKS+tk5GCoH+K+Iipd3uP3Yc3hZvx/jKLUAvwO/bAYma77WZwbdKpPEL1nDYTTnIqKH8vANLcD6ZanQcT+t35QqkOmDIs+408I="
 addons:
     ssh_known_hosts:
-        - 47.244.152.125
+        - light0x00.com
 git:
     submodules: false
 before_install:
