@@ -14,7 +14,8 @@ module.exports = {
 	stats: 'normal',
 	performance: { hints: false },
 	entry: {
-		admin: resolve("build/tmp/prender-entry")
+		/* just for prender */
+		'prender-entry': resolve("build/tmp/prender-entry")
 	},
 	output: {
 	},
