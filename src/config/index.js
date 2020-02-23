@@ -6,6 +6,11 @@
 import "./application";
 
 /**
+ * global component 
+ */
+import '@/components'
+
+/**
  * Vue Plugins
  */
 import "@/config/plugins";

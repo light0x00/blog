@@ -7,13 +7,13 @@
 
 <script>
 export default {
-    name:"post-tags",
-    // functional:true,
+    name:"article-tags",
     props:{tags:{type:Array,required:true}},
     methods:{
       clickTag(tag){
+		//   @click="$router.push({path:'/archives',query:{tag}})" 
 		  this.$emit("onChoose",tag)
-        // this.$router.push({path:'/list',query:{tag}})
+       
       }
     }
 };

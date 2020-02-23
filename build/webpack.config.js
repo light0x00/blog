@@ -4,7 +4,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const ManifestPlugin = require('webpack-manifest-plugin');
 const merge = require('webpack-merge');
 const { resolve, rootPath } = require('./helpers')
-const { articleTrees, blogConfig: { articleRoutePrefix } } = require('./app-config')
+const {  BLOG_CONFIG: {articlesTrees , articlesRoutePrefix } } = require('./app-config')
 
 module.exports = merge({
 	context: rootPath,
@@ -20,7 +20,7 @@ module.exports = merge({
 			'vue$': 'vue/dist/vue.runtime.esm', 
 			/* TODO 改为~ */
 			'@': resolve("src"),
-			'lodash': 'lodash-es'
+			// 'lodash': 'lodash-es'
 		},
 	},
 	plugins: [
@@ -29,8 +29,8 @@ module.exports = merge({
 		/* 全局导入的库无法tree-shaking,慎重使用 */
 		new webpack.ProvidePlugin({ platform: 'platform' }),
 		new webpack.DefinePlugin({
-			POST_TREES: JSON.stringify(articleTrees),
-			POST_ROUTE_PREFIX: JSON.stringify(articleRoutePrefix)
+			ARTICLES_TREES: JSON.stringify(articlesTrees),
+			ARTILES_ROUTE_PREFIX: JSON.stringify(articlesRoutePrefix)
 		}),
 		new BundleAnalyzerPlugin({
 			analyzerMode: "static",

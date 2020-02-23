@@ -1,13 +1,12 @@
 <template>
-<div>me</div>
+    <div style="display: flex;justify-content: center;align-items: center;">
+       
+    </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style>
-
 </style>

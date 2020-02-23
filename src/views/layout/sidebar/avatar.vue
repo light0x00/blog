@@ -4,7 +4,7 @@
       <img
         id="myAvatar"
         class="sidebar-avatar"
-        src="https://avatars1.githubusercontent.com/u/29830476?s=460&amp;v=4"
+        src="https://light0x01.oss-cn-shanghai.aliyuncs.com/blog-ui/avatar.jpg"
         alt
       />
     </a>

@@ -1,12 +1,12 @@
 /** https://github.com/chrisvfritz/prerender-spa-plugin */
-const express = require('express')
 const cheerio = require('cheerio')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
-const { preRenderData, blogConfig: { articleContextPath, articleRootPath } } = require("./app-config")
-const { resolve } = require('./helpers')
+const {resolve } = require('./helpers')
 const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
 
-let routeList = Object.keys(preRenderData)
+
+//预渲染数据
+const {BLOG_CONFIG: { preRenderData,routeList} } = require("./app-config")
 
 module.exports = {
 	mode: 'production',
@@ -14,7 +14,7 @@ module.exports = {
 	stats: 'normal',
 	performance: { hints: false },
 	entry: {
-		admin: resolve("build/helpers")
+		admin: resolve("build/tmp/prender-entry")
 	},
 	output: {
 	},
@@ -25,11 +25,13 @@ module.exports = {
 			indexPath: resolve('dist/index.html'),
 			routes: routeList,
 			server: {
-				contentBase: [resolve("public/"), resolve('dist/')],
-				// port: 8000,
+				// contentBase: [resolve("public/"), resolve('dist/')],
+
+				host:"blog-dev.light0x00.com",
+				port: 4091,
 				clientLogLevel: "debug",
-				/* API代理 */
 				proxy: {
+					/* API代理 */
 					"/blog-api-dev": {
 						"target": "http://blog-dev.light0x00.com:8081",
 						"changeOrigin": true,
@@ -42,13 +44,7 @@ module.exports = {
 						"target": "https://blog.light0x00.com",
 						"changeOrigin": true,
 					},
-					/* 生成通过转发,避免预渲染过程中的接口访问跨域问题 */
-					[articleContextPath]: {
-						"target": "https://blog.light0x00.com",
-						"changeOrigin": true
-					}
 				},
-				/* 静态资源代理. 静态资源的预渲染访问本地 */
 			},
 			postProcess(renderedRoute) {
 				let { title, description, keywords } = preRenderData[renderedRoute.route]
@@ -65,7 +61,7 @@ module.exports = {
 			},
 			renderer: new Renderer({
 				//用于调试
-				// headless: false,
+				headless: false,
 				renderAfterTime: 5000  //Wait 5s
 			}),
 			/* 压缩预渲染文件 */
@@ -79,7 +75,3 @@ module.exports = {
 		})
 	]
 };
-
-
-
-

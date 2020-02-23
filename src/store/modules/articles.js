@@ -1,11 +1,11 @@
 import Axios from "axios";
 import { format } from 'date-fns'
 import { sortBy, groupBy, map } from 'lodash-es'
-import { extractArticleKeyFromRoutePath, recursiveArticleTrees, searchArticle } from "@/common/articles-util";
+import { extractArticleKeyFromRoutePath, recursiveArticlesTrees, searchArticle } from "@/common/articles-util";
 
 function getList() {
 	let postList = []
-	recursiveArticleTrees(window.APP_CONFIG["articleTrees"], (node) => {
+	recursiveArticlesTrees(window.APP_CONFIG["articlesTrees"], (node) => {
 		if (!node.isGroup) {
 			node.createDate = format(node.createTime, "yyyy-MM-dd")
 			postList.push(node)
@@ -16,12 +16,12 @@ function getList() {
 }
 
 const state = {
-	articleTrees: window.APP_CONFIG["articleTrees"],
+	articlesTrees: window.APP_CONFIG["articlesTrees"],
 	articles: getList(),
 }
 const getters = {
-	getArticleTrees(state) {
-		return state.articleTrees
+	getArticlesTrees(state) {
+		return state.articlesTrees
 	},
 	query(state) {
 		return (pageNo, pageSize, tag) => {
@@ -73,7 +73,7 @@ const getters = {
 	},
 	getTags(state) {
 		let groupByTag = {}
-		recursiveArticleTrees(state.articleTrees, (node) => {
+		recursiveArticlesTrees(state.articlesTrees, (node) => {
 			if (node.isGroup || !node.tags)
 				return
 
@@ -94,7 +94,7 @@ const getters = {
 	},
 	getArticleByKey(state) {
 		return (key) => {
-			let article = searchArticle(state.articleTrees, key)
+			let article = searchArticle(state.articlesTrees, key)
 			if (article == null) {
 				throw new Error(`can't find article that key is ${key}`)
 			}
@@ -114,7 +114,7 @@ const actions = {
 		return dispatch("getArticleContent", postKey);
 	},
 	async getArticleContent({ state }, key) {
-		let postInfo = searchArticle(state.articleTrees, key)
+		let postInfo = searchArticle(state.articlesTrees, key)
 		if (postInfo == null) {
 			throw new Error(`can't find article that key is ${key}`)
 		}
@@ -126,7 +126,7 @@ const actions = {
 		return dispatch("getArticle", postKey);
 	},
 	getArticle({ state }, key) {
-		let postInfo = searchArticle(state.articleTrees, key)
+		let postInfo = searchArticle(state.articlesTrees, key)
 		if (postInfo == null) {
 			throw new Error(`can't find article that key is ${key}`)
 		}

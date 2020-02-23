@@ -1,0 +1,1 @@
+//预渲染是webpack的插件, 但webpack 必须要一个entry, 所以声明了这个空白的entry

@@ -1,27 +1,25 @@
-
+const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
 
-const rootPath = path.resolve(__dirname, '../')
+const ROOT_PATH = path.resolve(__dirname, '../')
+const resolve = (relativePath) => path.join(ROOT_PATH, relativePath)
 
-//返回基于 rootPath 的全路径
-const resolve = (relativePath) => path.join(rootPath, relativePath)
+const VERSION_FILE_PATH= path.resolve(ROOT_PATH, ".version")
 
-function isAnyEmpty(target){
-    if(_.isArray(target)){
-        if(target.length==0)
-            return true
-        for(let item of target){
-            if(_.isEmpty(item)){ //只检查第一层,不考虑嵌套
-                return true;
-            }
-        }
-    }
-    return _.isEmpty(target);
+function updateVersion() {
+	let seq = parseInt( getVersion().split("-")[0]) + 1
+	let version =seq + '-'+ Date.now()
+	fs.writeFileSync(VERSION_FILE_PATH, version, { encoding: "utf-8" })
+	console.log(`[Update Version] The current version is ${version}`)
+	return version
+}
+
+function getVersion() {
+	let version = fs.readFileSync(VERSION_FILE_PATH, { encoding: 'utf-8' })
+	return version
 }
 
 module.exports = {
-    rootPath, resolve: resolve
+	rootPath: ROOT_PATH, resolve, updateVersion, getVersion
 }
-
-

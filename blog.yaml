@@ -6,7 +6,7 @@ articleContextPath: '/article-source'
 # 博文在本地目录 
 articleRootPath: 'blog-articles/src/'
 # 博文路由前缀
-articleRoutePrefix: '/articles'
+articlesRoutePrefix: '/articles'
 # 博文的描述文件
 descFileName: 'desc.yaml'
 articleFileName: 'index.md'

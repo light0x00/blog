@@ -1,48 +1,39 @@
 <template>
-  <div class="home-wrapper">
-    <div class="home-slogan">...</div>
-    <router-link to="/archive" class="home-btn">
-    </router-link>
-  </div>
+    <div class="home-wrapper">
+        <div class="home-slogan">...</div>
+        <!-- <router-link to="/archive" class="home-btn"></router-link> -->
+		
+    </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-	  this.$router.push({path:"archives"})
-  }
+    mounted() {
+       this.$router.push("/archives")
+    }
 };
 </script>
 
 <style>
 .home-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: fill-available;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fill-available;
 }
 
 .home-wrapper .home-slogan {
-  /* font-family: "Open Sans script=latin rev=1";
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 400; */
-  /* text-align: center; */
-  /* font-family: 'Helvetica Neue', sans-serif; font-size: 28px;  */
-  /* font-family: 'Lato', sans-serif; font-size: 28px; font-weight: 300;  */
-  color: #909399;
-  font-style: italic;
-  color: #b6b6b6;
-  font-size: 24px;
-  text-align: center;
-  text-shadow: 0 1px 1px #fff;
-
-  /* font-family: 'Lato', arial, serif; line-height: 1.25; margin: 0 0 10px; font-size: 40px; font-weight: bold; */
+    color: #909399;
+    font-style: italic;
+    color: #b6b6b6;
+    font-size: 24px;
+    text-align: center;
+    text-shadow: 0 1px 1px #fff;
 }
 .home-btn {
-  font-style: italic;
-  font-size: 14px;
-  /* text-decoration: underline */
+    font-style: italic;
+    font-size: 14px;
+    /* text-decoration: underline */
 }
 </style>

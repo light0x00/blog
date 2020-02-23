@@ -16,7 +16,7 @@ const routes = [
         ]
     },
     {
-        path: window.APP_CONFIG["articleRoutePrefix"] ,
+        path: window.APP_CONFIG["articlesRoutePrefix"] ,
         component: Layout,
         children: [
             {

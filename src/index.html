@@ -1,53 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-    <!-- 搜索引擎用的 -->
-    <title>light0x00的博客</title>
-    <meta name="keywords" content="Linux,Networking,Database,Java,front-end">
-    <meta name="author" content="light0x00">
-    <meta name="description" content="A technology blog">
-    <!-- 社交网站用的-->
-    <meta property="og:title" content="light0x00的博客" >
-    <meta property="og:type" content="website" >
-    <meta property="og:url" content="<%=webpackConfig.output.publicPath%>" >
-    <meta property="og:image" content="<%=webpackConfig.output.publicPath%>/favicon.ico" >
-    <meta property="og:description" content="A technology blog">
-    <meta property="og:author" content="light0x00">
-    <meta property="og:og:site_name" content="light0x00的博客">
-    
-    <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            /* min-height: 100vh; */
-            height: 100%;
-        }
-    </style>
-    <!-- baidu收录 -->
-    <script>
-        (function () {
-            var bp = document.createElement('script');
-            var curProtocol = window.location.protocol.split(':')[0];
-            if (curProtocol === 'https') {
-                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-            }
-            else {
-                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-            }
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(bp, s);
-        })();
-    </script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+	<!-- 搜索引擎用的 -->
+	<title>light0x00的博客</title>
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<meta name="keywords" content="Linux,Networking,Database">
+	<meta name="author" content="light0x00">
+	<meta name="description" content="Say something">
+	<!-- 社交网站用的-->
+	<meta property="og:title" content="light0x00的博客">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="/">
+	<meta property="og:image" content="/favicon.ico">
+	<meta property="og:description" content="Say something">
+	<meta property="og:author" content="light0x00">
+	<meta property="og:og:site_name" content="light0x00的博客">
+
+	<style>
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			/* min-height: 100vh; */
+			height: 100%;
+		}
+	</style>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158838210-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-158838210-1');
+	</script>
+
+	<!-- baidu收录 -->
+	<script async src="https://zz.bdstatic.com/linksubmit/push.js"></script>
 
 </head>
-
 <body>
-    <div id="app" class="full-box" style="background-color: #DCDFE6"></div>
+	<div id="app" class="full-box" style="background-color: #DCDFE6"></div>
 </body>
-
 </html>

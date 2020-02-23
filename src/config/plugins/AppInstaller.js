@@ -1,5 +1,4 @@
 import { isMobile } from '@/common/utils'
-import components from '@/components'
 import { isoDateDistanceToNow } from "@/common/date-util";
 
 export default {
@@ -16,8 +15,8 @@ export default {
         })
 		
 		//注册全局组件
-        for (let comp of components) {
-            Vue.component(comp.name, comp)
-        }
+        // for (let comp of components) {
+        //     Vue.component(comp.name, comp)
+        // }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div style="width:calc(100% - 20px);padding:10px">
+    <div style="width:calc(100% - 20px);padding:10px;">
         <!-- 按时间线显示 -->
         <el-timeline v-for="arch in groups" :key="arch.year">
             <h1>{{arch.year}}</h1>
@@ -9,29 +9,39 @@
                 :timestamp="article.month"
                 placement="top"
             >
-                <el-card >
-					<p style="margin:10px 0" class="text-main-title">
-                    <router-link :to="article.routePath">
-                        {{article.title}}
-                    </router-link>
-					</p>
+                <el-card>
+                    <p style="margin:10px 0" class="text-main-title">
+                        <router-link :to="article.routePath">{{article.title}}</router-link>
+                    </p>
                     <p>
                         <!-- <strong>摘要:</strong> -->
-                        {{article.description}} 
-						 <router-link style="margin-left:10px" :to="article.routePath" class="text-slave">阅读全文</router-link>
+                        {{article.description}}
+                        <router-link
+                            style="margin-left:10px"
+                            :to="article.routePath"
+                            class="text-slave"
+                        >阅读全文</router-link>
                     </p>
-					<p style="margin:10px 0;display:flex; justify-content:flex-end" >
-					<post-tags style="align:right"  :tags="article.tags" @onChoose="onChooseTag"></post-tags>
-					</p>
+                    <p style="margin:10px 0;display:flex; justify-content:flex-end">
+                        <article-tags
+                            style="align:right"
+                            :tags="article.tags"
+                            @onChoose="onChooseTag"
+                        ></article-tags>
+                    </p>
                 </el-card>
             </el-timeline-item>
         </el-timeline>
+		<div>
         <el-pagination
+		hide-on-single-page
             layout="prev, pager, next"
             :total="total"
             :current-page.sync="pageNo"
             :page-size.sync="pageSize"
         ></el-pagination>
+
+	</div>
     </div>
 </template>
 
@@ -80,7 +90,7 @@ export default {
     color: #999;
     font-size: 16px;
 }
-.el-card__body{
-	padding: 10px 20px;
+.el-card__body {
+    padding: 10px 20px;
 }
 </style>

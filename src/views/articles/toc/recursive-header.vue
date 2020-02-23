@@ -2,7 +2,6 @@
 
   <el-submenu  v-if="header.children!=null&&header.children.length>0" :index="header.title" active-text-color="red">
     <template slot="title">
-      <i class="el-icon-notebook-2"></i>
       <span class="text-main">{{header.title}}</span>
     </template>
     <template v-for="(item,index) in header.children">

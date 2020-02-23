@@ -6,7 +6,7 @@
           <h3>{{post.title}}</h3>
         </router-link>
 
-        <post-tags v-if="!isMobile()" :tags="post.tags"></post-tags>
+        <article-tags v-if="!isMobile()" :tags="post.tags"></article-tags>
       </div>
       
       <p style="text-align:right;width:">{{post.createDate}}</p>

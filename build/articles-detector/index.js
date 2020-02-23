@@ -11,20 +11,20 @@ const path = require('path')
  * 
  * 根据文件层级结构以及描述文件,返回树状结构的文档信息
  * 
- * articleRootPath: 文档根路径(写blog的根路径)
+ * articlesRootPath: 文档根路径(写blog的根路径)
  * descFileName: 描述文件名称,eg: desc.json
  * articleFileName: 文档文件名称,eg: index.md
- * articlePublicPath:  文档挂载路径, url=「articlePublicPath」+「文档相对(articleRootPath)路径」
- * articleRoutePrefix  文档的路由前缀, 文档实际路由=路由前缀+文档key
- * key: 文档的key默认使用「文档相对于articleRootPath路径」 ,可通过描述文件指定
+ * articlePublicPath:  文档挂载路径, url=「articlePublicPath」+「文档相对(articlesRootPath)路径」
+ * articlesRoutePrefix  文档的路由前缀, 文档实际路由=路由前缀+文档key
+ * key: 文档的key默认使用「文档相对于articlesRootPath路径」 ,可通过描述文件指定
  * 
  * @param {*} param0 
  */
-function getPostTrees({ articleRootPath, descFileName, articleFileName, articlePublicPath, articleContextPath, articleRoutePrefix }) {
+function getArticlesTrees({ articlesRootPath, descFileName, articleFileName, articlePublicPath, articlesRoutePrefix }) {
 
 	// assert(!isNaN(articlePreviewLength),"`articlePreviewLength` is invalid" )
-	if (!path.isAbsolute(articleRootPath))
-		articleRootPath = resolve(articleRootPath)
+	if (!path.isAbsolute(articlesRootPath))
+		articlesRootPath = resolve(articlesRootPath)
 
     function recursivePost(treeNode, nodePath) {
 
@@ -48,16 +48,16 @@ function getPostTrees({ articleRootPath, descFileName, articleFileName, articleP
             let articleFilePath = join(nodePath, articleFileName);
             if (!exists(articleFilePath)) 
                 throw new Error(`can't find ${articleFileName} in ${nodePath}`)
-			let articlePath = nodePath.replace(articleRootPath, "");
+			let articlePath = nodePath.replace(articlesRootPath, "");
 
 			/* determine article properties */
 			let title = desc.title || 'No title'
 			let description = desc.description || 'No description'
 			let tags = desc.tags || []
 			let key = desc.key || articlePath.replace(/(^\/)|(\/$)/g, "")  
-			let baseUrl = urljoin(articlePublicPath,articleContextPath, articlePath,"/") 
+			let baseUrl = urljoin(articlePublicPath, articlePath,"/") 
 			let url = urljoin(baseUrl,articleFileName)    
-			let routePath = join(articleRoutePrefix, key)  
+			let routePath = join(articlesRoutePrefix, key)  
 			//时间
 			let createTime, modifyTime;	
             if (desc.date) {
@@ -100,23 +100,23 @@ function getPostTrees({ articleRootPath, descFileName, articleFileName, articleP
         return treeNode;
     }
 	//遍历文档跟路径下的一级目录 得到树的集合
-    let postTrees = []
-    let treePaths = fs.readdirSync(articleRootPath).map(p => resolve(articleRootPath, p))
+    let articlesTrees = []
+    let treePaths = fs.readdirSync(articlesRootPath).map(p => resolve(articlesRootPath, p))
     for (let path of treePaths) {
         let tree = recursivePost({ level: 1 }, path)
         if(tree)  //忽略非文档文件,如.gitignore
-            postTrees.push(tree)
+            articlesTrees.push(tree)
     }
-    return postTrees;
+    return articlesTrees;
 }
 
 /**
  * 根据文档树,提取出文档的seo信息, 结构为:
  * {key,value}
  * 其中,key为文档的路由地址,value为文档的描述信息
- * @param {*} postTrees 
+ * @param {*} articlesTrees 
  */
-function getPreRenderDataByTree(postTrees) {
+function getPreRenderDataByTree(articlesTrees) {
 
     function recursiveTree(treeNode, callback) {
         if (treeNode.isGroup) {
@@ -128,12 +128,12 @@ function getPreRenderDataByTree(postTrees) {
         }
     }
     let preRenderData = {}
-    for (let rootNode of postTrees) {
+    for (let rootNode of articlesTrees) {
         recursiveTree(rootNode,
             (post) => {
                 preRenderData[post.routePath] = {
                     title: post.title,
-                    description: post.description, //如果为空,则不设置.
+                    description: post.description,
                     keywords: (post.tags || []).join(","),
                 }
             }
@@ -142,16 +142,10 @@ function getPreRenderDataByTree(postTrees) {
     return preRenderData;
 }
 
-/**
- * articlePublicPath
- * articleContextPath
- * articleRoutePrefix
- * articleRootPath     
- */
-module.exports = function (blogConfig) {
+module.exports = function (BLOG_CONFIG) {
     //得到文章的结构和描述
-    let articleTrees = getPostTrees(blogConfig)
+    let articlesTrees = getArticlesTrees(BLOG_CONFIG)
     //预渲染时用的seo数据
-    let preRenderData = getPreRenderDataByTree(articleTrees)
-    return { articleTrees, preRenderData }
+    let preRenderData = getPreRenderDataByTree(articlesTrees)
+    return { articlesTrees, preRenderData }
 }

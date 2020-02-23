@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------------------------
 处理文章数据的工具方法
 ------------------------------------------------------------------------------ */
-const routePrefix = window.APP_CONFIG["articleRoutePrefix"]
+const routePrefix = window.APP_CONFIG["articlesRoutePrefix"]
 
 /**
  * 从路由路径中提取出文章的key
@@ -14,10 +14,10 @@ export function extractArticleKeyFromRoutePath(routePath) {
 
 /**
  * 从文章树中找出指定key对于的文章信息
- * @param {*} articleTrees 文章树
+ * @param {*} articlesTrees 文章树
  * @param {*} key key
  */
-export function searchArticle(articleTrees, key) {
+export function searchArticle(articlesTrees, key) {
     function searchTree(treeNode) {
         if (treeNode.key == key) {
             return treeNode;
@@ -31,7 +31,7 @@ export function searchArticle(articleTrees, key) {
         }
         return null;
     }
-    for (let rootNode of articleTrees) {
+    for (let rootNode of articlesTrees) {
         let r = searchTree(rootNode)
         if (r)
             return r;
@@ -40,10 +40,10 @@ export function searchArticle(articleTrees, key) {
 
 /**
  * 遍历树
- * @param {*} articleTrees 文章树
+ * @param {*} articlesTrees 文章树
  * @param {*} callback 每当遍历一个树节点时调用,传入节点,返回值将决定是否继续遍历
  */
-export function recursiveArticleTrees(articleTrees, callback) {
+export function recursiveArticlesTrees(articlesTrees, callback) {
     function recursiveTree(treeNode) {
         let canStop;
         if (treeNode.isGroup) {
@@ -65,7 +65,7 @@ export function recursiveArticleTrees(articleTrees, callback) {
         return false;
     }
 
-    for (let rootNode of articleTrees) {
+    for (let rootNode of articlesTrees) {
         let r = recursiveTree(rootNode)
         if (r)
             return r;

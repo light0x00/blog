@@ -2,7 +2,7 @@ import axios from 'axios'
 import Notification from 'element-ui/lib/notification'
 import { ResponseStatus } from '@/api';
 
-const timeout = APP_CONFIG.request.timeout || 5000
+const timeout = APP_CONFIG.request.timeout || 10000
 axios.defaults.withCredentials = true;  //设置cross跨域 并设置访问权限 允许跨域携带cookie信息
 axios.defaults.timeout = timeout
 
@@ -19,10 +19,10 @@ axios.interceptors.response.use(
             case ResponseStatus.Success:
                 break;
             case ResponseStatus.Warn:
-                Notification({ message: msg, type: 'warning' })
+                // Notification({ message: msg, type: 'warning' })
                 break;
             case ResponseStatus.Error:
-                Notification({ message: msg, type: 'error' })
+                // Notification({ message: msg, type: 'error' })
                 break;
             case ResponseStatus.NotLogin:
                 Notification({ message: '未登录!', type: 'warning' })
@@ -31,10 +31,10 @@ axios.interceptors.response.use(
         return response;
     },
     function (error) {
-        Notification({
-            message: JSON.stringify(error), //!for prender test
-            type: 'error',
-        })
+        // Notification({
+        //     message: JSON.stringify(error), //!for prender test
+        //     type: 'error',
+        // })
         return Promise.reject(error);
     });
 

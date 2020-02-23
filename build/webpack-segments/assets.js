@@ -67,16 +67,7 @@ module.exports = {
             },
             /* assets */
             {
-                test: /\.(png|jpg|gif|jpeg|md)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: { name: assetsPath.others }
-                    }
-                ]
-            },
-            {
-                test: /\.(svg)$/,
+                test: /\.(png|jpg|gif|jpeg|md|txt|svg)$/,
                 use: [
                     {
                         loader: 'file-loader',

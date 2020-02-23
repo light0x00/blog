@@ -1,6 +1,6 @@
 export default {
-    "articleTrees":POST_TREES,
-	"articleRoutePrefix":POST_ROUTE_PREFIX,
+    "articlesTrees":ARTICLES_TREES,
+	"articlesRoutePrefix":ARTILES_ROUTE_PREFIX,
 	
 }
 

@@ -96,7 +96,6 @@ export default {
     },
     renderingReplies() {
       //可展开,并且非展开状态 只显示initialExpandNum条
-      // console.log("expandable", this.expandable, "expanded", this.expanded);
       if (this.expandable && !this.expanded) {
         let r = slice(this.replies, 0, this.initialExpandNum);
         return r;

@@ -14,7 +14,7 @@
             :modal-append-to-body="false"
             :append-to-body="false"
         >
-            <el-menu ref="tocMenu" class="toc-body" :default-openeds="defaultExpanded">
+            <el-menu ref="tocMenu" class="toc-body" :default-openeds="defaultOpeneds">
                 <template v-for="(item,index) in headerTrees">
                     <recursive-header :header="item" :key="index"></recursive-header>
                 </template>
@@ -26,20 +26,73 @@
 <script>
 import RecursiveHeader from "./recursive-header";
 import Vue from "vue";
+import { ar } from "date-fns/locale";
 
 Vue.component(RecursiveHeader.name, RecursiveHeader);
 
-function findDefaultExpanded(header, expandedKeys = []) {
+function getHeaderTrees(container, depthLimit) {
+    let selectable = new Map();
+    for (let i = 0; i < depthLimit; i++) {
+        selectable.set("H" + (i + 1), i);
+        // for (let ele of container.querySelectorAll("h" + (i + 1))) {
+        // headers.push({ depth: i, title: ele.id, children: [] });
+        // }
+    }
+    let headers = [];
+    for (let ele of container.children) {
+        let depth = selectable.get(ele.tagName);
+        if (depth != undefined) {
+            headers.push({ depth, title: ele.id, children: [] });
+        }
+    }
+
+    let L = 0,
+        R = 1;
+    let trees = [headers[L]];
+
+    for (; R < headers.length; ) {
+        if (headers[L].depth < headers[R].depth) {
+            headers[R].parent = headers[L];
+            headers[L].children.push(headers[R]);
+        } else if (headers[L].depth == headers[R].depth) {
+            if (headers[L].parent != null) {
+                headers[R].parent = headers[L].parent;
+                headers[L].parent.children.push(headers[R]);
+            } else {
+                trees.push(headers[R]);
+            }
+        } else {
+            let brother;
+            for (let i = L - 1; i >= 0; i--) {
+                if (headers[i].depth == headers[R].depth) {
+                    brother = headers[i];
+                    break;
+                }
+            }
+            if (brother == null || brother.parent == null) {
+                trees.push(headers[R]);
+            } else {
+                headers[R].parent = brother.parent;
+                brother.parent.children.push(headers[R]);
+            }
+        }
+        R++;
+        L++;
+    }
+    return trees;
+}
+
+function findDefaultOpeneds(header, expandedKeys = []) {
     if (header == null) return expandedKeys;
     if (header.children.length > 0) {
         expandedKeys.push(header.title);
-        return findDefaultExpanded(header.children[0], expandedKeys);
+        return findDefaultOpeneds(header.children[0], expandedKeys);
     }
     return expandedKeys;
 }
 
 export default {
-    props: { rawText: { type: String } },
+    props: {},
     data() {
         return {
             headerTrees: [],
@@ -52,8 +105,8 @@ export default {
     },
     created() {},
     computed: {
-        defaultExpanded() {
-            let keys = findDefaultExpanded(this.headerTrees[0]);
+        defaultOpeneds() {
+            let keys = findDefaultOpeneds(this.headerTrees[0]);
             return keys;
         }
     },
@@ -68,36 +121,8 @@ export default {
     },
     methods: {
         /* 按照vue的渲染顺序  此方法应该在mounted里调用 不然会导致当前组件无法访问子组件 */
-        renderToc() {
-            /* 递归得到目录树 */
-            let articleElement = document.querySelector(".markdown-body");
-
-            for (let headerElement of articleElement.querySelectorAll("h1")) {
-                let header = { title: headerElement.id, children: [] };
-                this.headerTrees.push(header);
-                recursiveHeader(articleElement, header, 2, 3);
-            }
-
-            function recursiveHeader(
-                container,
-                parentHeader,
-                depth,
-                depthLimit
-            ) {
-                console.log(depth, depthLimit);
-                if (depth > depthLimit) {
-                    return;
-                }
-                let subLevelHeaderElements = container.querySelectorAll(
-                    "H" + depth
-                );
-
-                for (let child of subLevelHeaderElements) {
-                    let header = { ele: child, title: child.id, children: [] };
-                    parentHeader.children.push(header);
-                    recursiveHeader(container, header, depth + 1, depthLimit);
-                }
-            }
+        renderToc(container) {
+            this.headerTrees = getHeaderTrees(container, 3);
 
             let thisRef = this;
             this.$nextTick(() => {
@@ -121,9 +146,6 @@ export default {
 </script>
 
 <style>
-.markdown-toc-wrapper {
-}
-
 .toc-body {
     width: 100%;
 }

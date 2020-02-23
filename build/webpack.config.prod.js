@@ -5,20 +5,13 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const EmitSitemapPlugin = require('./emit-sitemap-plugin')
-const URL = require('url').URL
-const { resolve ,rootPath} = require('./helpers')
-const { preRenderData } = require('./app-config')
-
-/*  */
-const DOMAIN = "https://blog.light0x00.com/"
-
-let routePathList = Object.keys(preRenderData);
-let urlset = routePathList.map(routePath => new URL(routePath, DOMAIN).href)
+const { resolve ,rootPath } = require('./helpers')
+const { BLOG_CONFIG : {urlset ,asstesPublicPath} } = require('./app-config')
 
 module.exports = {
 	mode: 'production',
 	output: {
-		publicPath: "/",
+		publicPath: asstesPublicPath , 
 	},
 	// devtool: 'hidden-source-map',
 	// devtool: 'inline-source-map',

@@ -27,8 +27,7 @@
 				"${file}",
 			],
 			"env": {
-				"NODE_ENV": "development",
-				"BUILD_MODE":"dev"
+				"BUILD_MODE":"prod"
 			},
 			"console": "integratedTerminal"
 		},
@@ -37,7 +36,15 @@
 			"type": "node",
 			"request": "launch",
 			"program": "${file}",
-			"console": "integratedTerminal"
+			"console": "integratedTerminal",
+			"protocol": "inspector",
+			"args": [
+				"--assets",
+				"--articles"
+			],
+			"env": {
+				"BUILD_MODE":"prod"
+			}
 		},
 		{
 			"name": "Debug Webpack Dev Server",
@@ -55,12 +62,6 @@
 			},
 			"console": "integratedTerminal"
 		},
-		{
-			"name": "Debug File",
-			"type": "node",
-			"request": "launch",
-			"program": "${file}",
-			"console": "integratedTerminal"
-		}
+		
 	]
 }

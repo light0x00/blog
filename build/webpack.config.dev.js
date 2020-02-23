@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const express = require('express')
 const { resolve } = require('./helpers')
-const { blogConfig: BLOG_CONFIG } = require("./app-config")
+const { BLOG_CONFIG } = require("./app-config")
 
 module.exports = {
 	mode: 'development',
@@ -37,7 +37,7 @@ module.exports = {
 		},
 		/* 转发静态文件 */
 		before(app) {
-			app.use(BLOG_CONFIG.articleContextPath, express.static(BLOG_CONFIG.articleRootPath))
+			app.use(BLOG_CONFIG.articlePathPrefix, express.static(BLOG_CONFIG.articlesRootPath))
 		},
 		/* 构建异常时 异常信息覆盖浏览器整个屏幕 */
 		overlay: {

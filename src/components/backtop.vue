@@ -1,7 +1,4 @@
 <template>
-  <!-- <div class="backtop-wrapper" @click="doBacktop">
-    <i class="el-icon-top"></i>
-  </div> -->
   <dock-button style="right:20px"  @click.native="doBacktop" icon-class="el-icon-top"></dock-button>
 </template>
 
