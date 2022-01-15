@@ -80,7 +80,7 @@
 		"lodash-es": "4.15.0",
 		"lozad": "^1.9.0",
 		"markdown-toc": "^1.2.0",
-		"marked": "^0.7.0",
+		"marked": "^4.0.10",
 		"mermaid": "^8.2.3",
 		"mobile-detect": "^1.4.3",
 		"nprogress": "^0.2.0",
